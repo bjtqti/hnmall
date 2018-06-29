@@ -1,0 +1,288 @@
+@import '~normalize.css/normalize.css';
+
+html,body {
+	height: 100%;
+}
+
+body {
+	font-size: 12px;
+	background-color: #f5f6f8;
+}
+
+a {
+	text-decoration: none;
+	color: #1d1d1d;
+}
+
+
+#app {
+	max-width: 640px;
+	min-width: 320px;
+    margin: 0 auto;
+}
+
+.app-wrap {
+	position: relative;
+	width: 100%;
+	padding-bottom: 65px;
+}
+
+.img {
+	display: block;
+	max-width: 100%;
+}
+.app-download-bar {
+	display: none;
+}
+.nav-menu {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.nav-menu-item {
+	width: 20%;
+	text-align: center;
+	margin: 5px auto;
+}
+.nav-menu-icon {
+	display: block;
+	margin: 0 auto;
+	width: 37.5px;
+	height:37.5px;
+}
+.nav-menu-text {
+	line-height: 28px;
+	color: #666;
+}
+
+.show {
+	display: block;
+}
+.hide {
+	display: none;
+}
+
+
+.swiper-message {
+	display: flex;
+	width: 95%;
+	height: 40px;
+	margin: 10px auto;
+	background-color: white;
+	border-radius: 20px;
+	align-items: center;
+	font-size: 14px;
+	overflow: hidden;
+}
+
+.swiper-message .swiper-container{
+	flex-grow: 1;
+	height: 40px;
+}
+
+.swiper-slide-row {
+	display: block;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.message-slogan {
+	width: 120px;
+	padding-left: 10px;
+}
+
+.message-slogan span {
+	display: inline-block;
+	padding: 5px;
+	border-radius: 6px;
+	margin-left: 4px;
+	background-color: #FF6545;
+	color: white;
+}
+.message-core {
+	width: 70px;
+	margin-left: 5px;
+	color: #1D1D1D;
+}
+.app-foot-bar {
+	display: flex;
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9;
+    width: 100%;
+    height: 64px;
+    background: #fff;
+    box-shadow: #dbdbdb 0 -10px 10px -10px;
+}
+
+.widget-grid a {
+	display: block;
+	border:0.5px solid #ddd;
+	border-bottom: none;
+    border-right: none;
+}
+
+.widget-grid-wrap {
+	width: 100%;
+}
+
+.widget-grid-half {
+	width: 50%;
+}
+.widget-grid-25 {
+	width: 25%;
+}
+.widget-grid-flex {
+	display: flex;
+}
+ 
+.widget-grid-title {
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 16px;
+	color: #666;
+}
+
+.goods-list-title {
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 16px;
+	color: #666;
+}
+
+.mutiple-text {
+	overflow : hidden;
+	text-overflow: ellipsis;
+    white-space:normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+}
+
+.goods-list {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	position: relative;
+	background-color: white;
+}
+ 
+.goods-list-item {
+	width: 50%;
+	overflow: hidden;
+	border-bottom: .5px solid #ddd;
+}
+
+.goods-list-item:nth-child(even) a{
+	border-left: .5px solid #ddd;
+}
+
+.goods-list-item:nth-child(odd) a{
+	border-right: .5px solid #fff;
+}
+
+.goods-list-item .goods-price {
+	position: relative;
+	height: 20px;
+	line-height: 20px;
+}
+.goods-list-item .price {
+	display: inline-block;
+	margin-right: 5px;
+	font-size: 14px;
+	line-height: 20px;
+	color: #ff0000;
+}
+
+.goods-list-item .goods-price span::before {
+	content: '￥';
+	font-size: 12px;
+}
+
+.goods-list-item .mkt-price{
+	color: #999;
+	text-decoration: line-through;
+}
+
+.goods-list-item a {
+	display: block;
+	padding: 5px;
+}
+.goods-list-item .goods-img {
+	width: 100%;
+	height: 150px;
+	overflow: hidden;
+}
+
+.goods-list-item .buy {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding:0 4px;
+	font-size: 12px;
+	font-style: normal;
+	border: 1px solid #ff0000;
+	color: #ff0000;
+}
+
+.goods-list-item .goods-title {
+    height: 48px;
+    line-height: 22px;
+    font-size:14px;
+}
+
+.foot-bar-item {
+	width: 20%;
+	margin-top: 8px;
+}
+
+.foot-bar-item a {
+	display: block;
+	text-align: center;
+	font-size: 13px;
+}
+
+.foot-bar-item .icon-home {
+	background: url(https://www.hnmall.com/themes/mobilemall/images/d-icon1_1.png) no-repeat center top;
+    background-size: 24px;
+    padding-top: 30px;
+}
+
+.foot-bar-item .icon-categroy {
+	background: url(https://www.hnmall.com/themes/mobilemall/images/d-icon2_1.png) no-repeat center top;
+    background-size: 24px;
+    padding-top: 30px;
+}
+
+.foot-bar-item .icon-cart {
+	background: url(https://www.hnmall.com/themes/mobilemall/images/d-icon3_1.png) no-repeat center top;
+    background-size: 48px 48px;
+    margin-top: -25px;
+    padding-top: 55px;
+}
+
+.foot-bar-item .icon-shop {
+	background: url(https://www.hnmall.com/themes/mobilemall/images/d-icon4_1.png) no-repeat center top;
+    background-size: 24px;
+    padding-top: 30px;
+}
+
+.foot-bar-item .icon-member {
+	background: url(https://www.hnmall.com/themes/mobilemall/images/d-icon5_1.png) no-repeat center top;
+    background-size: 24px;
+    padding-top: 30px;
+}
+
+
+
+
