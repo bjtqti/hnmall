@@ -16,11 +16,13 @@ export default class GoodsList extends Component {
 	}
 
 	componentDidMount() {
+		let bounce = Math.ceil(window.innerHeight/2);
 		window.addEventListener('scroll',()=>{
 			if(this.state.isBusy){
 				return false;
 			}
-			if(document.documentElement.scrollTop>window.innerHeight){
+			let  scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+			if(scrollTop>bounce){
 				this.fetchGoodsList()
 			}
 		})
