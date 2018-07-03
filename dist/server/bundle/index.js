@@ -1327,11 +1327,13 @@ var GoodsList = function (_Component) {
 		value: function componentDidMount() {
 			var _this2 = this;
 
+			var bounce = Math.ceil(window.innerHeight / 2);
 			window.addEventListener('scroll', function () {
 				if (_this2.state.isBusy) {
 					return false;
 				}
-				if (document.documentElement.scrollTop > window.innerHeight) {
+				var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+				if (scrollTop > bounce) {
 					_this2.fetchGoodsList();
 				}
 			});

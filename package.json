@@ -60,8 +60,5 @@
     "not ie <= 8",
     "iOS >= 8",
     "Android > 4.2"
-  ],
-  "env":{
-    "APP_PORT":"80"
-  }
+  ]
 }
