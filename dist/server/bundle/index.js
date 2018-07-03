@@ -524,6 +524,22 @@ exports.getLocation = function (callback) {
 	});
 };
 
+/** 
+ * 获取滚动条距离顶端的距离 
+ * @return {}支持IE6 
+ */
+exports.getScrollTop = function () {
+	var scrollPos;
+	if (window.pageYOffset) {
+		scrollPos = window.pageYOffset;
+	} else if (document.compatMode && document.compatMode != 'BackCompat') {
+		scrollPos = document.documentElement.scrollTop;
+	} else if (document.body) {
+		scrollPos = document.body.scrollTop;
+	}
+	return scrollPos;
+};
+
 /***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1332,7 +1348,12 @@ var GoodsList = function (_Component) {
 				if (_this2.state.isBusy) {
 					return false;
 				}
+<<<<<<< HEAD
 				var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+=======
+				var scrollTop = (0, _lib.getScrollTop)();
+				console.log(scrollTop);
+>>>>>>> master
 				if (scrollTop > bounce) {
 					_this2.fetchGoodsList();
 				}

@@ -1,6 +1,10 @@
 .gitignore
 npm-debug.log
 /node_modules
+<<<<<<< HEAD
 yarn.lock
 /task
 /client
+=======
+/log
+>>>>>>> master
