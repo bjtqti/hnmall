@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "APP_PORT=80 node app.js",
+    "start": "node app.js",
     "dev": "webpack-dev-server --config ./task/webpack.dev.js",
     "dist-client": "webpack --config ./task/webpack.config.js",
     "dist-server": "webpack --config ./task/webpack.node.js",
