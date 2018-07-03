@@ -1348,12 +1348,9 @@ var GoodsList = function (_Component) {
 				if (_this2.state.isBusy) {
 					return false;
 				}
-<<<<<<< HEAD
-				var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-=======
+
 				var scrollTop = (0, _lib.getScrollTop)();
-				console.log(scrollTop);
->>>>>>> master
+				//console.log(scrollTop)
 				if (scrollTop > bounce) {
 					_this2.fetchGoodsList();
 				}
