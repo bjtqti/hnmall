@@ -24,21 +24,22 @@ module.exports = merge(config,{
 	mode:'development',
 	devtool: 'inline-source-map',
 	devServer: {
-	  contentBase: path.join(__dirname, "../dist"),
-	  compress: true,
-	  historyApiFallback:true,
-	  open:true,
-	  inline:true,
-	  hot:true,
-	  host:ip.address(),
-	  port: 9000,
-	  proxy:{
-	  	'/':{
-	  		target:'http://'+ip.address()+':3000',
-		  	changeOrigin:true,
-		  	secure:false
+		//https: true,
+		contentBase: path.join(__dirname, "../dist"),
+		compress: true,
+		historyApiFallback:true,
+		open:true,
+		inline:true,
+		hot:true,
+		host:ip.address(),
+		port: 9000,
+	  	proxy:{
+		  	'/':{
+		  		target:'http://'+ip.address()+':3000',
+			  	changeOrigin:true,
+			  	secure:false
+		  	}
 	  	}
-	  }
 	},
 	plugins:[
 		new webpack.NamedModulesPlugin(),

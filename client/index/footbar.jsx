@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 //import classNames from "classnames";
-//import {BASE_HOST} from '../common/constant'
+import {BASE_HOST} from '../common/constant'
 
 export default class FootBar extends Component {
 	 
@@ -17,21 +17,26 @@ export default class FootBar extends Component {
 		
 		return (
 			<div className="app-foot-bar">
-				<div className="foot-bar-item">
-					<a className="icon-home" href="/wap">首页</a>
-				</div>
-				<div className="foot-bar-item">
-					<a className="icon-categroy" href="/wap">分类</a>
-				</div>
-				<div className="foot-bar-item">
-					<a className="icon-cart" href="/wap">购物车</a>
-				</div>
-				<div className="foot-bar-item">
-					<a className="icon-shop" href="/wap">店铺</a>
-				</div>
-				<div className="foot-bar-item">
-					<a className="icon-member" href="/wap">会员</a>
-				</div>
+				<a className="foot-bar-item" href="/">
+					<img className="icon" src="https://www.hnmall.com/themes/mobilemall/images/d-icon1.png" />
+					<span>首页</span>
+				</a>
+				<a className="foot-bar-item" href={`${BASE_HOST}wap/category.html`}>
+					<img className="icon" src="https://www.hnmall.com/themes/mobilemall/images/d-icon2.png"/>
+					<span>分类</span>
+				</a>
+				<a className="foot-bar-item" href={`${BASE_HOST}wap/cart.html`}>
+					<img className="cart" src="https://www.hnmall.com/themes/mobilemall/images/d-icon3.jpg" />
+					<span>购物车</span>
+				</a>
+				<a className="foot-bar-item" href={`${BASE_HOST}weidian/store-index.html`}>
+					<img className="icon" src="https://www.hnmall.com/themes/mobilemall/images/d-icon4.png" />
+					<span>店铺</span>
+				</a>
+				<a className="foot-bar-item" href={`${BASE_HOST}wap/member.html`}>
+					<img className="icon" src="https://www.hnmall.com/themes/mobilemall/images/d-icon5.png" />
+					<span>会员</span>
+				</a>
 			</div>
 		)
 	}

@@ -19,3 +19,13 @@ exports.request = (url,data={},method="post") => {
 		data:{format:'json',v:'v1',...data}
 	});
 }
+
+exports.fetchApi = (url,data={},method="get")=>{
+	return axios({
+		baseURL:'https://www.hnmall.com/',
+		timeout:30000,
+		method,
+		url,
+		data
+	})
+}

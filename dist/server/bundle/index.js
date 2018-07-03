@@ -145,31 +145,37 @@ var _appbar = __webpack_require__(4);
 
 var _appbar2 = _interopRequireDefault(_appbar);
 
-var _bannerswiper = __webpack_require__(7);
+var _searchbar = __webpack_require__(7);
+
+var _searchbar2 = _interopRequireDefault(_searchbar);
+
+var _bannerswiper = __webpack_require__(9);
 
 var _bannerswiper2 = _interopRequireDefault(_bannerswiper);
 
-var _navmenu = __webpack_require__(8);
+var _navmenu = __webpack_require__(10);
 
 var _navmenu2 = _interopRequireDefault(_navmenu);
 
-var _textswiper = __webpack_require__(9);
+var _textswiper = __webpack_require__(11);
 
 var _textswiper2 = _interopRequireDefault(_textswiper);
 
-var _grid = __webpack_require__(10);
+var _widget = __webpack_require__(12);
 
-var _grid2 = _interopRequireDefault(_grid);
+var _widget2 = _interopRequireDefault(_widget);
 
-var _footbar = __webpack_require__(11);
+var _footbar = __webpack_require__(13);
 
 var _footbar2 = _interopRequireDefault(_footbar);
 
-var _goodslist = __webpack_require__(12);
+var _goodslist = __webpack_require__(14);
 
 var _goodslist2 = _interopRequireDefault(_goodslist);
 
-var _lib = __webpack_require__(14);
+var _copyright = __webpack_require__(16);
+
+var _copyright2 = _interopRequireDefault(_copyright);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -211,7 +217,7 @@ var Index = exports.Index = (_temp = _class = function (_Component) {
 						widgets.push(_react2.default.createElement(_textswiper2.default, { message: module.params.ad_content, more: more_url, key: 'ad_' + i }));
 						break;
 					case 'floor':
-						widgets.push(_react2.default.createElement(_grid2.default, { params: module.params, key: 'floor_' + i }));
+						widgets.push(_react2.default.createElement(_widget2.default, { params: module.params, key: 'floor_' + i }));
 						break;
 					default:
 						break;
@@ -222,14 +228,16 @@ var Index = exports.Index = (_temp = _class = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			console.log(this.props.initialState);
+			//console.log(this.props.initialState)
 			return _react2.default.createElement(
 				'div',
 				{ className: 'app-wrap' },
 				_react2.default.createElement(_appbar2.default, null),
+				_react2.default.createElement(_searchbar2.default, null),
 				this.renderWidgets(),
 				_react2.default.createElement(_goodslist2.default, null),
-				_react2.default.createElement(_footbar2.default, null)
+				_react2.default.createElement(_footbar2.default, null),
+				_react2.default.createElement(_copyright2.default, null)
 			);
 		}
 	}]);
@@ -361,6 +369,175 @@ exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(5);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _constant = __webpack_require__(6);
+
+var _lib = __webpack_require__(8);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//import axios from 'axios';
+
+
+var SearchBar = function (_Component) {
+	_inherits(SearchBar, _Component);
+
+	function SearchBar(props) {
+		_classCallCheck(this, SearchBar);
+
+		var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
+
+		_this.state = {
+			showApp: false,
+			value: '',
+			shopName: ''
+			//this.handleChange = this.handleChange.bind(this)
+		};return _this;
+	}
+
+	_createClass(SearchBar, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var _this2 = this;
+
+			var install = localStorage.getItem(_constant.INSTALL_APP);
+			this.setState({
+				showApp: install ? false : true
+			});
+
+			setTimeout(function () {
+				_this2.getShopLocation();
+			}, 500);
+		}
+	}, {
+		key: 'getShopLocation',
+		value: function getShopLocation() {
+			var _this3 = this;
+
+			(0, _lib.getLocation)(function (point) {
+				//console.log(point)
+				point = point || {
+					lat: '28.234589',
+					lng: '112.913554'
+				};
+				axios.get('/shopinfo?lat=' + point.lat + '&lng=' + point.lng).then(function (res) {
+					//console.log(res)
+					_this3.setState({
+						shopName: res.data.message[0].shop_name
+					});
+				});
+			});
+		}
+	}, {
+		key: 'handleChange',
+		value: function handleChange(e) {
+			var value = e.target.value;
+			this.setState({ value: value });
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this4 = this;
+
+			var position = {
+				top: this.state.showApp ? '55px' : '0'
+			};
+			return _react2.default.createElement(
+				'div',
+				{ style: position, className: 'search-bar' },
+				_react2.default.createElement(
+					'a',
+					{ href: 'https://www.hnmall.com/oto/shop-list.html', className: 'shop-link' },
+					_react2.default.createElement('i', { className: 'icon-point' }),
+					_react2.default.createElement(
+						'span',
+						{ className: 'shop-name' },
+						this.state.shopName
+					)
+				),
+				_react2.default.createElement(
+					'form',
+					{ action: 'https://www.hnmall.com/wap/item-list.html', method: 'post', className: 'search-box' },
+					_react2.default.createElement('label', null),
+					_react2.default.createElement('input', { type: 'text', name: 'search_keywords', placeholder: '\u9644\u8FD1\u7684\u5E97\u94FA\u3001\u5546\u54C1', value: this.state.value, onChange: function onChange(event) {
+							_this4.handleChange(event);
+						} })
+				),
+				_react2.default.createElement('div', { className: 'icon-cost' })
+			);
+		}
+	}]);
+
+	return SearchBar;
+}(_react.Component);
+
+exports.default = SearchBar;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * 货币格式
+ */
+exports.formatPrice = function (price) {
+
+	return parseFloat(price).toFixed(2);
+};
+
+exports.isWechat = function () {
+	var ua = navigator.userAgent.toLowerCase();
+	return (/micromessenger/i.test(ua)
+	);
+};
+
+/**
+ * 基于百度地图的定位
+ */
+
+exports.getLocation = function (callback) {
+	var geolocation = new BMap.Geolocation();
+	// 开启SDK辅助定位
+	geolocation.enableSDKLocation();
+	geolocation.getCurrentPosition(function (r) {
+		var point = void 0;
+		if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+			//console.log('您的位置：'+r.point.lng+','+r.point.lat);
+			point = r.point;
+		}
+		callback(point);
+	});
+};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _class, _temp;
 
 var _react = __webpack_require__(1);
@@ -444,7 +621,7 @@ var BannerSwipe = (_temp = _class = function (_Component) {
 exports.default = BannerSwipe;
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -550,7 +727,7 @@ var NavMenu = (_temp = _class = function (_Component) {
 exports.default = NavMenu;
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -667,7 +844,7 @@ var TextSwiper = (_temp = _class = function (_Component) {
 exports.default = TextSwiper;
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -684,6 +861,8 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _constant = __webpack_require__(6);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -692,244 +871,244 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Grid = function (_Component) {
-	_inherits(Grid, _Component);
+var Widget = function (_Component) {
+	_inherits(Widget, _Component);
 
-	function Grid(props) {
-		_classCallCheck(this, Grid);
+	function Widget(props) {
+		_classCallCheck(this, Widget);
 
-		return _possibleConstructorReturn(this, (Grid.__proto__ || Object.getPrototypeOf(Grid)).call(this, props));
+		return _possibleConstructorReturn(this, (Widget.__proto__ || Object.getPrototypeOf(Widget)).call(this, props));
 	}
 
-	_createClass(Grid, [{
-		key: "gridStyleOne",
+	_createClass(Widget, [{
+		key: 'gridStyleOne',
 		value: function gridStyleOne(pic) {
 			return _react2.default.createElement(
-				"div",
-				{ className: "widget-grid-flex" },
+				'div',
+				{ className: 'widget-grid-flex' },
 				_react2.default.createElement(
-					"a",
-					{ className: "widget-grid-half", href: pic[0].linktarget },
-					_react2.default.createElement("img", { src: pic[0].image, className: "img" })
+					'a',
+					{ className: 'widget-grid-half', href: pic[0].linktarget },
+					_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
 				),
 				_react2.default.createElement(
-					"a",
-					{ className: "widget-grid-half", href: pic[1].linktarget },
-					_react2.default.createElement("img", { src: pic[1].image, className: "img" })
+					'a',
+					{ className: 'widget-grid-half', href: pic[1].linktarget },
+					_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
 				)
 			);
 		}
 	}, {
-		key: "gridStyleTwo",
+		key: 'gridStyleTwo',
 		value: function gridStyleTwo(pic) {
 			return _react2.default.createElement(
-				"div",
-				{ className: "widget-grid-flex", "data-type": "two" },
+				'div',
+				{ className: 'widget-grid-flex', 'data-type': 'two' },
 				_react2.default.createElement(
-					"div",
-					{ className: "widget-grid-half" },
+					'div',
+					{ className: 'widget-grid-half' },
 					_react2.default.createElement(
-						"a",
+						'a',
 						{ href: pic[0].linktarget },
-						_react2.default.createElement("img", { src: pic[0].image, className: "img" })
+						_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"div",
-						{ className: "widget-grid-flex" },
+						'div',
+						{ className: 'widget-grid-flex' },
 						_react2.default.createElement(
-							"a",
-							{ className: "widget-grid-half", href: pic[1].linktarget },
-							_react2.default.createElement("img", { src: pic[1].image, className: "img" })
+							'a',
+							{ className: 'widget-grid-half', href: pic[1].linktarget },
+							_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
 						),
 						_react2.default.createElement(
-							"a",
-							{ className: "widget-grid-half", href: pic[2].linktarget },
-							_react2.default.createElement("img", { src: pic[2].image, className: "img" })
+							'a',
+							{ className: 'widget-grid-half', href: pic[2].linktarget },
+							_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
 						)
 					)
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "widget-grid-half" },
+					'div',
+					{ className: 'widget-grid-half' },
 					_react2.default.createElement(
-						"a",
+						'a',
 						{ href: pic[3].linktarget },
-						_react2.default.createElement("img", { src: pic[3].image, className: "img" })
+						_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
 					)
 				)
 			);
 		}
 	}, {
-		key: "gridStyleThree",
+		key: 'gridStyleThree',
 		value: function gridStyleThree(pic) {
 			return _react2.default.createElement(
-				"div",
-				{ className: "widget-grid-flex", "data-type": "three" },
+				'div',
+				{ className: 'widget-grid-flex', 'data-type': 'three' },
 				_react2.default.createElement(
-					"a",
-					{ className: "widget-grid-half", href: pic[0].linktarget },
-					_react2.default.createElement("img", { src: pic[0].image, className: "img" })
+					'a',
+					{ className: 'widget-grid-half', href: pic[0].linktarget },
+					_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "widget-grid-half" },
+					'div',
+					{ className: 'widget-grid-half' },
 					_react2.default.createElement(
-						"a",
+						'a',
 						{ href: pic[1].linktarget },
-						_react2.default.createElement("img", { src: pic[1].image, className: "img" })
+						_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"div",
-						{ className: "widget-grid-flex" },
+						'div',
+						{ className: 'widget-grid-flex' },
 						_react2.default.createElement(
-							"a",
-							{ className: "widget-grid-half", href: pic[2].linktarget },
-							_react2.default.createElement("img", { src: pic[2].image, className: "img" })
+							'a',
+							{ className: 'widget-grid-half', href: pic[2].linktarget },
+							_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
 						),
 						_react2.default.createElement(
-							"a",
-							{ className: "widget-grid-half", href: pic[3].linktarget },
-							_react2.default.createElement("img", { src: pic[3].image, className: "img" })
+							'a',
+							{ className: 'widget-grid-half', href: pic[3].linktarget },
+							_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
 						)
 					)
 				)
 			);
 		}
 	}, {
-		key: "gridStyleFour",
+		key: 'gridStyleFour',
 		value: function gridStyleFour(pic) {
 			return _react2.default.createElement(
-				"div",
-				{ className: "widget-grid-wrap", "data-type": "fore" },
+				'div',
+				{ className: 'widget-grid-wrap', 'data-type': 'fore' },
 				_react2.default.createElement(
-					"div",
-					{ className: "widget-grid-flex" },
+					'div',
+					{ className: 'widget-grid-flex' },
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-half", href: pic[0].linktarget },
-						_react2.default.createElement("img", { src: pic[0].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-half', href: pic[0].linktarget },
+						_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-half", href: pic[1].linktarget },
-						_react2.default.createElement("img", { src: pic[1].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-half', href: pic[1].linktarget },
+						_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
 					)
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "widget-grid-flex" },
+					'div',
+					{ className: 'widget-grid-flex' },
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-25", href: pic[2].linktarget },
-						_react2.default.createElement("img", { src: pic[2].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-25', href: pic[2].linktarget },
+						_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-25", href: pic[3].linktarget },
-						_react2.default.createElement("img", { src: pic[3].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-25', href: pic[3].linktarget },
+						_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-half", href: pic[4].linktarget },
-						_react2.default.createElement("img", { src: pic[4].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-half', href: pic[4].linktarget },
+						_react2.default.createElement('img', { src: pic[4].image, className: 'img' })
 					)
 				)
 			);
 		}
 	}, {
-		key: "gridStyleFive",
+		key: 'gridStyleFive',
 		value: function gridStyleFive(pic) {
 			return _react2.default.createElement(
-				"div",
-				{ className: "widget-grid-wrap", "data-type": "five" },
+				'div',
+				{ className: 'widget-grid-wrap', 'data-type': 'five' },
 				_react2.default.createElement(
-					"div",
-					{ className: "widget-grid-flex" },
+					'div',
+					{ className: 'widget-grid-flex' },
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-half", href: pic[0].linktarget },
-						_react2.default.createElement("img", { src: pic[0].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-half', href: pic[0].linktarget },
+						_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-half", href: pic[1].linktarget },
-						_react2.default.createElement("img", { src: pic[1].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-half', href: pic[1].linktarget },
+						_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
 					)
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "widget-grid-flex" },
+					'div',
+					{ className: 'widget-grid-flex' },
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-25", href: pic[2].linktarget },
-						_react2.default.createElement("img", { src: pic[2].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-25', href: pic[2].linktarget },
+						_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-25", href: pic[3].linktarget },
-						_react2.default.createElement("img", { src: pic[3].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-25', href: pic[3].linktarget },
+						_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-25", href: pic[4].linktarget },
-						_react2.default.createElement("img", { src: pic[4].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-25', href: pic[4].linktarget },
+						_react2.default.createElement('img', { src: pic[4].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-25", href: pic[5].linktarget },
-						_react2.default.createElement("img", { src: pic[5].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-25', href: pic[5].linktarget },
+						_react2.default.createElement('img', { src: pic[5].image, className: 'img' })
 					)
 				)
 			);
 		}
 	}, {
-		key: "gridStyleSix",
+		key: 'gridStyleSix',
 		value: function gridStyleSix(pic) {
 			return _react2.default.createElement(
-				"div",
-				{ className: "widget-grid-wrap", "data-type": "six" },
+				'div',
+				{ className: 'widget-grid-wrap', 'data-type': 'six' },
 				_react2.default.createElement(
-					"div",
-					{ className: "widget-grid-flex" },
+					'div',
+					{ className: 'widget-grid-flex' },
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-avg", href: pic[0].linktarget },
-						_react2.default.createElement("img", { src: pic[0].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-avg', href: pic[0].linktarget },
+						_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-avg", href: pic[1].linktarget },
-						_react2.default.createElement("img", { src: pic[1].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-avg', href: pic[1].linktarget },
+						_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-avg", href: pic[2].linktarget },
-						_react2.default.createElement("img", { src: pic[2].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-avg', href: pic[2].linktarget },
+						_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
 					)
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "widget-grid-flex" },
+					'div',
+					{ className: 'widget-grid-flex' },
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-avg", href: pic[3].linktarget },
-						_react2.default.createElement("img", { src: pic[3].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-avg', href: pic[3].linktarget },
+						_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-avg", href: pic[4].linktarget },
-						_react2.default.createElement("img", { src: pic[4].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-avg', href: pic[4].linktarget },
+						_react2.default.createElement('img', { src: pic[4].image, className: 'img' })
 					),
 					_react2.default.createElement(
-						"a",
-						{ className: "widget-grid-avg", href: pic[5].linktarget },
-						_react2.default.createElement("img", { src: pic[5].image, className: "img" })
+						'a',
+						{ className: 'widget-grid-avg', href: pic[5].linktarget },
+						_react2.default.createElement('img', { src: pic[5].image, className: 'img' })
 					)
 				)
 			);
 		}
 	}, {
-		key: "renderGrid",
+		key: 'renderGrid',
 		value: function renderGrid() {
 			var params = this.props.params;
 
@@ -937,6 +1116,10 @@ var Grid = function (_Component) {
 			if (!Array.isArray(params.pic)) {
 				return;
 			}
+
+			params.pic.forEach(function (item) {
+				item.image = item.image.replace(/^\//, _constant.BASE_HOST);
+			});
 			switch (params.styletag) {
 				case 'one':
 					return this.gridStyleOne(params.pic);
@@ -955,15 +1138,15 @@ var Grid = function (_Component) {
 			}
 		}
 	}, {
-		key: "render",
+		key: 'render',
 		value: function render() {
 
 			return _react2.default.createElement(
-				"div",
-				{ className: "widget-grid" },
+				'div',
+				{ className: 'widget-grid' },
 				_react2.default.createElement(
-					"div",
-					{ className: "widget-grid-title" },
+					'div',
+					{ className: 'widget-grid-title' },
 					this.props.params.title
 				),
 				this.renderGrid()
@@ -971,13 +1154,13 @@ var Grid = function (_Component) {
 		}
 	}]);
 
-	return Grid;
+	return Widget;
 }(_react.Component);
 
-exports.default = Grid;
+exports.default = Widget;
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -994,6 +1177,8 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _constant = __webpack_require__(6);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1001,9 +1186,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 //import classNames from "classnames";
-//import {BASE_HOST} from '../common/constant'
+
 
 var FootBar = function (_Component) {
 	_inherits(FootBar, _Component);
@@ -1015,58 +1199,63 @@ var FootBar = function (_Component) {
 	}
 
 	_createClass(FootBar, [{
-		key: "componentDidMount",
+		key: 'componentDidMount',
 		value: function componentDidMount() {}
 	}, {
-		key: "render",
+		key: 'render',
 		value: function render() {
 
 			return _react2.default.createElement(
-				"div",
-				{ className: "app-foot-bar" },
+				'div',
+				{ className: 'app-foot-bar' },
 				_react2.default.createElement(
-					"div",
-					{ className: "foot-bar-item" },
+					'a',
+					{ className: 'foot-bar-item', href: '/' },
+					_react2.default.createElement('img', { className: 'icon', src: 'https://www.hnmall.com/themes/mobilemall/images/d-icon1.png' }),
 					_react2.default.createElement(
-						"a",
-						{ className: "icon-home", href: "/wap" },
-						"\u9996\u9875"
+						'span',
+						null,
+						'\u9996\u9875'
 					)
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "foot-bar-item" },
+					'a',
+					{ className: 'foot-bar-item', href: _constant.BASE_HOST + 'wap/category.html' },
+					_react2.default.createElement('img', { className: 'icon', src: 'https://www.hnmall.com/themes/mobilemall/images/d-icon2.png' }),
 					_react2.default.createElement(
-						"a",
-						{ className: "icon-categroy", href: "/wap" },
-						"\u5206\u7C7B"
+						'span',
+						null,
+						'\u5206\u7C7B'
 					)
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "foot-bar-item" },
+					'a',
+					{ className: 'foot-bar-item', href: _constant.BASE_HOST + 'wap/cart.html' },
+					_react2.default.createElement('img', { className: 'cart', src: 'https://www.hnmall.com/themes/mobilemall/images/d-icon3.jpg' }),
 					_react2.default.createElement(
-						"a",
-						{ className: "icon-cart", href: "/wap" },
-						"\u8D2D\u7269\u8F66"
+						'span',
+						null,
+						'\u8D2D\u7269\u8F66'
 					)
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "foot-bar-item" },
+					'a',
+					{ className: 'foot-bar-item', href: _constant.BASE_HOST + 'weidian/store-index.html' },
+					_react2.default.createElement('img', { className: 'icon', src: 'https://www.hnmall.com/themes/mobilemall/images/d-icon4.png' }),
 					_react2.default.createElement(
-						"a",
-						{ className: "icon-shop", href: "/wap" },
-						"\u5E97\u94FA"
+						'span',
+						null,
+						'\u5E97\u94FA'
 					)
 				),
 				_react2.default.createElement(
-					"div",
-					{ className: "foot-bar-item" },
+					'a',
+					{ className: 'foot-bar-item', href: _constant.BASE_HOST + 'wap/member.html' },
+					_react2.default.createElement('img', { className: 'icon', src: 'https://www.hnmall.com/themes/mobilemall/images/d-icon5.png' }),
 					_react2.default.createElement(
-						"a",
-						{ className: "icon-member", href: "/wap" },
-						"\u4F1A\u5458"
+						'span',
+						null,
+						'\u4F1A\u5458'
 					)
 				)
 			);
@@ -1079,7 +1268,7 @@ var FootBar = function (_Component) {
 exports.default = FootBar;
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1100,11 +1289,11 @@ var _classnames = __webpack_require__(5);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _axios = __webpack_require__(13);
+var _reactLazyload = __webpack_require__(15);
 
-var _axios2 = _interopRequireDefault(_axios);
+var _reactLazyload2 = _interopRequireDefault(_reactLazyload);
 
-var _lib = __webpack_require__(14);
+var _lib = __webpack_require__(8);
 
 var _constant = __webpack_require__(6);
 
@@ -1115,6 +1304,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+//import axios from 'axios';
+
 
 var GoodsList = function (_Component) {
 	_inherits(GoodsList, _Component);
@@ -1125,6 +1316,7 @@ var GoodsList = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (GoodsList.__proto__ || Object.getPrototypeOf(GoodsList)).call(this, props));
 
 		_this.state = {
+			isBusy: false,
 			goodsData: []
 		};
 		return _this;
@@ -1136,8 +1328,12 @@ var GoodsList = function (_Component) {
 			var _this2 = this;
 
 			window.addEventListener('scroll', function () {
-				if (_this2.state.goodsData.length) return;
-				_this2.fetchGoodsList();
+				if (_this2.state.isBusy) {
+					return false;
+				}
+				if (document.documentElement.scrollTop > window.innerHeight) {
+					_this2.fetchGoodsList();
+				}
 			});
 		}
 	}, {
@@ -1145,8 +1341,11 @@ var GoodsList = function (_Component) {
 		value: function fetchGoodsList() {
 			var _this3 = this;
 
-			_axios2.default.get('http://192.168.1.100:3000/goodslist').then(function (res) {
-				console.log(res);
+			this.setState({
+				isBusy: true
+			});
+			axios.get('/goodslist').then(function (res) {
+				//console.log(res)
 				_this3.setState({
 					goodsData: res.data.goodslist
 				});
@@ -1167,7 +1366,12 @@ var GoodsList = function (_Component) {
 						_react2.default.createElement(
 							'div',
 							{ className: 'goods-img' },
-							_react2.default.createElement('img', { src: goods.image_default_id, className: 'img' })
+							_react2.default.createElement(
+								_reactLazyload2.default,
+								{ once: true, height: 150, throttle: 200,
+									placeholder: _react2.default.createElement('img', { className: 'img', src: 'https://www.hnmall.com/res/images/cplogo.jpg', debounce: 500 }) },
+								_react2.default.createElement('img', { src: goods.image_default_id, className: 'img' })
+							)
 						),
 						_react2.default.createElement(
 							'div',
@@ -1186,6 +1390,11 @@ var GoodsList = function (_Component) {
 								'span',
 								{ className: 'mkt-price' },
 								(0, _lib.formatPrice)(goods.mkt_price)
+							),
+							_react2.default.createElement(
+								'i',
+								{ className: 'buy' },
+								'\u9A6C\u4E0A\u62A2'
 							)
 						)
 					)
@@ -1200,7 +1409,6 @@ var GoodsList = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-
 			return _react2.default.createElement(
 				'div',
 				{ className: 'wrap' },
@@ -1220,24 +1428,71 @@ var GoodsList = function (_Component) {
 exports.default = GoodsList;
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
-module.exports = require("axios");
+module.exports = require("react-lazyload");
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-/**
- * 货币格式
- */
-exports.formatPrice = function (price) {
-  return parseFloat(price).toFixed(2);
-};
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Copyright = function (_Component) {
+	_inherits(Copyright, _Component);
+
+	function Copyright(props) {
+		_classCallCheck(this, Copyright);
+
+		return _possibleConstructorReturn(this, (Copyright.__proto__ || Object.getPrototypeOf(Copyright)).call(this, props));
+	}
+
+	_createClass(Copyright, [{
+		key: "render",
+		value: function render() {
+
+			return _react2.default.createElement(
+				"div",
+				{ className: "copy-right" },
+				_react2.default.createElement(
+					"a",
+					{ target: "_blank", href: "http://www.miibeian.gov.cn" },
+					"\u6E58ICP\u590714013772-3"
+				),
+				_react2.default.createElement(
+					"a",
+					{ target: "_blank", href: "/icp.html" },
+					"\u589E\u503C\u7535\u4FE1\u4E1A\u52A1\u7ECF\u8425\u8BB8\u53EF\u8BC1:\u6E58B2-20140095"
+				)
+			);
+		}
+	}]);
+
+	return Copyright;
+}(_react.Component);
+
+exports.default = Copyright;
 
 /***/ })
 /******/ ]);

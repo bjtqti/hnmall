@@ -1,5 +1,5 @@
  
-let { markupOfRoute ,request} = require('../lib')
+let { markupOfRoute ,request,fetchApi} = require('../lib')
 
 exports.index = async function(ctx, next) {
   let ret,markup = '',initialState={}
@@ -53,6 +53,23 @@ exports.goodslist = async function(ctx,next){
       goodslist:list
     }
   }
+}
+
+exports.shopinfo = async function(ctx,next){
+   
+  //console.log(ctx.request.query)
+  let {lat,lng} = ctx.request.query;
+
+  try {
+    ret = await fetchApi("/oto/store-api.html?method=shop.index.storeone",{
+      dimensions:lat,
+      longitude:lng,
+      storenum:1
+    });
+  } catch (err) {
+    throw err;
+  }
+  ctx.body = ret.data
 }
 
 exports.error = async function (ctx, next) {

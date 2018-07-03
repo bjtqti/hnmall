@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "APP_PORT=80 node app.js",
     "dev": "webpack-dev-server --config ./task/webpack.dev.js",
     "dist-client": "webpack --config ./task/webpack.config.js",
     "dist-server": "webpack --config ./task/webpack.node.js",
@@ -26,7 +26,8 @@
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "react-lazyload": "^2.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -37,17 +38,17 @@
     "babel-preset-stage-1": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
     "handlebars": "^4.0.11",
     "html-webpack-plugin": "^3.2.0",
     "inject-html-webpack-plugin": "^0.0.39",
     "ip": "^1.1.5",
     "mini-css-extract-plugin": "^0.4.0",
-    "nodemon": "^1.17.5",
     "optimize-css-assets-webpack-plugin": "^4.0.3",
-    "postcss-flexbugs-fixes": "^3.3.1",
     "postcss-loader": "^2.1.5",
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.7",
+    "url-loader": "^1.0.1",
     "webpack": "^4.12.1",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4",

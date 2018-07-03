@@ -10,7 +10,7 @@ let router = require('./router')
 let {error} = require('./controller/main')
 
 const app = new Koa()
-
+//app.use(async (ctx) => { ctx.body = JSON.stringify(ctx) })
 app.use(serveStatic(join('dist', 'client')))
 app.use(bodyParser())
 app.use(methodOverride())

@@ -1,11 +1,13 @@
 let Router = require('koa-router')
-let { index, goodslist,notFound } = require('./controller/main')
+let { index, goodslist,shopinfo,notFound } = require('./controller/main')
 
 const router = new Router()
 
 router.get('/', index)
 
 router.get('/goodslist',goodslist)
+
+router.get('/shopinfo',shopinfo)
 
 router.all('*', notFound)
 

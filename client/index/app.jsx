@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import AppBar from './appbar'
+import SearchBar from './searchbar'
 import BannerSwiper from './bannerswiper'
 import NavMenu from './navmenu'
 import TextSwiper from './textswiper'
-import Grid from './grid'
+import Widget from './widget'
 import FootBar from './footbar'
 import GoodsList from './goodslist'
-import {request} from '../lib'
+import Copyright from './copyright'
 
 export class Index extends Component {
 
@@ -38,7 +39,7 @@ export class Index extends Component {
 					widgets.push(<TextSwiper message={module.params.ad_content} more={more_url} key={`ad_${i}`}/>);
 					break;
 				case 'floor':
-					widgets.push(<Grid params={module.params} key={`floor_${i}`}/>);
+					widgets.push(<Widget params={module.params} key={`floor_${i}`}/>);
 					break;
 				default:
 					break;
@@ -49,13 +50,15 @@ export class Index extends Component {
 	}
 
 	render() {
-		console.log(this.props.initialState)
+		//console.log(this.props.initialState)
 		return (
 			<div className="app-wrap">
 				<AppBar />
+				<SearchBar />
 				{this.renderWidgets()}
 				<GoodsList />
 				<FootBar />
+				<Copyright />
 			</div>
 		)
 	}

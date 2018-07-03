@@ -19,6 +19,13 @@ module.exports = {
 		        test: /\.(jsx?)$/,
 		        loader: 'babel-loader',
 		        exclude:[NODE_MODULES]
+		    },
+		    {
+		    	test:/\.(png|jpg|svg|gif)$/,
+		    	loader:'file-loader',
+		    	options:{
+		    		outputPath:'images/'
+		    	}
 		    }
 		]
 	},

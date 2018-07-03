@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
+import {BASE_HOST} from '../common/constant'
 
-export default class Grid extends Component {
+export default class Widget extends Component {
 	 
 	constructor(props) {
 		super(props);
@@ -104,6 +105,10 @@ export default class Grid extends Component {
 		if(!Array.isArray(params.pic)){
 			return;
 		}
+
+		params.pic.forEach((item)=>{
+			item.image =  item.image.replace(/^\//,BASE_HOST);
+		})
 		switch(params.styletag){
 			case 'one':
 				return this.gridStyleOne(params.pic);
