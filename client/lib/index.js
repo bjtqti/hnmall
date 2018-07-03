@@ -29,3 +29,19 @@ exports.getLocation =(callback)=>{
 		callback(point)    
 	}); 
 }
+
+/** 
+ * 获取滚动条距离顶端的距离 
+ * @return {}支持IE6 
+ */  
+exports.getScrollTop = () => {
+	var scrollPos;
+	if (window.pageYOffset) {
+		scrollPos = window.pageYOffset;
+	} else if (document.compatMode && document.compatMode != 'BackCompat') {
+		scrollPos = document.documentElement.scrollTop;
+	} else if (document.body) {
+		scrollPos = document.body.scrollTop;
+	}
+	return scrollPos;
+}

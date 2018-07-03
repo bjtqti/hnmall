@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import classNames from "classnames";
 import LazyLoad from 'react-lazyload'
 //import axios from 'axios';
-import {formatPrice} from '../lib'
+import {formatPrice,getScrollTop} from '../lib'
 import {BASE_HOST} from '../common/constant'
 
 export default class GoodsList extends Component {
@@ -21,7 +21,8 @@ export default class GoodsList extends Component {
 			if(this.state.isBusy){
 				return false;
 			}
-			let  scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+			let  scrollTop = getScrollTop();
+			console.log(scrollTop)
 			if(scrollTop>bounce){
 				this.fetchGoodsList()
 			}
