@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 //import classNames from "classnames";
-import {INSTALL_APP} from '../common/constant'
+import {BASE_HOST,INSTALL_APP} from '../common/constant'
 import {getLocationTencent} from '../lib'
 
 export default class SearchBar extends Component {
@@ -55,11 +55,11 @@ export default class SearchBar extends Component {
 		}
 		return (
 			<div style={position} className="search-bar">
-				<a href="https://www.hnmall.com/oto/shop-list.html" className="shop-link">
+				<a href={`${BASE_HOST}oto/shop-list.html`} className="shop-link">
 					<i className="icon-point"></i>
 					<span className="shop-name">{this.state.shopName}</span>
 				</a>
-				<form action="https://www.hnmall.com/wap/item-list.html" method="post" className="search-box">
+				<form action={`${BASE_HOST}wap/item-list.html`} method="post" className="search-box">
 					<label></label>
 					<input type="text" name="search_keywords" placeholder="附近的店铺、商品" value={this.state.value} onChange={(event)=>{this.handleChange(event)}}/>
 				</form>
