@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import classNames from "classnames";
-//import axios from 'axios';
+//import classNames from "classnames";
 import {INSTALL_APP} from '../common/constant'
 import {getLocationTencent} from '../lib'
 
@@ -13,7 +12,6 @@ export default class SearchBar extends Component {
 			value:'',
 			shopName:''
 		}
-		//this.handleChange = this.handleChange.bind(this)
 	}
 
 	componentDidMount(){
@@ -24,7 +22,7 @@ export default class SearchBar extends Component {
 
 		setTimeout(()=>{
 			this.getShopLocation()
-		},500)
+		},1000)
 	}
 
 	getShopLocation(){

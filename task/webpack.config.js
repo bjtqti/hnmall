@@ -39,6 +39,7 @@ config.optimization = {
     splitChunks:{
     	cacheGroups: {
             vendor: {
+            	minChunks: 2,
                 test: /[\\/]node_modules[\\/]/,
                 name: "vendors",
                 chunks:'all'

@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import classNames from "classnames";
+//import classNames from "classnames";
 import LazyLoad from 'react-lazyload'
-//import axios from 'axios';
 import {formatPrice,getScrollTop} from '../lib'
 import {BASE_HOST} from '../common/constant'
 

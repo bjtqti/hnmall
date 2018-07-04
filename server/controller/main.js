@@ -29,15 +29,15 @@ exports.index = async function(ctx, next) {
 }
 
 exports.goodslist = async function(ctx,next){
-    ctx.res.setHeader('Access-Control-Allow-Origin', '*')
-    ctx.res.setHeader(
-        'Access-Control-Allow-Methods',
-        'GET,PUT,POST,DELETE,OPTIONS'
-    )
-    ctx.res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Content-Type, Authorization, Content-Length, X-Requested-With, Accept, x-csrf-token, origin'
-    )
+    // ctx.res.setHeader('Access-Control-Allow-Origin', '*')
+    // ctx.res.setHeader(
+    //     'Access-Control-Allow-Methods',
+    //     'GET,PUT,POST,DELETE,OPTIONS'
+    // )
+    // ctx.res.setHeader(
+    //     'Access-Control-Allow-Headers',
+    //     'Content-Type, Authorization, Content-Length, X-Requested-With, Accept, x-csrf-token, origin'
+    // )
   try {
     ret = await request("/index.php/topapi",{
       method:'theme.guesslike'

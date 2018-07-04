@@ -291,9 +291,9 @@ var AppBar = function (_Component) {
 	function AppBar(props) {
 		_classCallCheck(this, AppBar);
 
+		//this.handleClick = this.handleClick.bind(this)
 		var _this = _possibleConstructorReturn(this, (AppBar.__proto__ || Object.getPrototypeOf(AppBar)).call(this, props));
 
-		_this.handleClick = _this.handleClick.bind(_this);
 		_this.state = {
 			active: false
 		};
@@ -373,10 +373,6 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
 var _constant = __webpack_require__(6);
 
 var _lib = __webpack_require__(8);
@@ -388,7 +384,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-//import axios from 'axios';
+//import classNames from "classnames";
 
 
 var SearchBar = function (_Component) {
@@ -403,8 +399,8 @@ var SearchBar = function (_Component) {
 			showApp: false,
 			value: '',
 			shopName: ''
-			//this.handleChange = this.handleChange.bind(this)
-		};return _this;
+		};
+		return _this;
 	}
 
 	_createClass(SearchBar, [{
@@ -419,7 +415,7 @@ var SearchBar = function (_Component) {
 
 			setTimeout(function () {
 				_this2.getShopLocation();
-			}, 500);
+			}, 1000);
 		}
 	}, {
 		key: 'getShopLocation',
@@ -1296,10 +1292,6 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
 var _reactLazyload = __webpack_require__(15);
 
 var _reactLazyload2 = _interopRequireDefault(_reactLazyload);
@@ -1315,7 +1307,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-//import axios from 'axios';
+//import classNames from "classnames";
 
 
 var GoodsList = function (_Component) {
