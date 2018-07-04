@@ -165,11 +165,11 @@ var _widget = __webpack_require__(12);
 
 var _widget2 = _interopRequireDefault(_widget);
 
-var _footbar = __webpack_require__(13);
+var _footbar = __webpack_require__(14);
 
 var _footbar2 = _interopRequireDefault(_footbar);
 
-var _goodslist = __webpack_require__(14);
+var _goodslist = __webpack_require__(15);
 
 var _goodslist2 = _interopRequireDefault(_goodslist);
 
@@ -884,6 +884,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactLazyload = __webpack_require__(13);
+
+var _reactLazyload2 = _interopRequireDefault(_reactLazyload);
+
 var _constant = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -912,12 +916,20 @@ var Widget = function (_Component) {
 				_react2.default.createElement(
 					'a',
 					{ className: 'widget-grid-half', href: pic[0].linktarget },
-					_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
+					_react2.default.createElement(
+						_reactLazyload2.default,
+						{ height: 120 },
+						_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
+					)
 				),
 				_react2.default.createElement(
 					'a',
 					{ className: 'widget-grid-half', href: pic[1].linktarget },
-					_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
+					_react2.default.createElement(
+						_reactLazyload2.default,
+						{ height: 120 },
+						_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
+					)
 				)
 			);
 		}
@@ -933,7 +945,11 @@ var Widget = function (_Component) {
 					_react2.default.createElement(
 						'a',
 						{ href: pic[0].linktarget },
-						_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 121 },
+							_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'div',
@@ -941,12 +957,20 @@ var Widget = function (_Component) {
 						_react2.default.createElement(
 							'a',
 							{ className: 'widget-grid-half', href: pic[1].linktarget },
-							_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
+							_react2.default.createElement(
+								_reactLazyload2.default,
+								{ height: 121 },
+								_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
+							)
 						),
 						_react2.default.createElement(
 							'a',
 							{ className: 'widget-grid-half', href: pic[2].linktarget },
-							_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
+							_react2.default.createElement(
+								_reactLazyload2.default,
+								{ height: 121 },
+								_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
+							)
 						)
 					)
 				),
@@ -956,7 +980,11 @@ var Widget = function (_Component) {
 					_react2.default.createElement(
 						'a',
 						{ href: pic[3].linktarget },
-						_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 242 },
+							_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
+						)
 					)
 				)
 			);
@@ -970,7 +998,11 @@ var Widget = function (_Component) {
 				_react2.default.createElement(
 					'a',
 					{ className: 'widget-grid-half', href: pic[0].linktarget },
-					_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
+					_react2.default.createElement(
+						_reactLazyload2.default,
+						{ height: 242 },
+						_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
+					)
 				),
 				_react2.default.createElement(
 					'div',
@@ -978,7 +1010,11 @@ var Widget = function (_Component) {
 					_react2.default.createElement(
 						'a',
 						{ href: pic[1].linktarget },
-						_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'div',
@@ -986,12 +1022,20 @@ var Widget = function (_Component) {
 						_react2.default.createElement(
 							'a',
 							{ className: 'widget-grid-half', href: pic[2].linktarget },
-							_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
+							_react2.default.createElement(
+								_reactLazyload2.default,
+								{ height: 120 },
+								_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
+							)
 						),
 						_react2.default.createElement(
 							'a',
 							{ className: 'widget-grid-half', href: pic[3].linktarget },
-							_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
+							_react2.default.createElement(
+								_reactLazyload2.default,
+								{ height: 120 },
+								_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
+							)
 						)
 					)
 				)
@@ -1002,19 +1046,27 @@ var Widget = function (_Component) {
 		value: function gridStyleFour(pic) {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'widget-grid-wrap', 'data-type': 'fore' },
+				{ className: 'widget-grid-wrap', 'data-type': 'four' },
 				_react2.default.createElement(
 					'div',
 					{ className: 'widget-grid-flex' },
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-half', href: pic[0].linktarget },
-						_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-half', href: pic[1].linktarget },
-						_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
+						)
 					)
 				),
 				_react2.default.createElement(
@@ -1023,17 +1075,29 @@ var Widget = function (_Component) {
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-25', href: pic[2].linktarget },
-						_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-25', href: pic[3].linktarget },
-						_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-half', href: pic[4].linktarget },
-						_react2.default.createElement('img', { src: pic[4].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[4].image, className: 'img' })
+						)
 					)
 				)
 			);
@@ -1050,12 +1114,20 @@ var Widget = function (_Component) {
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-half', href: pic[0].linktarget },
-						_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-half', href: pic[1].linktarget },
-						_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
+						)
 					)
 				),
 				_react2.default.createElement(
@@ -1064,22 +1136,38 @@ var Widget = function (_Component) {
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-25', href: pic[2].linktarget },
-						_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-25', href: pic[3].linktarget },
-						_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-25', href: pic[4].linktarget },
-						_react2.default.createElement('img', { src: pic[4].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[4].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-25', href: pic[5].linktarget },
-						_react2.default.createElement('img', { src: pic[5].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[5].image, className: 'img' })
+						)
 					)
 				)
 			);
@@ -1096,17 +1184,29 @@ var Widget = function (_Component) {
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-avg', href: pic[0].linktarget },
-						_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[0].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-avg', href: pic[1].linktarget },
-						_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[1].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-avg', href: pic[2].linktarget },
-						_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[2].image, className: 'img' })
+						)
 					)
 				),
 				_react2.default.createElement(
@@ -1115,17 +1215,29 @@ var Widget = function (_Component) {
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-avg', href: pic[3].linktarget },
-						_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[3].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-avg', href: pic[4].linktarget },
-						_react2.default.createElement('img', { src: pic[4].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[4].image, className: 'img' })
+						)
 					),
 					_react2.default.createElement(
 						'a',
 						{ className: 'widget-grid-avg', href: pic[5].linktarget },
-						_react2.default.createElement('img', { src: pic[5].image, className: 'img' })
+						_react2.default.createElement(
+							_reactLazyload2.default,
+							{ height: 120 },
+							_react2.default.createElement('img', { src: pic[5].image, className: 'img' })
+						)
 					)
 				)
 			);
@@ -1184,6 +1296,12 @@ exports.default = Widget;
 
 /***/ }),
 /* 13 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-lazyload");
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1291,7 +1409,7 @@ var FootBar = function (_Component) {
 exports.default = FootBar;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1308,7 +1426,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactLazyload = __webpack_require__(15);
+var _reactLazyload = __webpack_require__(13);
 
 var _reactLazyload2 = _interopRequireDefault(_reactLazyload);
 
@@ -1449,12 +1567,6 @@ var GoodsList = function (_Component) {
 }(_react.Component);
 
 exports.default = GoodsList;
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-lazyload");
 
 /***/ }),
 /* 16 */

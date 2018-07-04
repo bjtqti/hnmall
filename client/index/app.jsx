@@ -9,6 +9,7 @@ import Widget from './widget'
 import FootBar from './footbar'
 import GoodsList from './goodslist'
 import Copyright from './copyright'
+import GoTop from './gotop'
 
 export class Index extends Component {
 
@@ -59,6 +60,7 @@ export class Index extends Component {
 				<GoodsList />
 				<FootBar />
 				<Copyright />
+				<GoTop />
 			</div>
 		)
 	}
