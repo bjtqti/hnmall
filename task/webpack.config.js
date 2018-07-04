@@ -51,8 +51,8 @@ config.optimization = {
 module.exports = merge(config,{
 	mode:'production',
 	plugins:[
-		new CleanWebpackPlugin(['dist/client/js','dist/client/css'],{
-			root:path.resolve(__dirname, '..')
+		new CleanWebpackPlugin(['js','css','images'],{
+			root:path.resolve(__dirname, '../dist/client')
 		}),
 		new MiniCssExtractPlugin({
 	      // Options similar to the same options in webpackOptions.output

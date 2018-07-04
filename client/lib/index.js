@@ -13,13 +13,19 @@ exports.isWechat = ()=>{
 }
 
 exports.getLocationTencent = (callback)=>{
+	let cache = getCache('geolocation')||null;
+	cache = JSON.parse(cache);
+	if(cache && cache.time - Date.now > 0){
+		return cache;
+	}
 	let geolocation = new qq.maps.Geolocation("PMOBZ-DSBK6-7NQSZ-EUK5J-A4PR6-DEB4V", "hnmall");
-    let options = {timeout: 8000};
 	geolocation.getLocation(function(res){
+		let {lat,lng} = res;
+		setCache('geolocation',JSON.stringify({lat,lng,time:Date.now()+86400000}))
 		callback(res)
 	},function(){
 		callback()
-	}, options)
+	})
 }
 
 /** 
@@ -36,4 +42,12 @@ exports.getScrollTop = () => {
 		scrollPos = document.body.scrollTop;
 	}
 	return scrollPos;
+}
+
+function setCache(name,data){
+	localStorage.setItem(name,data);
+}
+
+function getCache(name){
+	return localStorage.getItem(name);
 }
