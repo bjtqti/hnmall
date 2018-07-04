@@ -458,7 +458,7 @@ var SearchBar = function (_Component) {
 				{ style: position, className: 'search-bar' },
 				_react2.default.createElement(
 					'a',
-					{ href: 'https://www.hnmall.com/oto/shop-list.html', className: 'shop-link' },
+					{ href: _constant.BASE_HOST + 'oto/shop-list.html', className: 'shop-link' },
 					_react2.default.createElement('i', { className: 'icon-point' }),
 					_react2.default.createElement(
 						'span',
@@ -468,7 +468,7 @@ var SearchBar = function (_Component) {
 				),
 				_react2.default.createElement(
 					'form',
-					{ action: 'https://www.hnmall.com/wap/item-list.html', method: 'post', className: 'search-box' },
+					{ action: _constant.BASE_HOST + 'wap/item-list.html', method: 'post', className: 'search-box' },
 					_react2.default.createElement('label', null),
 					_react2.default.createElement('input', { type: 'text', name: 'search_keywords', placeholder: '\u9644\u8FD1\u7684\u5E97\u94FA\u3001\u5546\u54C1', value: this.state.value, onChange: function onChange(event) {
 							_this4.handleChange(event);
@@ -1218,7 +1218,7 @@ var FootBar = function (_Component) {
 				_react2.default.createElement(
 					'a',
 					{ className: 'foot-bar-item', href: '/' },
-					_react2.default.createElement('img', { className: 'icon', src: 'https://www.hnmall.com/themes/mobilemall/images/d-icon1.png' }),
+					_react2.default.createElement('img', { className: 'icon', src: 'https://wd.hnmall.com/themes/mobilemall/images/d-icon1.png' }),
 					_react2.default.createElement(
 						'span',
 						null,
@@ -1228,7 +1228,7 @@ var FootBar = function (_Component) {
 				_react2.default.createElement(
 					'a',
 					{ className: 'foot-bar-item', href: _constant.BASE_HOST + 'wap/category.html' },
-					_react2.default.createElement('img', { className: 'icon', src: 'https://www.hnmall.com/themes/mobilemall/images/d-icon2.png' }),
+					_react2.default.createElement('img', { className: 'icon', src: 'https://wd.hnmall.com/themes/mobilemall/images/d-icon2.png' }),
 					_react2.default.createElement(
 						'span',
 						null,
@@ -1238,7 +1238,7 @@ var FootBar = function (_Component) {
 				_react2.default.createElement(
 					'a',
 					{ className: 'foot-bar-item', href: _constant.BASE_HOST + 'wap/cart.html' },
-					_react2.default.createElement('img', { className: 'cart', src: 'https://www.hnmall.com/themes/mobilemall/images/d-icon3.jpg' }),
+					_react2.default.createElement('img', { className: 'cart', src: 'https://wd.hnmall.com/themes/mobilemall/images/d-icon3.jpg' }),
 					_react2.default.createElement(
 						'span',
 						null,
@@ -1248,7 +1248,7 @@ var FootBar = function (_Component) {
 				_react2.default.createElement(
 					'a',
 					{ className: 'foot-bar-item', href: _constant.BASE_HOST + 'weidian/store-index.html' },
-					_react2.default.createElement('img', { className: 'icon', src: 'https://www.hnmall.com/themes/mobilemall/images/d-icon4.png' }),
+					_react2.default.createElement('img', { className: 'icon', src: 'https://wd.hnmall.com/themes/mobilemall/images/d-icon4.png' }),
 					_react2.default.createElement(
 						'span',
 						null,
@@ -1258,7 +1258,7 @@ var FootBar = function (_Component) {
 				_react2.default.createElement(
 					'a',
 					{ className: 'foot-bar-item', href: _constant.BASE_HOST + 'wap/member.html' },
-					_react2.default.createElement('img', { className: 'icon', src: 'https://www.hnmall.com/themes/mobilemall/images/d-icon5.png' }),
+					_react2.default.createElement('img', { className: 'icon', src: 'https://wd.hnmall.com/themes/mobilemall/images/d-icon5.png' }),
 					_react2.default.createElement(
 						'span',
 						null,
@@ -1376,7 +1376,7 @@ var GoodsList = function (_Component) {
 							_react2.default.createElement(
 								_reactLazyload2.default,
 								{ once: true, height: 177, offsetTop: 500,
-									placeholder: _react2.default.createElement('img', { className: 'img', src: 'https://www.hnmall.com/res/images/cplogo.jpg', debounce: 500 }) },
+									placeholder: _react2.default.createElement('img', { className: 'img', src: 'https://wd.hnmall.com/res/images/cplogo.jpg', debounce: 500 }) },
 								_react2.default.createElement('img', { src: goods.image_default_id, className: 'img' })
 							)
 						),
