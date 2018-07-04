@@ -49,7 +49,7 @@ export default class GoodsList extends Component {
 				<div className="goods-list-item" key={goods.item_id}>
 					<a href={`${BASE_HOST}wap/item-detail.html?item_id=${goods.item_id}`}>
 						<div className="goods-img">
-						<LazyLoad once={true} height={150} throttle={200}
+						<LazyLoad once={true} height={177} offsetTop={500}
 						placeholder = {<img className="img" src="https://www.hnmall.com/res/images/cplogo.jpg" debounce={500} />}>
 							<img src={goods.image_default_id} className="img" />
 						</LazyLoad>
