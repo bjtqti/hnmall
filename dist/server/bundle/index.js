@@ -177,6 +177,10 @@ var _copyright = __webpack_require__(16);
 
 var _copyright2 = _interopRequireDefault(_copyright);
 
+var _gotop = __webpack_require__(17);
+
+var _gotop2 = _interopRequireDefault(_gotop);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -237,7 +241,8 @@ var Index = exports.Index = (_temp = _class = function (_Component) {
 				this.renderWidgets(),
 				_react2.default.createElement(_goodslist2.default, null),
 				_react2.default.createElement(_footbar2.default, null),
-				_react2.default.createElement(_copyright2.default, null)
+				_react2.default.createElement(_copyright2.default, null),
+				_react2.default.createElement(_gotop2.default, null)
 			);
 		}
 	}]);
@@ -1628,6 +1633,95 @@ var Copyright = function (_Component) {
 }(_react.Component);
 
 exports.default = Copyright;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(5);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _lib = __webpack_require__(8);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var GoTop = function (_Component) {
+	_inherits(GoTop, _Component);
+
+	function GoTop(props) {
+		_classCallCheck(this, GoTop);
+
+		var _this = _possibleConstructorReturn(this, (GoTop.__proto__ || Object.getPrototypeOf(GoTop)).call(this, props));
+
+		_this.handleClick = _this.handleClick.bind(_this);
+		_this.state = {
+			active: false
+		};
+		return _this;
+	}
+
+	_createClass(GoTop, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var _this2 = this;
+
+			var bounce = Math.ceil(window.innerHeight * 2);
+			window.addEventListener('scroll', function () {
+				var scrollTop = (0, _lib.getScrollTop)();
+				//console.log(scrollTop)
+				if (scrollTop > bounce) {
+					_this2.setState({
+						active: true
+					});
+				}
+			});
+		}
+	}, {
+		key: 'handleClick',
+		value: function handleClick() {
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
+			this.setState({
+				active: false
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var active = this.state.active;
+
+			var appStatus = (0, _classnames2.default)('app-go-top', {
+				active: active
+			});
+			return _react2.default.createElement('div', { className: appStatus, onClick: this.handleClick });
+		}
+	}]);
+
+	return GoTop;
+}(_react.Component);
+
+exports.default = GoTop;
 
 /***/ })
 /******/ ]);
