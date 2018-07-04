@@ -426,17 +426,20 @@ var SearchBar = function (_Component) {
 		value: function getShopLocation() {
 			var _this3 = this;
 
-			(0, _lib.getLocation)(function (point) {
-				//console.log(point)
-				point = point || {
-					lat: '28.234589',
-					lng: '112.913554'
-				};
-				axios.get('/shopinfo?lat=' + point.lat + '&lng=' + point.lng).then(function (res) {
+			var update = function update(r) {
+				axios.get('/shopinfo?lat=' + r.lat + '&lng=' + r.lng).then(function (res) {
 					//console.log(res)
 					_this3.setState({
 						shopName: res.data.message[0].shop_name
 					});
+				});
+			};
+			(0, _lib.getLocationTencent)(function (res) {
+				update(res);
+			}, function () {
+				update({
+					lat: '28.234589',
+					lng: '112.913554'
 				});
 			});
 		}
@@ -506,22 +509,14 @@ exports.isWechat = function () {
 	);
 };
 
-/**
- * 基于百度地图的定位
- */
-
-exports.getLocation = function (callback) {
-	var geolocation = new BMap.Geolocation();
-	// 开启SDK辅助定位
-	geolocation.enableSDKLocation();
-	geolocation.getCurrentPosition(function (r) {
-		var point = void 0;
-		if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-			//console.log('您的位置：'+r.point.lng+','+r.point.lat);
-			point = r.point;
-		}
-		callback(point);
-	});
+exports.getLocationTencent = function (callback) {
+	var geolocation = new qq.maps.Geolocation("PMOBZ-DSBK6-7NQSZ-EUK5J-A4PR6-DEB4V", "hnmall");
+	var options = { timeout: 8000 };
+	geolocation.getLocation(function (res) {
+		callback(res);
+	}, function () {
+		callback();
+	}, options);
 };
 
 /** 

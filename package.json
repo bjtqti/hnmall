@@ -6,8 +6,9 @@
   "scripts": {
     "start": "node app.js",
     "dev": "webpack-dev-server --config ./task/webpack.dev.js",
-    "dist-client": "webpack --config ./task/webpack.config.js",
-    "dist-server": "webpack --config ./task/webpack.node.js",
+    "client": "webpack --config ./task/webpack.config.js",
+    "server": "webpack --config ./task/webpack.node.js",
+    "build":"npm run server && npm run client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,6 +17,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "handlebars": "^4.0.11",
     "koa": "^2.5.1",
     "koa-body": "^4.0.3",
     "koa-methodoverride": "^2.0.0",
@@ -23,8 +25,6 @@
     "koa-session-minimal": "^3.0.4",
     "koa-static": "^5.0.0",
     "koa-views": "^6.1.4",
-    "ip": "^1.1.5",
-    "handlebars": "^4.0.11",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
@@ -43,6 +43,7 @@
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "inject-html-webpack-plugin": "^0.0.39",
+    "ip": "^1.1.5",
     "mini-css-extract-plugin": "^0.4.0",
     "optimize-css-assets-webpack-plugin": "^4.0.3",
     "postcss-loader": "^2.1.5",

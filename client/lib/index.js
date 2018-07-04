@@ -12,22 +12,14 @@ exports.isWechat = ()=>{
 	return /micromessenger/i.test(ua);
 }
 
-/**
- * 基于百度地图的定位
- */
-
-exports.getLocation =(callback)=>{
-	let geolocation = new BMap.Geolocation();
-	// 开启SDK辅助定位
-	geolocation.enableSDKLocation();
-	geolocation.getCurrentPosition(function(r){
-		let point;
-		if(this.getStatus() == BMAP_STATUS_SUCCESS){
-			//console.log('您的位置：'+r.point.lng+','+r.point.lat);
-			point = r.point;
-		}
-		callback(point)    
-	}); 
+exports.getLocationTencent = (callback)=>{
+	let geolocation = new qq.maps.Geolocation("PMOBZ-DSBK6-7NQSZ-EUK5J-A4PR6-DEB4V", "hnmall");
+    let options = {timeout: 8000};
+	geolocation.getLocation(function(res){
+		callback(res)
+	},function(){
+		callback()
+	}, options)
 }
 
 /** 

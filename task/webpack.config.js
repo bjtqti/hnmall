@@ -50,7 +50,7 @@ config.optimization = {
 module.exports = merge(config,{
 	mode:'production',
 	plugins:[
-		new CleanWebpackPlugin(['dist/client'],{
+		new CleanWebpackPlugin(['dist/client/js','dist/client/css'],{
 			root:path.resolve(__dirname, '..')
 		}),
 		new MiniCssExtractPlugin({

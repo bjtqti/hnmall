@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import classNames from "classnames";
 //import axios from 'axios';
 import {INSTALL_APP} from '../common/constant'
-import {getLocation} from '../lib'
+import {getLocationTencent} from '../lib'
 
 export default class SearchBar extends Component {
 	 
@@ -28,17 +28,20 @@ export default class SearchBar extends Component {
 	}
 
 	getShopLocation(){
-		getLocation((point)=>{
-			//console.log(point)
-			point = point || {
-				lat:'28.234589',
-				lng:'112.913554'
-			}
-			axios.get(`/shopinfo?lat=${point.lat}&lng=${point.lng}`).then((res)=>{
+		let update = (r)=>{
+			axios.get(`/shopinfo?lat=${r.lat}&lng=${r.lng}`).then((res)=>{
 				//console.log(res)
 				this.setState({
 					shopName:res.data.message[0].shop_name
 				})
+			})
+		}
+		getLocationTencent((res)=>{
+			update(res)
+		},()=>{
+			update({
+				lat:'28.234589',
+				lng:'112.913554'
 			})
 		})
 	}
