@@ -21,10 +21,11 @@ module.exports = {
 		        exclude:[NODE_MODULES]
 		    },
 		    {
-		    	test:/\.(png|jpg|svg|gif)$/,
+		    	test:/\.(png|jpg|svg|gif)$/i,
 		    	loader:'url-loader',
 		    	options:{
-		    		limit: 25000,
+		    		limit: 8190,
+		    		name:"[name].[ext]",
 		    		outputPath:'images/'
 		    	}
 		    }

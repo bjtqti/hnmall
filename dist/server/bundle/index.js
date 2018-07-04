@@ -506,13 +506,21 @@ exports.isWechat = function () {
 };
 
 exports.getLocationTencent = function (callback) {
+	var cache = getCache('geolocation') || null;
+	cache = JSON.parse(cache);
+	if (cache && cache.time - Date.now > 0) {
+		return cache;
+	}
 	var geolocation = new qq.maps.Geolocation("PMOBZ-DSBK6-7NQSZ-EUK5J-A4PR6-DEB4V", "hnmall");
-	var options = { timeout: 8000 };
 	geolocation.getLocation(function (res) {
+		var lat = res.lat,
+		    lng = res.lng;
+
+		setCache('geolocation', JSON.stringify({ lat: lat, lng: lng, time: Date.now() + 86400000 }));
 		callback(res);
 	}, function () {
 		callback();
-	}, options);
+	});
 };
 
 /** 
@@ -530,6 +538,14 @@ exports.getScrollTop = function () {
 	}
 	return scrollPos;
 };
+
+function setCache(name, data) {
+	localStorage.setItem(name, data);
+}
+
+function getCache(name) {
+	return localStorage.getItem(name);
+}
 
 /***/ }),
 /* 9 */
