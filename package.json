@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --config ./task/webpack.dev.js",
     "client": "webpack --config ./task/webpack.config.js",
     "server": "webpack --config ./task/webpack.node.js",
-    "build":"npm run server && npm run client",
+    "build": "npm run server && npm run client",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

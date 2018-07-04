@@ -1375,7 +1375,7 @@ var GoodsList = function (_Component) {
 							{ className: 'goods-img' },
 							_react2.default.createElement(
 								_reactLazyload2.default,
-								{ once: true, height: 150, throttle: 200,
+								{ once: true, height: 177, offsetTop: 500,
 									placeholder: _react2.default.createElement('img', { className: 'img', src: 'https://www.hnmall.com/res/images/cplogo.jpg', debounce: 500 }) },
 								_react2.default.createElement('img', { src: goods.image_default_id, className: 'img' })
 							)
