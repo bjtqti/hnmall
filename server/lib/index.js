@@ -29,3 +29,4 @@ exports.fetchApi = (url,data={},method="get")=>{
 		data
 	})
 }
+

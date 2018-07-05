@@ -324,8 +324,9 @@ var AppBar = function (_Component) {
 		value: function render() {
 			var active = this.state.active;
 
-			var appStatus = (0, _classnames2.default)('app-download-bar', {
-				show: active
+			var appStatus = (0, _classnames2.default)({
+				show: active,
+				hide: !active
 			});
 			return _react2.default.createElement(
 				'div',
@@ -510,6 +511,9 @@ exports.isWechat = function () {
 	);
 };
 
+/**
+ * 腾讯地图定位
+ */
 exports.getLocationTencent = function (callback) {
 	var cache = getCache('geolocation') || null;
 	cache = JSON.parse(cache);
@@ -551,6 +555,13 @@ function setCache(name, data) {
 function getCache(name) {
 	return localStorage.getItem(name);
 }
+
+/**
+ * 判断是否为数组类型
+ */
+exports.isArray = function (o) {
+	return Object.prototype.toString.call(o) == '[object Array]';
+};
 
 /***/ }),
 /* 9 */
@@ -1366,7 +1377,7 @@ var FootBar = function (_Component) {
 				),
 				_react2.default.createElement(
 					'a',
-					{ className: 'foot-bar-item', href: _constant.BASE_HOST + 'wap/category.html' },
+					{ className: 'foot-bar-item', href: '/category' },
 					_react2.default.createElement('img', { className: 'icon', src: 'https://wd.hnmall.com/themes/mobilemall/images/d-icon2.png' }),
 					_react2.default.createElement(
 						'span',

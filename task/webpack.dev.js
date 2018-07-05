@@ -45,7 +45,16 @@ module.exports = merge(config,{
 		new webpack.NamedModulesPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
+			filename:'index.html',
 		  	template:'./client/index/index.html',
+		  	inject: true,
+		  	chunks:['manifest','vendors','index'],
+		  	minify:false
+		}),
+		new HtmlWebpackPlugin({
+			filename:'category.html',
+		  	template:'./client/category/index.html',
+		  	chunks:['manifest','vendors','category'],
 		  	inject: true,
 		  	minify:false
 		})

@@ -12,6 +12,9 @@ exports.isWechat = ()=>{
 	return /micromessenger/i.test(ua);
 }
 
+/**
+ * 腾讯地图定位
+ */
 exports.getLocationTencent = (callback)=>{
 	let cache = getCache('geolocation')||null;
 	cache = JSON.parse(cache);
@@ -50,4 +53,11 @@ function setCache(name,data){
 
 function getCache(name){
 	return localStorage.getItem(name);
+}
+
+/**
+ * 判断是否为数组类型
+ */
+exports.isArray =(o)=>{
+  return Object.prototype.toString.call(o)=='[object Array]';
 }

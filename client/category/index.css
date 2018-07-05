@@ -1,0 +1,131 @@
+@import '../common/common.css';
+@import '../commponents/footbar.css';
+@import '../commponents/loading.css';
+
+#app {
+	height: 100%;
+	background-color: #efeff4;
+}
+
+.app-wrap {
+	height: 100%;
+	padding-bottom: 0;
+	overflow: hidden;
+}
+
+.loading-box {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 9;
+	width: 100%;
+	height: 100%;
+}
+
+.app-search-box {
+	width: 100%;
+	height: 48px;
+}
+
+.app-search-box .search {
+	display: flex;
+	align-items: center;
+	width: 96%;
+	height: 38px;
+	margin: 4px auto;
+	border-radius: 10px;
+	background-color: white;
+}
+
+.app-search-box .search::before {
+	content: '';
+	display: block;
+	width: 38px;
+	height: 38px;
+	background: url(../assets/images/ss-icon.jpg) no-repeat center;
+	background-size: 20px 20px;
+}
+
+.app-search-box .search input {
+	flex-grow: 1;
+	height: 100%;
+	margin-right: 15px;
+	padding: 0;
+	background-color: transparent;
+}
+
+.category-container {
+	position: fixed;
+	top: 48px;
+	left: 0;
+	right: 0;
+	bottom: 64px;
+	display: flex;
+	width: 100%;
+}
+
+.category-nav {
+	width: 25%;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling : touch;
+}
+
+.category-main {
+	width: 75%;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: white;
+	-webkit-overflow-scrolling : touch;
+}
+
+.category-name {
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	border-bottom: 1px solid #e4e5e6;
+	box-sizing: border-box;
+	font-size: 14px;
+}
+
+.category-name.active {
+	color: #ea2329;
+	background-color: white;
+}
+
+.category-group {
+	padding-bottom: 10px;
+}
+
+.category-nav-header {
+	height: 40px;
+	line-height: 40px;
+	padding-left: 16px;
+	font-size: 16px;
+	border-bottom: 1px dashed #e4e5e6;
+}
+.category-nav-list {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.category-nav-item {
+	width: 30%;
+}
+
+.category-nav-item a {
+	display: block;
+	margin: 10px;
+	color: #666;
+	text-align: center;
+}
+
+.category-nav-item img {
+	width: 62px;
+	height: 62px;
+}

@@ -5,7 +5,8 @@ const NODE_MODULES = path.resolve('node_modules');
 
 module.exports = {
 	entry:{
-		index:'./client/index/index.jsx'
+		index:'./client/index/index.jsx',
+		category:'./client/category/index.jsx'
 	},
 	output:{
 		path: path.resolve(__dirname, '../dist/client'),

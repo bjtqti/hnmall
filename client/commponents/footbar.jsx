@@ -21,7 +21,7 @@ export default class FootBar extends Component {
 					<img className="icon" src="https://wd.hnmall.com/themes/mobilemall/images/d-icon1.png" />
 					<span>首页</span>
 				</a>
-				<a className="foot-bar-item" href={`${BASE_HOST}wap/category.html`}>
+				<a className="foot-bar-item" href="/category">
 					<img className="icon" src="https://wd.hnmall.com/themes/mobilemall/images/d-icon2.png"/>
 					<span>分类</span>
 				</a>

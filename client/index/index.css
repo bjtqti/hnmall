@@ -1,39 +1,6 @@
-@import '~normalize.css/normalize.css';
-
-html,body {
-	height: 100%;
-}
-
-body {
-	font-size: 12px;
-	background-color: #f5f6f8;
-}
-
-a {
-	text-decoration: none;
-	color: #1d1d1d;
-}
-
-
-#app {
-	max-width: 640px;
-	min-width: 320px;
-    margin: 0 auto;
-}
-
-.app-wrap {
-	position: relative;
-	width: 100%;
-	padding-bottom: 65px;
-}
-
-.img {
-	display: block;
-	max-width: 100%;
-}
-.app-download-bar {
-	display: none;
-}
+@import '../common/common.css';
+@import '../commponents/footbar.css';
+ 
 
 .search-bar {
 	display: flex;
@@ -124,13 +91,6 @@ a {
 	color: #666;
 }
 
-.show {
-	display: block;
-}
-
-.hide {
-	display: none;
-}
 
 .swiper-message {
 	display: flex;
@@ -300,42 +260,7 @@ a {
     font-size:14px;
 }
 
-.app-foot-bar {
-	display: flex;
-	align-items: center;
-	position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 9;
-    width: 100%;
-    height: 64px;
-    background: #fff;
-    box-shadow: #dbdbdb 0 -10px 10px -10px;
-}
 
-.foot-bar-item {
-	display: block;
-	width: 20%;
-	text-align: center;
-	font-size: 13px;
-}
-
-.foot-bar-item .icon {
-	display: block;
-	width: 24px;
-	height: 24px;
-	margin: 0 auto 5px;
-}
-
- 
-
-.foot-bar-item .cart {
-	display: block;
-	width: 48px;
-	height: 48px;
-	margin: -24px auto 5px;
-	border-radius: 50%;
-}
 
  
 .copy-right {

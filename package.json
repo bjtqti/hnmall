@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "dev": "webpack-dev-server --config ./task/webpack.dev.js",
     "client": "webpack --config ./task/webpack.config.js",
     "server": "webpack --config ./task/webpack.node.js",
@@ -45,6 +45,7 @@
     "inject-html-webpack-plugin": "^0.0.39",
     "ip": "^1.1.5",
     "mini-css-extract-plugin": "^0.4.0",
+    "nodemon": "^1.17.5",
     "optimize-css-assets-webpack-plugin": "^4.0.3",
     "postcss-loader": "^2.1.5",
     "style-loader": "^0.21.0",
