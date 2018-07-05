@@ -22,7 +22,7 @@ function formatCateList (data,n) {
 }
 
 exports.category = async function(ctx, next) {
-  let ret,markup = '',initialState=require('./mock').mockdata;
+  let ret,markup = '',initialState=[];
   // try {
   //   ret = await request('index.php/topapi',{
   //     method:'category.itemCategory'
@@ -34,7 +34,11 @@ exports.category = async function(ctx, next) {
   // if(ret.status===200 && ret.data){
   //   initialState = formatCateList(ret.data.data.categorys)
   // }
-//console.log(initialState)
+  
+  //由于接口太慢，先用假数据填充，前端更新为真实的数据
+  ret = require('./mock');
+  initialState = ret.mockdata
+
   try {
     markup = await markupOfRoute('category', initialState)
   } catch (err) {

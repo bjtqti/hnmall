@@ -146,9 +146,8 @@ exports.isWechat = function () {
  * 腾讯地图定位
  */
 exports.getLocationTencent = function (callback) {
-	var cache = getCache('geolocation') || null;
-	cache = JSON.parse(cache);
-	if (cache && cache.time - Date.now > 0) {
+	var cache = localCache('geolocation');
+	if (cache) {
 		return cache;
 	}
 	var geolocation = new qq.maps.Geolocation("PMOBZ-DSBK6-7NQSZ-EUK5J-A4PR6-DEB4V", "hnmall");
@@ -156,7 +155,7 @@ exports.getLocationTencent = function (callback) {
 		var lat = res.lat,
 		    lng = res.lng;
 
-		setCache('geolocation', JSON.stringify({ lat: lat, lng: lng, time: Date.now() + 86400000 }));
+		localCache('geolocation', { lat: lat, lng: lng });
 		callback(res);
 	}, function () {
 		callback();
@@ -186,6 +185,37 @@ function setCache(name, data) {
 function getCache(name) {
 	return localStorage.getItem(name);
 }
+
+function localCache(name, data) {
+	//console.log(data,name)
+	if (data) {
+		var _data = typeof data === 'string' ? data : JSON.stringify(data);
+		setCache(name, _data);
+		setCache(name + '_time', Date.now() + 86400000);
+	} else {
+		var time = getCache(name + '_time');
+		var res = void 0;
+		if (Date.now() - time > 0) {
+			return false;
+		}
+		var rs = getCache(name);
+		try {
+			res = JSON.parse(rs);
+		} catch (err) {
+			res = rs;
+		}
+		return res;
+	}
+}
+
+exports.localCache = localCache;
+
+/**
+ * 判断是否为对象
+ */
+exports.isObject = function (o) {
+	return Object.prototype.toString.call(o) == '[object Object]';
+};
 
 /**
  * 判断是否为数组类型
@@ -404,12 +434,36 @@ var Index = exports.Index = (_temp = _class = function (_Component) {
 	_createClass(Index, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
+			var cache = (0, _lib.localCache)('category');
+			if (cache) {
+				this.setState({
+					isLoading: false,
+					categoryList: cache
+				});
+			} else {
+				this.fetchCategoryList();
+			}
+			this.preventScroll();
+		}
+	}, {
+		key: 'preventScroll',
+		value: function preventScroll() {
+			var body = document.body || document.documentElement;
+			body.addEventListener('touchmove', function (e) {
+				body.scrollTop = 0;
+				return false;
+			});
+		}
+	}, {
+		key: 'fetchCategoryList',
+		value: function fetchCategoryList() {
 			var _this2 = this;
 
 			axios.get('/category/list').then(function (res) {
 				console.log(res.data);
 				if (res.data && res.data.categoryList) {
 					//this.props.initialState = res.data.categoryList;
+					(0, _lib.localCache)('category', res.data.categoryList);
 					_this2.setState({
 						isLoading: false,
 						categoryList: res.data.categoryList

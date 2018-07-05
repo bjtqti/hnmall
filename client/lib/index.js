@@ -16,15 +16,14 @@ exports.isWechat = ()=>{
  * 腾讯地图定位
  */
 exports.getLocationTencent = (callback)=>{
-	let cache = getCache('geolocation')||null;
-	cache = JSON.parse(cache);
-	if(cache && cache.time - Date.now > 0){
+	let cache = localCache('geolocation');
+	if(cache){
 		return cache;
 	}
 	let geolocation = new qq.maps.Geolocation("PMOBZ-DSBK6-7NQSZ-EUK5J-A4PR6-DEB4V", "hnmall");
 	geolocation.getLocation(function(res){
 		let {lat,lng} = res;
-		setCache('geolocation',JSON.stringify({lat,lng,time:Date.now()+86400000}))
+		localCache('geolocation',{lat,lng})
 		callback(res)
 	},function(){
 		callback()
@@ -53,6 +52,37 @@ function setCache(name,data){
 
 function getCache(name){
 	return localStorage.getItem(name);
+}
+
+function localCache (name,data) {
+	//console.log(data,name)
+	if(data){
+		let _data = typeof(data) === 'string' ? data : JSON.stringify(data);
+		setCache(name,_data);
+		setCache(name+'_time',Date.now()+86400000)
+	}else{
+		let time = getCache(name+'_time');
+		let res;
+		if(Date.now()-time>0) {
+			return false
+		}
+		let rs = getCache(name);
+		try{
+			res = JSON.parse(rs)
+		}catch(err){
+			res = rs;
+		}
+		return res;
+	}
+}
+
+exports.localCache = localCache;
+
+/**
+ * 判断是否为对象
+ */
+exports.isObject =(o)=>{
+  return Object.prototype.toString.call(o)=='[object Object]';
 }
 
 /**

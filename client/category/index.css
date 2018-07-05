@@ -2,6 +2,15 @@
 @import '../commponents/footbar.css';
 @import '../commponents/loading.css';
 
+body {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+}
+
 #app {
 	height: 100%;
 	background-color: #efeff4;
@@ -62,6 +71,7 @@
 	left: 0;
 	right: 0;
 	bottom: 64px;
+	z-index: 3;
 	display: flex;
 	width: 100%;
 }
@@ -72,6 +82,7 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 	-webkit-overflow-scrolling : touch;
+	background-color: #efeff4;
 }
 
 .category-main {

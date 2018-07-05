@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import classNames from "classnames";
-import {isArray} from '../lib'
+import {isArray,localCache} from '../lib'
 import {BASE_HOST} from '../common/constant'
 import FootBar from '../commponents/footbar.jsx'
 import Loading from '../commponents/loading.jsx'
@@ -21,10 +21,32 @@ export class Index extends Component {
 	}
 
 	componentDidMount() {
+		let cache = localCache('category');
+		if(cache){
+			this.setState({
+				isLoading:false,
+				categoryList:cache
+			})
+		}else{
+			this.fetchCategoryList()
+		}
+		this.preventScroll()
+	}
+
+	preventScroll(){
+		let body = document.body||document.documentElement;
+		body.addEventListener('touchmove',(e)=>{
+			body.scrollTop = 0;
+			return false;
+		})
+	}
+
+	fetchCategoryList(){
 		axios.get('/category/list').then((res)=>{
 			console.log(res.data)
 			if(res.data && res.data.categoryList){
 				//this.props.initialState = res.data.categoryList;
+				localCache('category',res.data.categoryList)
 				this.setState({
 					isLoading:false,
 					categoryList:res.data.categoryList
