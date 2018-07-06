@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {BASE_HOST} from '../common/constant'
-import Swiper from '../common/swiper.4.0.3.js'
 
 export default class BannerSwipe extends Component {
 	static propTypes = {
@@ -12,6 +11,7 @@ export default class BannerSwipe extends Component {
 	}
 
 	componentDidMount() {
+		let Swiper = require('../common/swiper.4.0.3.js')
 		if(this.props.sliders.length<2) return false;
 		let mySwiper = new Swiper(this.refs.slider, {
 			autoplay: {
