@@ -24,6 +24,7 @@ export default class SearchBar extends Component {
 	}
 
 	getShopLocation(){
+		let axios = require('../common/axios.min.js');
 		let update = (r)=>{
 			r = r || {lat:'28.234589',lng:'112.913554'}
 			axios.get(`/shopinfo?lat=${r.lat}&lng=${r.lng}`).then((res)=>{

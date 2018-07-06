@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {BASE_HOST} from '../common/constant'
+import Swiper from '../common/swiper.4.0.3.js'
 
 export default class BannerSwipe extends Component {
 	static propTypes = {

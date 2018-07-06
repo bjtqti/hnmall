@@ -33,11 +33,12 @@ export class Index extends Component {
 	}
 
 	fetchCategoryList(){
+		let axios = require('../common/axios.min.js');
 		axios.get('/category/list').then((res)=>{
 			console.log(res.data)
 			if(res.data && res.data.categoryList){
 				//this.props.initialState = res.data.categoryList;
-				localCache('category',res.data.categoryList)
+				localCache('category',res.data.categoryList,7)
 				this.setState({
 					isLoading:false,
 					categoryList:res.data.categoryList

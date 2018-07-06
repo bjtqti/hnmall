@@ -60,7 +60,7 @@ function localCache (name,data,exp=1) {
 	if(data){
 		let _data = typeof(data) === 'string' ? data : JSON.stringify(data);
 		setCache(name,_data);
-		setCache(name+'_time',Date.now()+exp*24*60*60)
+		setCache(name+'_time',Date.now()+exp*24*60*60*1000)
 	}else{
 		let time = getCache(name+'_time');
 		let res;

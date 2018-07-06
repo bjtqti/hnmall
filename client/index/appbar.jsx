@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
-import {BASE_HOST,INSTALL_APP} from '../common/constant'
+import {BASE_HOST,INSTALL_APP} from '../common/constant';
+import {localCache} from '../lib'
 
 export default class AppBar extends Component {
 	 
@@ -13,14 +14,14 @@ export default class AppBar extends Component {
 	}
 
 	componentDidMount() {
-		let install = localStorage.getItem(INSTALL_APP)
+		let install = localCache(INSTALL_APP)
 		this.setState({
 			active:!install
 		})
 	}
 
 	handleClick(){
-		localStorage.setItem(INSTALL_APP,1);
+		localCache(INSTALL_APP,1);
 		location.href=`${BASE_HOST}downloadPage/default.html`
 	}
 

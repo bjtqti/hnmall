@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-//import classNames from "classnames";
 import LazyLoad from 'react-lazyload'
 import {formatPrice,getScrollTop} from '../lib'
 import {BASE_HOST} from '../common/constant'
@@ -30,6 +29,7 @@ export default class GoodsList extends Component {
 	}
 
 	fetchGoodsList() {
+		let axios = require('../common/axios.min.js');
 		this.setState({
 			isBusy:true
 		})
