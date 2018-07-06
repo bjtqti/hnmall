@@ -57,6 +57,13 @@ module.exports = merge(config,{
 		  	chunks:['manifest','vendors','category'],
 		  	inject: true,
 		  	minify:false
+		}),
+		new HtmlWebpackPlugin({
+			filename:'login.html',
+		  	template:'./client/login/index.html',
+		  	chunks:['manifest','vendors','login'],
+		  	inject: true,
+		  	minify:false
 		})
 	]
 });

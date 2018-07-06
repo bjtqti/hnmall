@@ -1,7 +1,6 @@
 @import '../common/common.css';
 @import '../commponents/footbar.css';
- 
-
+@import '../commponents/gotop.css';
 .search-bar {
 	display: flex;
 	justify-content: space-around;
@@ -21,24 +20,26 @@
 	height: 32px;
 	background-color: white;
 	border-radius: 16px;
+	padding: 0 5px;
+	box-sizing: border-box;
 }
 
 .search-bar .search-box label  {
-	display: inline-block;
+	display: block;
 	width: 16px;
 	height: 16px;
 	margin-left: 10px;
-	background: url(../assets/images/ss-icon.jpg) no-repeat left center;
+	background: url(../assets/images/ss-icon.jpg) no-repeat center;
 	background-size: 16px 16px;
+	margin-right: 5px;
 }
 
 .search-bar .search-box input {
 	display: block;
 	border: none;
 	outline:none;
-	flex-grow: 1;
+	width: 80%;
 	height: 24px;
-	margin:0 10px;
 }
 
 .search-bar .icon-cost {
@@ -138,25 +139,38 @@
 	color: #1D1D1D;
 }
 
-
-.widget-grid a {
+.widget {
 	display: block;
-	border:0.5px solid #ddd;
-	border-bottom: none;
-    border-right: none;
 }
 
-.widget-grid-wrap {
+.widget + .widget {
+	border-left: 1px solid #ddd;
+}
+
+.widget-grid {
 	width: 100%;
 }
 
-.widget-grid-half {
+.widget-grid .flex + .flex {
+	border-top:1px solid #ddd;
+}
+
+.b-b-l {
+	border-bottom: 1px solid #ddd;
+}
+
+.grid-half {
 	width: 50%;
 }
-.widget-grid-25 {
+
+.grid-33 {
+	width: 33.333%;
+}
+
+.grid-25 {
 	width: 25%;
 }
-.widget-grid-flex {
+.flex {
 	display: flex;
 }
  
@@ -198,15 +212,15 @@
 .goods-list-item {
 	width: 50%;
 	overflow: hidden;
-	border-bottom: .5px solid #ddd;
+	border-bottom: 1px solid #ddd;
 }
 
 .goods-list-item:nth-child(even) a{
-	border-left: .5px solid #ddd;
+	border-left: 1px solid #ddd;
 }
 
 .goods-list-item:nth-child(odd) a{
-	border-right: .5px solid #fff;
+	border-right: 1px solid #fff;
 }
 
 .goods-list-item .goods-price {
@@ -274,22 +288,5 @@
 	color: #999;
 }
 
-.app-go-top {
-	position: fixed;
-	bottom: 120px;
-	right: 10px;
-	z-index: 9;
-	width: 48px;
-	height: 48px;
-	opacity: 0;
-	transition: opacity .3s ease-in;
-	background: url(../assets/images/top.png) no-repeat center;
-	background-size: cover;
-	border-radius: 50%;
-}
-
-.app-go-top.active {
-	opacity: 1;
-}
 
 

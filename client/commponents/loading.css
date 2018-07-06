@@ -1,42 +1,14 @@
-
-
-.spinner-2 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 32px;
-  height: 32px;
-  margin: -16px;
-}
- 
-.cube1, .cube2 {
-  background-color: #67CF22;
-  width: 30px;
-  height: 30px;
-  position: absolute;
+.loading-box {
+  position: fixed;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
-  animation: cubemove 1.8s infinite ease-in-out;
-}
- 
-.cube2 {
-  animation-delay: -0.9s;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
 }
 
- 
-@keyframes cubemove {
-  25% {
-    transform: translateX(42px) rotate(-90deg) scale(0.5);
-  } 50% {
-    transform: translateX(42px) translateY(42px) rotate(-179deg);
-  } 50.1% {
-    transform: translateX(42px) translateY(42px) rotate(-180deg);
-  } 75% {
-    transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
-  } 100% {
-    transform: rotate(-360deg);
-  }
-}
 
 .spinner-4 {
   position: absolute;

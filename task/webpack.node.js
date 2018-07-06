@@ -1,6 +1,7 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const NODE_MODULES = path.resolve('node_modules');
+const config = require('./webpack.base.js');
 
 function _externals() {
     let manifest = require('../package.json');
@@ -26,17 +27,8 @@ module.exports = {
 	    libraryTarget: 'commonjs2'
 	},
 	target:'node',
-	//mode:'production',
-	mode:'none',
-	module:{
-		rules:[
-			{
-		        test: /\.(jsx?)$/,
-		        loader: 'babel-loader',
-		        exclude:[NODE_MODULES]
-		    }
-		]
-	},
+	mode:'production',
+	module:config.module,
 	externals:_externals(),
 	resolve: {
         extensions: ['.js','.jsx']

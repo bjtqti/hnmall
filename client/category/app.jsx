@@ -30,15 +30,6 @@ export class Index extends Component {
 		}else{
 			this.fetchCategoryList()
 		}
-		this.preventScroll()
-	}
-
-	preventScroll(){
-		let body = document.body||document.documentElement;
-		body.addEventListener('touchmove',(e)=>{
-			body.scrollTop = 0;
-			return false;
-		})
 	}
 
 	fetchCategoryList(){

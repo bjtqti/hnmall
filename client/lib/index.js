@@ -79,6 +79,14 @@ function localCache (name,data) {
 exports.localCache = localCache;
 
 /**
+ * 判断是否为有效的手机号码
+ */
+
+exports.checkphone = function (str){
+  return !!(/^1(3|4|5|7|8)\d{9}$/.test(str));
+}
+
+/**
  * 判断是否为对象
  */
 exports.isObject =(o)=>{
