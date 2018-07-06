@@ -19,7 +19,8 @@ function _externals() {
 module.exports = {
 	entry:{
 		index:'./client/index/server.jsx',
-		category:'./client/category/server.jsx'
+		category:'./client/category/server.jsx',
+		login:'./client/login/server.jsx'
 	},
 	output:{
 		path: path.resolve(__dirname, '../dist/server'),

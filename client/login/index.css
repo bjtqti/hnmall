@@ -1,5 +1,5 @@
 @import '../common/common.css';
-
+@import '../commponents/alert.css';
  
 
 #app {
@@ -93,6 +93,7 @@
 	background-color: #ea2329;
 	color: white;
 	font-size: 16px;
+	outline: none;
 }
 
 .submit-button.dis {

@@ -66,6 +66,10 @@ module.exports = merge(config,{
 		new InjectHtmlPlugin({
 			filename:'./server/views/category.html',
             chunks:['manifest','vendors','category']
+		}),
+		new InjectHtmlPlugin({
+			filename:'./server/views/login.html',
+            chunks:['manifest','vendors','login']
 		})
 	]
 });

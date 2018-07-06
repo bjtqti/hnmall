@@ -16,12 +16,11 @@ export default class GoTop extends Component {
 		let bounce = Math.ceil(window.innerHeight*2);
 		window.addEventListener('scroll',()=>{
 			let  scrollTop = getScrollTop();
+			let active = scrollTop>bounce;
 			//console.log(scrollTop)
-			if(scrollTop>bounce){
-				this.setState({
-					active:true
-				})
-			}
+			this.setState({
+				active:active
+			})
 		})
 	}
 

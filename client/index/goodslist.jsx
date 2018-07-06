@@ -33,7 +33,7 @@ export default class GoodsList extends Component {
 		this.setState({
 			isBusy:true
 		})
-		axios.get('/goodslist').then((res)=>{
+		axios.get('/index/goodslist').then((res)=>{
 			//console.log(res)
 			this.setState({
 				goodsData:res.data.goodslist

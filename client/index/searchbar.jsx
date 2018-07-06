@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-//import classNames from "classnames";
+import classNames from "classnames";
 import {BASE_HOST,INSTALL_APP} from '../common/constant'
 import {getLocationTencent} from '../lib'
 
@@ -20,13 +20,12 @@ export default class SearchBar extends Component {
 			showApp:install?false:true
 		})
 
-		setTimeout(()=>{
-			this.getShopLocation()
-		},1000)
+		this.getShopLocation();
 	}
 
 	getShopLocation(){
 		let update = (r)=>{
+			r = r || {lat:'28.234589',lng:'112.913554'}
 			axios.get(`/shopinfo?lat=${r.lat}&lng=${r.lng}`).then((res)=>{
 				//console.log(res)
 				this.setState({
@@ -36,11 +35,6 @@ export default class SearchBar extends Component {
 		}
 		getLocationTencent((res)=>{
 			update(res)
-		},()=>{
-			update({
-				lat:'28.234589',
-				lng:'112.913554'
-			})
 		})
 	}
 
@@ -50,14 +44,11 @@ export default class SearchBar extends Component {
 	}
 
 	render() {
-		let position = {
-			top:this.state.showApp ? '55px':'0'
-		}
 		return (
-			<div style={position} className="search-bar">
+			<div className="search-bar">
 				<a href={`${BASE_HOST}oto/shop-list.html`} className="shop-link">
 					<i className="icon-point"></i>
-					<span className="shop-name">{this.state.shopName}</span>
+					<span className="shop-name ellipsis">{this.state.shopName}</span>
 				</a>
 				<form action={`${BASE_HOST}wap/item-list.html`} method="post" className="search-box">
 					<label></label>

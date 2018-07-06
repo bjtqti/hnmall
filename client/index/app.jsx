@@ -55,8 +55,10 @@ export class Index extends Component {
 		return (
 			<div className="app-wrap">
 				<AppBar />
-				<SearchBar />
-				{this.renderWidgets()}
+				<div className="header-view">
+					<SearchBar />
+					{this.renderWidgets()}
+				</div>
 				<GoodsList />
 				<FootBar />
 				<Copyright />

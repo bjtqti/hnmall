@@ -21,7 +21,7 @@ export default class FootBar extends Component {
 					<img className="icon" src="https://wd.hnmall.com/themes/mobilemall/images/d-icon1.png" />
 					<span>首页</span>
 				</a>
-				<a className="foot-bar-item" href="/category">
+				<a className="foot-bar-item" href="/category.html">
 					<img className="icon" src="https://wd.hnmall.com/themes/mobilemall/images/d-icon2.png"/>
 					<span>分类</span>
 				</a>
@@ -33,7 +33,7 @@ export default class FootBar extends Component {
 					<img className="icon" src="https://wd.hnmall.com/themes/mobilemall/images/d-icon4.png" />
 					<span>店铺</span>
 				</a>
-				<a className="foot-bar-item" href={`${BASE_HOST}wap/member.html`}>
+				<a className="foot-bar-item" href="/login.html">
 					<img className="icon" src="https://wd.hnmall.com/themes/mobilemall/images/d-icon5.png" />
 					<span>会员</span>
 				</a>

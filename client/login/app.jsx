@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
-import {localCache,checkphone} from '../lib'
+import {localCache,checkphone} from '../lib/index.js'
+import Alert from '../commponents/alert.jsx'
 
 const CODE_NAME = '获取验证码';
 
@@ -10,7 +11,9 @@ export class Index extends Component {
 		super(props);
 		this.handleClick = this.handleClick.bind(this);
 		this.handleLogin = this.handleLogin.bind(this);
+		this.handleClose = this.handleClose.bind(this);
 		this.state = {
+			message:'',
 			codeText:CODE_NAME,
 			isLoading:false,
 			phoneNumber:'',
@@ -22,7 +25,6 @@ export class Index extends Component {
 		 
 	}
 
-
 	handleChange(event,stateName){
 		let value = event.target.value;
 		this.setState({
@@ -30,45 +32,89 @@ export class Index extends Component {
 		})
 	}
 
+	handleClose(){
+		this.setState({
+			message:''
+		})
+	}
+
+	handleSendSms(){
+		let {phoneNumber} = this.state;
+		axios.post('/user/sms',{
+			phone:phoneNumber
+		}).then((res)=>{
+			if(res.msg){
+				this.setState({
+					message:res.msg
+				})
+			}
+		})
+	}
 
 	handleClick(e){
-		let time = 60;
-		let tid;
+		let {phoneNumber,codeText} = this.state;
+		if(codeText !== CODE_NAME){
+			return false;
+		}
+		if(!checkphone(phoneNumber)){
+			this.setState({
+				message:'电话号码不正确'
+			})
+			return false;
+		}
+		let time = 60,
+			tid;
 		let fn = (time)=>{
-			let code = `${time}秒后重试`;
+			let text = `${time}秒后重试`;
 			if(time < 1){
 				clearTimeout(tid);
-				code = CODE_NAME;
-				return false;
+				text = CODE_NAME;
 			}
 			this.setState({
-				codeText:code
+				codeText:text
 			})
-			//console.log(code)
 			tid = setTimeout(()=>{
 				fn(time-1)
 			},1000)
 		}
 		fn(time);
+		this.handleSendSms();
 	}
 
 	handleLogin(){
 		let {phoneNumber,cmsCode,isLoading} = this.state;
-		
+		 
 		if(isLoading){
 			return false;
 		}
 		if(!checkphone(phoneNumber)){
+			this.setState({
+				message:'电话号码不正确'
+			})
 			return false;
 		}
 		if(!cmsCode) {
-
+			this.setState({
+				message:'请填写短信验证码'
+			})
 			return false;
 		}
 
-
 		this.setState({
 			isLoading:true
+		})
+
+		axios.post('/user/login',{
+			phone:phoneNumber,
+			code:cmsCode
+		}).then((res)=>{
+			//console.log(res)
+			//let {accessToken,agent_id,grade_id,grade_name,headurl,is_bind_weixin,name,user_id,mobile,sex} = res.data;
+			localCache('user_info',res.data,30);
+			this.setState({
+				isLoading:false
+			});
+			location.href="/member.html"
 		})
 		console.log(phoneNumber,cmsCode)
 	}
@@ -99,6 +145,7 @@ export class Index extends Component {
 					<div className="icon-weixin"></div>
 					<div className="weixin-lgoin">授权微信登陆</div>
 				</div>
+				<Alert message={this.state.message} close={this.handleClose}/>
 			</div>
 		)
 	}

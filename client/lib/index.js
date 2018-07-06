@@ -18,10 +18,11 @@ exports.isWechat = ()=>{
 exports.getLocationTencent = (callback)=>{
 	let cache = localCache('geolocation');
 	if(cache){
-		return cache;
+		return callback(cache);
 	}
 	let geolocation = new qq.maps.Geolocation("PMOBZ-DSBK6-7NQSZ-EUK5J-A4PR6-DEB4V", "hnmall");
 	geolocation.getLocation(function(res){
+		console.log(res)
 		let {lat,lng} = res;
 		localCache('geolocation',{lat,lng})
 		callback(res)
@@ -54,12 +55,12 @@ function getCache(name){
 	return localStorage.getItem(name);
 }
 
-function localCache (name,data) {
+function localCache (name,data,exp=1) {
 	//console.log(data,name)
 	if(data){
 		let _data = typeof(data) === 'string' ? data : JSON.stringify(data);
 		setCache(name,_data);
-		setCache(name+'_time',Date.now()+86400000)
+		setCache(name+'_time',Date.now()+exp*24*60*60)
 	}else{
 		let time = getCache(name+'_time');
 		let res;
@@ -77,6 +78,12 @@ function localCache (name,data) {
 }
 
 exports.localCache = localCache;
+
+exports.setCookie=function(c_name,value,expiredays){
+	let expdate = new Date();
+	expdate.setDate(expdate.getDate() + expiredays);
+	document.cookie = c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + expdate.toGMTString())
+}
 
 /**
  * 判断是否为有效的手机号码

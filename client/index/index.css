@@ -1,6 +1,19 @@
 @import '../common/common.css';
 @import '../commponents/footbar.css';
 @import '../commponents/gotop.css';
+
+
+.app-download-bar {
+	display: none;
+}
+
+.app-download-bar.show {
+	display: block;
+}
+.header-view {
+	position: relative;
+}
+
 .search-bar {
 	display: flex;
 	justify-content: space-around;
@@ -16,7 +29,7 @@
 .search-bar .search-box {
 	display: flex;
 	align-items: center;
-	width: 200px;
+	width: 60%;
 	height: 32px;
 	background-color: white;
 	border-radius: 16px;
@@ -56,10 +69,10 @@
 }
 
 .search-bar .shop-link .shop-name {
-	display: inline-block;
+	display: block;
+	width: 80px;
 	color: white;
 	text-indent: 5px;
-
 }
 
 .search-bar .shop-link .icon-point {

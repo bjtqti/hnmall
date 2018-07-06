@@ -26,9 +26,8 @@ export default class AppBar extends Component {
 
 	render() {
 		let {active} = this.state;
-		let appStatus = classNames({
-			show:active,
-			hide:!active
+		let appStatus = classNames("app-download-bar",{
+			show:active
 		})
 		return (
 			<div className={appStatus} onClick={this.handleClick}>
