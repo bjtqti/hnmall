@@ -25,6 +25,7 @@ body {
 .app-search-box {
 	width: 100%;
 	height: 48px;
+	overflow: hidden;
 }
 
 .app-search-box .search {
