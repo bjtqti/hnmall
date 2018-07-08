@@ -14,6 +14,7 @@ body {
 #app {
 	height: 100%;
 	background-color: #efeff4;
+	overflow: hidden;
 }
 
 .app-wrap {
