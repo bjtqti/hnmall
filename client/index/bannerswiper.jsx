@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import Swiper from 'swiper';
 import {BASE_HOST} from '../common/constant'
 
 export default class BannerSwipe extends Component {
@@ -11,17 +12,11 @@ export default class BannerSwipe extends Component {
 	}
 
 	componentDidMount() {
-		let Swiper = require('../common/swiper.4.0.3.js')
-		if(this.props.sliders.length<2) return false;
 		let mySwiper = new Swiper(this.refs.slider, {
-			autoplay: {
-				delay:5000
-			},
-			pagination: {
-			    el: '.swiper-pagination'
-			}
+			autoplay:5000,
+			lazyLoading:true,
+			pagination: '.swiper-pagination'
 		});
-
 	}
 
 	renderSlider(){
@@ -29,7 +24,8 @@ export default class BannerSwipe extends Component {
 		return sliders.map((d,i)=>{
 			let url = d.link.replace(/^\//,BASE_HOST);
 			return (<div className="swiper-slide" key={i}>
-					<a href={d.linktarget}><img className="img" src={url} alt={d.linkinfo}/></a>
+					<a href={d.linktarget}><img className="img swiper-lazy" data-src={url} alt={d.linkinfo}/></a>
+					<div className="swiper-lazy-preloader"></div>
 				</div>)
 		})
 	}

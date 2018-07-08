@@ -1,7 +1,7 @@
 @import '../common/common.css';
 @import '../commponents/footbar.css';
 @import '../commponents/gotop.css';
-@import '../common/swiper.4.0.3.css';
+@import '../common/swiper.min.css';
 
 .app-download-bar {
 	display: none;
@@ -12,6 +12,11 @@
 }
 .header-view {
 	position: relative;
+}
+
+.swiper-lazy {
+	width: 100%;
+	min-height: 170px;
 }
 
 .search-bar {

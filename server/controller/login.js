@@ -34,7 +34,7 @@ exports.sendSms = async function(ctx,next){
   }
 }
 
-exports.userLogin = async function(ctx,next){
+exports.signIn = async function(ctx,next){
   let {phone,code} = ctx.request.body;
   //console.log(phone,type,ctx.request.body)
 

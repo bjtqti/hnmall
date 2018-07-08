@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
+import axios from 'axios';
 import {localCache,checkphone} from '../lib/index.js'
 import Alert from '../commponents/alert.jsx'
+import Loading from '../commponents/loading.jsx'
 
 const CODE_NAME = '获取验证码';
 
@@ -104,23 +106,31 @@ export class Index extends Component {
 			isLoading:true
 		})
 
-		axios.post('/user/login',{
+		axios.post('/login/sign',{
 			phone:phoneNumber,
 			code:cmsCode
 		}).then((res)=>{
-			//console.log(res)
-			//let {accessToken,agent_id,grade_id,grade_name,headurl,is_bind_weixin,name,user_id,mobile,sex} = res.data;
-			localCache('user_info',res.data,30);
+			console.log(res)
 			this.setState({
 				isLoading:false
-			});
-			location.href="/member.html"
+			})
+			//let {accessToken,agent_id,grade_id,grade_name,headurl,is_bind_weixin,name,user_id,mobile,sex} = res.data;
+			if(res.data.code===0){
+				localCache('user_info',res.data,30);
+				location.href="/member.html"
+				return;
+			}else{
+				this.setState({
+					message:res.data.msg,
+				})
+			}
+			
 		})
-		console.log(phoneNumber,cmsCode)
+		//console.log(phoneNumber,cmsCode)
 	}
 
 	render() {
-		let {phoneNumber,cmsCode,codeText,isLoading} = this.state;
+		let {phoneNumber,cmsCode,codeText,isLoading,message} = this.state;
 		let codeSatus = classNames("code-text",{
 			dis:codeText!==CODE_NAME
 		})
@@ -145,7 +155,8 @@ export class Index extends Component {
 					<div className="icon-weixin"></div>
 					<div className="weixin-lgoin">授权微信登陆</div>
 				</div>
-				<Alert message={this.state.message} close={this.handleClose}/>
+				<Alert message={message} close={this.handleClose}/>
+				<Loading active={isLoading}/>
 			</div>
 		)
 	}

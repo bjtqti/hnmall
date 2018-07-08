@@ -6,10 +6,18 @@ const InjectHtmlPlugin = require('inject-html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 //const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const config = require('./webpack.base.js');
+const base = require('./webpack.base.js');
+const config = require('./config')
+let plugins = [];
+config.pages.forEach((page)=>{
+	plugins.push(new InjectHtmlPlugin({
+		filename:`./server/views/${page}.html`,
+        chunks:['manifest','vendors',page]
+	}))
+})
 
-config.mode = 'production';
-config.module.rules.push({
+base.mode = 'production';
+base.module.rules.push({
 	test:/\.css$/,
 	use: [
 		MiniCssExtractPlugin.loader,
@@ -25,7 +33,7 @@ config.module.rules.push({
 	]
 })
 
-config.optimization = {
+base.optimization = {
     minimizer:[
         new UglifyJsPlugin({
 	        cache: true,
@@ -48,7 +56,7 @@ config.optimization = {
     }
 }
 
-module.exports = merge(config,{
+module.exports = merge(base,{
 	mode:'production',
 	plugins:[
 		new CleanWebpackPlugin(['js','css','images'],{
@@ -58,18 +66,6 @@ module.exports = merge(config,{
 	      // Options similar to the same options in webpackOptions.output
 	      // both options are optional
 	      	filename: "css/[name]-[hash:8].css"
-	    }),
-		new InjectHtmlPlugin({
-			filename:'./server/views/index.html',
-            chunks:['manifest','vendors','index']
-		}),
-		new InjectHtmlPlugin({
-			filename:'./server/views/category.html',
-            chunks:['manifest','vendors','category']
-		}),
-		new InjectHtmlPlugin({
-			filename:'./server/views/login.html',
-            chunks:['manifest','vendors','login']
-		})
-	]
+	    })
+	].concat(plugins)
 });

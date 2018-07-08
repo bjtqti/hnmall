@@ -2,11 +2,25 @@
 const path = require('path')
 const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const config = require('./webpack.base.js');
+const base = require('./webpack.base.js');
 const ip = require('ip') 
 const webpack = require('webpack')
+const config = require('./config');
+let plugins = [];
 
-config.module.rules.push({
+config.pages.forEach((page)=>{
+	plugins.push(
+		new HtmlWebpackPlugin({
+			filename:`${page}.html`,
+		  	template:`./client/${page}/index.html`,
+		  	chunks:['manifest','vendors',page],
+		  	inject: true,
+		  	minify:false
+		})
+	)
+})
+
+base.module.rules.push({
 	test:/\.css$/,
 	use: [
 	    'style-loader',
@@ -20,7 +34,7 @@ config.module.rules.push({
 	]
 })
 
-module.exports = merge(config,{
+module.exports = merge(base,{
 	mode:'development',
 	devtool: 'inline-source-map',
 	devServer: {
@@ -43,27 +57,6 @@ module.exports = merge(config,{
 	},
 	plugins:[
 		new webpack.NamedModulesPlugin(),
-		new webpack.HotModuleReplacementPlugin(),
-		new HtmlWebpackPlugin({
-			filename:'index.html',
-		  	template:'./client/index/index.html',
-		  	inject: true,
-		  	chunks:['manifest','vendors','index'],
-		  	minify:false
-		}),
-		new HtmlWebpackPlugin({
-			filename:'category.html',
-		  	template:'./client/category/index.html',
-		  	chunks:['manifest','vendors','category'],
-		  	inject: true,
-		  	minify:false
-		}),
-		new HtmlWebpackPlugin({
-			filename:'login.html',
-		  	template:'./client/login/index.html',
-		  	chunks:['manifest','vendors','login'],
-		  	inject: true,
-		  	minify:false
-		})
-	]
+		new webpack.HotModuleReplacementPlugin()
+	].concat(plugins)
 });

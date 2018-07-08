@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import classNames from "classnames";
+import axios from 'axios';
 import {isArray,localCache} from '../lib'
 import {BASE_HOST} from '../common/constant'
 import FootBar from '../commponents/footbar.jsx'
 import Loading from '../commponents/loading.jsx'
+import SearchBar from './searchbar.jsx';
+
 export class Index extends Component {
 	static propTypes = {
 		initialState: PropTypes.array
@@ -15,8 +18,7 @@ export class Index extends Component {
 		this.state = {
 			categoryList:props.initialState,
 			isLoading:true,
-			activeIndex:0,
-			value:''
+			activeIndex:0
 		}
 	}
 
@@ -33,7 +35,6 @@ export class Index extends Component {
 	}
 
 	fetchCategoryList(){
-		let axios = require('../common/axios.min.js');
 		axios.get('/category/list').then((res)=>{
 			console.log(res.data)
 			if(res.data && res.data.categoryList){
@@ -46,12 +47,6 @@ export class Index extends Component {
 			}
 		})
 	}
-
-	handleChange(event){
-		let value = event.target.value;
-		this.setState({value});
-	}
-
 
 	handleClick(index){
 		if(this.state.activeIndex === index){
@@ -125,14 +120,10 @@ export class Index extends Component {
 		//console.log(this.props.initialState)
 		return (
 			<div className="app-wrap">
-				<div className="app-search-box">
-	                <form action={`${BASE_HOST}wap/item-list.html`} method="post" className="search">
-	                	<input type="text" value={this.state.value} onChange={(e)=>{this.handleChange(e)}} placeholder="搜索店内商品" />
-	                </form>
-            	</div>
+				<SearchBar />
 				{this.renderCategory()}
 				<FootBar />
-				<Loading name="spinner" active={this.state.isLoading}/>
+				<Loading active={this.state.isLoading}/>
 			</div>
 		)
 	}

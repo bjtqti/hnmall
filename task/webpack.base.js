@@ -1,14 +1,16 @@
 const path = require('path');
 const webpack = require('webpack')
 const NODE_MODULES = path.resolve('node_modules');
+const config = require('./config')
+let entry = {};
 
+
+config.pages.forEach((page)=>{
+	entry[page] = `./client/${page}/index.jsx` 
+})
 
 module.exports = {
-	entry:{
-		index:'./client/index/index.jsx',
-		category:'./client/category/index.jsx',
-		login:'./client/login/index'
-	},
+	entry:entry,
 	output:{
 		path: path.resolve(__dirname, '../dist/client'),
 	    filename: 'js/[name]-[hash:8].js',

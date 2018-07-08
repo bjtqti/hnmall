@@ -1,6 +1,6 @@
 @import '../common/common.css';
 @import '../commponents/alert.css';
- 
+@import '../commponents/loading.css';
 
 #app {
 	height: 100%;

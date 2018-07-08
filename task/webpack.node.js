@@ -1,7 +1,8 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const NODE_MODULES = path.resolve('node_modules');
-const config = require('./webpack.base.js');
+const base = require('./webpack.base.js');
+const config = require('./config')
 
 function _externals() {
     let manifest = require('../package.json');
@@ -14,14 +15,13 @@ function _externals() {
 }
 
 //let externals = _externals();
-
+let entry = {};
+config.pages.forEach((page)=>{
+	entry[page] = `./client/${page}/server.jsx`
+})
 
 module.exports = {
-	entry:{
-		index:'./client/index/server.jsx',
-		category:'./client/category/server.jsx',
-		login:'./client/login/server.jsx'
-	},
+	entry:entry,
 	output:{
 		path: path.resolve(__dirname, '../dist/server'),
 	    filename: 'bundle/[name].js',
@@ -29,7 +29,7 @@ module.exports = {
 	},
 	target:'node',
 	mode:'production',
-	module:config.module,
+	module:base.module,
 	externals:_externals(),
 	resolve: {
         extensions: ['.js','.jsx']
