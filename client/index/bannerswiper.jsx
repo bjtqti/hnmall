@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Swiper from 'swiper';
+//import Swiper from 'swiper';
 import {BASE_HOST} from '../common/constant'
 
 export default class BannerSwipe extends Component {
@@ -12,6 +12,7 @@ export default class BannerSwipe extends Component {
 	}
 
 	componentDidMount() {
+		let Swiper = require('swiper')
 		let mySwiper = new Swiper(this.refs.slider, {
 			autoplay:5000,
 			lazyLoading:true,

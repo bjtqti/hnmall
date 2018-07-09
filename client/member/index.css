@@ -1,0 +1,201 @@
+@import '../common/common.css';
+@import '../commponents/footbar.css';
+
+.flex {
+	display: flex;
+}
+
+.mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9;
+}
+
+.header {
+	position: relative;
+	width: 100%;
+	height: 200px;
+	background-color: #e8714f;
+	overflow: hidden;
+}
+
+.header-top {
+	margin: 20px 4%;
+}
+ 
+.user-avatar {
+	display: flex;
+	align-items: center;
+	height: 68px;
+	overflow: hidden;
+}
+
+.user-avatar img {
+	width: 68px;
+	height: 68px;
+	border-radius: 50%;
+}
+
+.header .login {
+	margin-left: 10px;
+	color: white;
+	font-size: 16px;
+}
+
+.header .edit {
+	color: white;
+	font-size: 16px;
+	flex-grow: 1;
+    text-align: right;
+}
+
+.shader-box {
+	position: relative;
+	height: 100px;
+	background-color: #e6e6e6;
+}
+
+.layer-view {
+	position: absolute;
+	top: -90px;
+	left: 4%;
+	width: 92%;
+	height: 180px;
+	background-color: white;
+	border-radius: 15px;
+	box-shadow: #dbdbdb 0 -10px 10px -10px;
+}
+.half-wrap {
+	position: relative;
+	height: 50%;
+}
+.order-tab {
+	align-items: center;
+	width: 100%;
+}
+
+.m-order {
+	height: 30px;
+	line-height: 30px;
+	margin: 0 15px;
+	color: #333;
+	overflow: hidden;
+}
+.m-order a {
+	float: right;
+	color: #999;
+}
+
+.half-wrap::after {
+	content:'';
+	position: absolute;
+	bottom: -1px;
+	left: 10px;
+	right: 10px;
+	border-bottom: 2px dashed #ddd;
+}
+
+.order-tab-item {
+	width: 25%;
+	color: #999;
+	text-align: center;
+}
+
+.layer-view .num {
+	width: 100%;
+	font-size: 18px;
+	color: #e8714f;
+	padding-bottom: 5px;
+	overflow: hidden;
+}
+
+.order-tab-item + div {
+	border-left: 1px solid #ddd;
+}
+.user-acount {
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 50%;
+}
+.user-acount-item {
+	width: 50%;
+	text-align: center;
+	color: #999;
+}
+.user-acount-item + div {
+	border-left: 1px solid #ddd;
+}
+.board {
+	flex-wrap: wrap;
+	background-color: white;
+}
+
+.board-item {
+	width: 33.333%;
+	height: 0;
+	padding-bottom: 33.33%;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 16px;
+}
+
+.board-item-link {
+	display: block;
+	padding-top: 20%;
+	color: #666;
+}
+
+.icon-food {
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+	background: url(../assets/images/106.jpg) no-repeat center;
+	background-size: cover;
+}
+
+.icon-detail {
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+	background: url(../assets/images/107.jpg) no-repeat center;
+	background-size: cover;
+}
+
+.icon-favor {
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+	background: url(../assets/images/108.jpg) no-repeat center;
+	background-size: cover;
+}
+
+.icon-safe {
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+	background: url(../assets/images/109.jpg) no-repeat center;
+	background-size: cover;
+}
+.icon-server {
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+	background: url(../assets/images/110.jpg) no-repeat center;
+	background-size: cover;
+}
+
+.icon-seting {
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+	background: url(../assets/images/111.jpg) no-repeat center;
+	background-size: cover;
+}
+

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import Swiper from 'swiper'
+//import Swiper from 'swiper'
 
 export default class TextSwiper extends Component {
 	static propTypes = {
@@ -11,6 +11,7 @@ export default class TextSwiper extends Component {
 	}
 
 	componentDidMount() {
+		let Swiper = require('swiper');
 		let mySwiper = new Swiper('#marquee', {
 			direction : 'vertical',
 			loop:true,

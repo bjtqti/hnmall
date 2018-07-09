@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
 import axios from 'axios';
-import {localCache,checkphone} from '../lib/index.js'
+import {localCache,checkphone,isObject} from '../lib'
+import {USER_INFO} from  '../common/constant'
 import Alert from '../commponents/alert.jsx'
 import Loading from '../commponents/loading.jsx'
 
@@ -14,6 +15,7 @@ export class Index extends Component {
 		this.handleClick = this.handleClick.bind(this);
 		this.handleLogin = this.handleLogin.bind(this);
 		this.handleClose = this.handleClose.bind(this);
+		this.handleSingin = this.handleSingin.bind(this);
 		this.state = {
 			message:'',
 			codeText:CODE_NAME,
@@ -24,7 +26,14 @@ export class Index extends Component {
 	}
 
 	componentDidMount() {
-		 
+		let user = localCache(USER_INFO);
+		if(user && isObject(user)){
+			location.href="/member.html"
+		}
+	}
+
+	hanldeBack(){
+		history.back();
 	}
 
 	handleChange(event,stateName){
@@ -42,7 +51,7 @@ export class Index extends Component {
 
 	handleSendSms(){
 		let {phoneNumber} = this.state;
-		axios.post('/user/sms',{
+		axios.post('/login/sms',{
 			phone:phoneNumber
 		}).then((res)=>{
 			if(res.msg){
@@ -83,6 +92,19 @@ export class Index extends Component {
 		this.handleSendSms();
 	}
 
+	/**
+	 * 微信登录
+	 */
+
+	handleSingin(){
+		axios.post('/login/wexin').then((res)=>{
+			console.log(res)
+		})
+	}
+
+	/**
+	 * 短信登录
+	 */ 
 	handleLogin(){
 		let {phoneNumber,cmsCode,isLoading} = this.state;
 		 
@@ -110,13 +132,13 @@ export class Index extends Component {
 			phone:phoneNumber,
 			code:cmsCode
 		}).then((res)=>{
-			console.log(res)
+			//console.log(res)
 			this.setState({
 				isLoading:false
 			})
 			//let {accessToken,agent_id,grade_id,grade_name,headurl,is_bind_weixin,name,user_id,mobile,sex} = res.data;
 			if(res.data.code===0){
-				localCache('user_info',res.data,30);
+				localCache(USER_INFO,res.data,30);
 				location.href="/member.html"
 				return;
 			}else{
@@ -124,7 +146,6 @@ export class Index extends Component {
 					message:res.data.msg,
 				})
 			}
-			
 		})
 		//console.log(phoneNumber,cmsCode)
 	}
@@ -139,6 +160,10 @@ export class Index extends Component {
 		})
 		return (
 			<div className="app-wrap">
+				<div className="header">
+					<i onClick={this.hanldeBack} className="iconfont icon-zuo icon-back"></i>
+					<span>登录</span>
+				</div>
 				<div className="form">
 					<div className="form-item">
 						<label className="tag-label">手机号：</label>
@@ -151,7 +176,7 @@ export class Index extends Component {
 					</div>
 					<button className={loginStatus} onClick={this.handleLogin}>登录</button>
 				</div>
-				<div className="bottom-area">
+				<div onClick={this.handleSingin} className="bottom-area">
 					<div className="icon-weixin"></div>
 					<div className="weixin-lgoin">授权微信登陆</div>
 				</div>

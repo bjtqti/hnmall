@@ -54,3 +54,20 @@ exports.signIn = async function(ctx,next){
     ctx.body = ret.data
   }
 }
+
+exports.weixinLogin = async function(ctx,next){
+   
+  try {
+    ret = await request('index.php/topapi',{
+      method:'user.index'
+    })
+  }catch(err){
+    throw err;
+  }
+
+  if(ret.status===200 && ret.data){
+    ctx.body = ret.data
+  }
+}
+
+

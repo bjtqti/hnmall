@@ -52,10 +52,10 @@ export default class SearchBar extends Component {
 					<span className="shop-name ellipsis">{this.state.shopName}</span>
 				</a>
 				<form action={`${BASE_HOST}wap/item-list.html`} method="post" className="search-box">
-					<label></label>
+					<i className="iconfont icon-zoom"></i>
 					<input type="text" name="search_keywords" placeholder="附近的店铺、商品" value={this.state.value} onChange={(event)=>{this.handleChange(event)}}/>
 				</form>
-				<div className="icon-cost"></div>
+				<div className="iconfont icon-guangbo icon-cost"></div>
 			</div>
 		)
 	}

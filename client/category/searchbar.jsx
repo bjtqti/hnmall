@@ -24,6 +24,7 @@ export default class SearchBar extends Component {
 		return (
 			<div className="app-search-box">
                 <form action={`${BASE_HOST}wap/item-list.html`} method="post" className="search">
+                	<i className="iconfont icon-zoom"></i>
                 	<input type="text" value={this.state.value} onChange={(e)=>{this.handleChange(e)}} placeholder="搜索店内商品" />
                 </form>
         	</div>
