@@ -32,7 +32,7 @@
 
 .icon-star1:before { content: "\e683"; }
 
-.icon-fangdajing:before { content: "\e629"; }
+.icon-zoom:before { content: "\e629"; }
 
 .icon-aui-icon-star:before { content: "\e62b"; }
 
@@ -58,6 +58,11 @@ html,body {
 body {
 	font-size: 12px;
 	background-color: #f5f6f8;
+}
+
+div,span,i,a {
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 a {

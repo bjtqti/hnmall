@@ -110,7 +110,7 @@ export class Index extends Component {
 		let category = categoryList[activeIndex].children;
 		return (
 			<div className="category-container">
-				<div ref="nav" className="category-nav">{this.renderNav(categoryList)}</div>
+				<div className="category-nav">{this.renderNav(categoryList)}</div>
 				<div className="category-main">{this.renderList(category)}</div>
 			</div>
 		)
