@@ -11,11 +11,14 @@ export default class TextSwiper extends Component {
 	}
 
 	componentDidMount() {
-		let Swiper = require('swiper');
-		let mySwiper = new Swiper('#marquee', {
-			direction : 'vertical',
-			loop:true,
-			autoplay:5000
+		let Swiper = import('swiper').then((m)=>{
+			//console.log(m.default);
+			let Swiper = m.default
+			let mySwiper = new Swiper(this.refs.marquee, {
+				direction : 'vertical',
+				loop:true,
+				autoplay:5000
+			});
 		});
 
 	}
@@ -36,9 +39,8 @@ export default class TextSwiper extends Component {
 		return (
 			<div className="swiper-message">
 				<div className="message-slogan">友阿<span>快报</span></div>
-				<div id="marquee" className="swiper-container">
+				<div ref="marquee" className="swiper-container">
 					<div className="swiper-wrapper">{this.renderSlider()}</div>
-					<div className="swiper-pagination"></div>
 				</div>
 				<div className="message-core">| <a href={more}>更多</a></div>
 			</div>

@@ -13,10 +13,10 @@ export default class Widget extends Component {
 		return (
 			<div className="widget-grid flex">
 				<a className="widget grid-half" href={pic[0].linktarget}>
-					<LazyLoad height={120}><img src={pic[0].image} className="img"/></LazyLoad>
+					<LazyLoad once height={120}><img src={pic[0].image} className="img"/></LazyLoad>
 				</a>
 				<a className="widget grid-half" href={pic[1].linktarget}>
-					<LazyLoad height={120}><img src={pic[1].image} className="img"/></LazyLoad>
+					<LazyLoad once height={120}><img src={pic[1].image} className="img"/></LazyLoad>
 				</a>
 			</div>
 		)
@@ -27,19 +27,19 @@ export default class Widget extends Component {
 			<div className="widget-grid flex" data-type="two">
 				<div className="widget grid-half">
 					<a className="widget b-b-l" href={pic[0].linktarget}>
-						<LazyLoad height={121}><img src={pic[0].image} className="img"/></LazyLoad>
+						<LazyLoad once height={121}><img src={pic[0].image} className="img"/></LazyLoad>
 					</a>
 					<div className="flex">
 						<a className="widget grid-half" href={pic[1].linktarget}>
-							<LazyLoad height={121}><img src={pic[1].image} className="img"/></LazyLoad>
+							<LazyLoad once height={121}><img src={pic[1].image} className="img"/></LazyLoad>
 						</a>
 						<a className="widget grid-half" href={pic[2].linktarget}>
-							<LazyLoad height={121}><img src={pic[2].image} className="img"/></LazyLoad>
+							<LazyLoad once height={121}><img src={pic[2].image} className="img"/></LazyLoad>
 						</a>
 					</div>
 				</div>
 				<a className="widget grid-half" href={pic[3].linktarget}>
-					<LazyLoad height={242}><img src={pic[3].image} className="img"/></LazyLoad>
+					<LazyLoad once height={242}><img src={pic[3].image} className="img"/></LazyLoad>
 				</a>
 			</div>
 		)
@@ -49,18 +49,18 @@ export default class Widget extends Component {
 		return (
 			<div className="widget-grid flex" data-type="three">
 				<a className="widget grid-half" href={pic[0].linktarget}>
-					<LazyLoad height={242}><img src={pic[0].image} className="img"/></LazyLoad>
+					<LazyLoad once height={242}><img src={pic[0].image} className="img"/></LazyLoad>
 				</a>
 				<div className="widget grid-half">
 					<a className="widget b-b-l" href={pic[1].linktarget}>
-						<LazyLoad height={120}><img src={pic[1].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[1].image} className="img"/></LazyLoad>
 					</a>
 					<div className="flex">
 						<a className="widget grid-half" href={pic[2].linktarget}>
-							<LazyLoad height={120}><img src={pic[2].image} className="img"/></LazyLoad>
+							<LazyLoad once height={120}><img src={pic[2].image} className="img"/></LazyLoad>
 						</a>
 						<a className="widget grid-half" href={pic[3].linktarget}>
-							<LazyLoad height={120}><img src={pic[3].image} className="img"/></LazyLoad>
+							<LazyLoad once height={120}><img src={pic[3].image} className="img"/></LazyLoad>
 						</a>
 					</div>
 				</div>
@@ -73,21 +73,21 @@ export default class Widget extends Component {
 			<div className="widget-grid" data-type="four">
 				<div className="flex">
 					<a className="widget grid-half" href={pic[0].linktarget}>
-						<LazyLoad height={120}><img src={pic[0].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[0].image} className="img"/></LazyLoad>
 					</a>
 					<a className="widget grid-half" href={pic[1].linktarget}>
-						<LazyLoad height={120}><img src={pic[1].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[1].image} className="img"/></LazyLoad>
 					</a>
 				</div>
 				<div className="flex">
 					<a className="widget grid-25" href={pic[2].linktarget}>
-						<LazyLoad height={120}><img src={pic[2].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[2].image} className="img"/></LazyLoad>
 					</a>
 					<a className="widget grid-25" href={pic[3].linktarget}>
-						<LazyLoad height={120}><img src={pic[3].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[3].image} className="img"/></LazyLoad>
 					</a>
 					<a className="widget grid-half" href={pic[4].linktarget}>
-						<LazyLoad height={120}><img src={pic[4].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[4].image} className="img"/></LazyLoad>
 					</a>
 				</div>
 			</div>
@@ -99,24 +99,24 @@ export default class Widget extends Component {
 			<div className="widget-grid" data-type="five">
 				<div className="flex">
 					<a className="widget grid-half" href={pic[0].linktarget}>
-						<LazyLoad height={120}><img src={pic[0].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[0].image} className="img"/></LazyLoad>
 					</a>
 					<a className="widget grid-half" href={pic[1].linktarget}>
-						<LazyLoad height={120}><img src={pic[1].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[1].image} className="img"/></LazyLoad>
 					</a>
 				</div>
 				<div className="flex">
 					<a className="widget grid-25" href={pic[2].linktarget}>
-						<LazyLoad height={120}><img src={pic[2].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[2].image} className="img"/></LazyLoad>
 					</a>
 					<a className="widget grid-25" href={pic[3].linktarget}>
-						<LazyLoad height={120}><img src={pic[3].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[3].image} className="img"/></LazyLoad>
 					</a>
 					<a className="widget grid-25" href={pic[4].linktarget}>
-						<LazyLoad height={120}><img src={pic[4].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[4].image} className="img"/></LazyLoad>
 					</a>
 					<a className="widget grid-25" href={pic[5].linktarget}>
-						<LazyLoad height={120}><img src={pic[5].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[5].image} className="img"/></LazyLoad>
 					</a>
 				</div>
 			</div>
@@ -128,24 +128,24 @@ export default class Widget extends Component {
 			<div className="widget-grid" data-type="six">
 				<div className="flex">
 					<a className="widget grid-33" href={pic[0].linktarget}>
-						<LazyLoad height={120}><img src={pic[0].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[0].image} className="img"/></LazyLoad>
 					</a>
 					<a className="widget grid-33" href={pic[1].linktarget}>
-						<LazyLoad height={120}><img src={pic[1].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[1].image} className="img"/></LazyLoad>
 					</a>
 					<a className="widget grid-33" href={pic[2].linktarget}>
-						<LazyLoad height={120}><img src={pic[2].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[2].image} className="img"/></LazyLoad>
 					</a>
 				</div>
 				<div className="flex">
 					<a className="widget grid-33" href={pic[3].linktarget}>
-						<LazyLoad height={120}><img src={pic[3].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[3].image} className="img"/></LazyLoad>
 					</a>
 					<a className="widget grid-33" href={pic[4].linktarget}>
-						<LazyLoad height={120}><img src={pic[4].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[4].image} className="img"/></LazyLoad>
 					</a>
 					<a className="widget grid-33" href={pic[5].linktarget}>
-						<LazyLoad height={120}><img src={pic[5].image} className="img"/></LazyLoad>
+						<LazyLoad once height={120}><img src={pic[5].image} className="img"/></LazyLoad>
 					</a>
 				</div>
 			</div>

@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
-import axios from 'axios';
-import {localCache,checkphone,isObject} from '../lib'
-import {USER_INFO} from  '../common/constant'
+import {localCache,checkphone,fetchApi,setCookie,createNonceStr} from '../lib'
+import {TOKEN} from  '../common/constant'
 import Alert from '../commponents/alert.jsx'
 import Loading from '../commponents/loading.jsx'
 
@@ -26,10 +25,8 @@ export class Index extends Component {
 	}
 
 	componentDidMount() {
-		let user = localCache(USER_INFO);
-		if(user && isObject(user)){
-			location.href="/member.html"
-		}
+		let token = localCache(TOKEN);
+		 
 	}
 
 	hanldeBack(){
@@ -51,8 +48,11 @@ export class Index extends Component {
 
 	handleSendSms(){
 		let {phoneNumber} = this.state;
-		axios.post('/login/sms',{
-			phone:phoneNumber
+		fetchApi('/login/sms',{
+			method:'POST',
+			data:{
+				phone:phoneNumber
+			}
 		}).then((res)=>{
 			if(res.msg){
 				this.setState({
@@ -97,9 +97,12 @@ export class Index extends Component {
 	 */
 
 	handleSingin(){
-		axios.post('/login/wexin').then((res)=>{
-			console.log(res)
-		})
+		let {appId} = this.props.initialState;
+		let redirect = 'https://m.hnmall.com';
+		let state = createNonceStr();
+		let url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirect}&response_type=code&scope=snsapi_userinfo&state=${state}&connect_redirect=1#wechat_redirect`
+		//console.log(url);
+		location.href=url;
 	}
 
 	/**
@@ -128,22 +131,25 @@ export class Index extends Component {
 			isLoading:true
 		})
 
-		axios.post('/login/sign',{
-			phone:phoneNumber,
-			code:cmsCode
+		fetchApi('/login/sign',{
+			method:"POST",
+			data:{
+				phone:phoneNumber,
+				code:cmsCode
+			}
 		}).then((res)=>{
-			//console.log(res)
+			console.log(res)
 			this.setState({
 				isLoading:false
 			})
 			//let {accessToken,agent_id,grade_id,grade_name,headurl,is_bind_weixin,name,user_id,mobile,sex} = res.data;
-			if(res.data.code===0){
-				localCache(USER_INFO,res.data,30);
-				location.href="/member.html"
+			if(res.code===0){
+				localCache(TOKEN,res.accessToken,30);
+				location.href="/";
 				return;
 			}else{
 				this.setState({
-					message:res.data.msg,
+					message:res.msg,
 				})
 			}
 		})

@@ -1,5 +1,5 @@
  
-let { markupOfRoute ,request} = require('../lib')
+let { markupOfRoute ,fetchApi} = require('../lib')
 
 //格式化分类数据
 function formatCateList (data,n) {
@@ -52,18 +52,23 @@ exports.category = async function(ctx, next) {
 
 exports.categoryList = async function(ctx,next){
   try {
-    ret = await request('index.php/topapi',{
-      method:'category.itemCategory'
+    ret = await fetchApi('index.php/topapi',{
+      method:'POST',
+      data:{
+        format:'json',
+        v:'v1',
+        method:'category.itemCategory'
+      }
     })
   }catch(err){
     throw err;
   }
 
-  if(ret.status===200 && ret.data){
-    let list = formatCateList(ret.data.data.categorys)
+  //if(ret.code===0 && ret.data){
+    let list = formatCateList(ret.data.categorys)
 
     ctx.body = {
       categoryList:list
     }
-  }
+  //}
 }

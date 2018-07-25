@@ -1,8 +1,8 @@
 {
-  "name": "hnmall",
+  "name": "wd_mall",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
     "dev": "webpack-dev-server --config ./task/webpack.dev.js",
@@ -13,6 +13,7 @@
   },
   "keywords": [],
   "author": "",
+  "repository": "https://git.coding.net/ouyangli/m_mall.git",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
@@ -20,6 +21,7 @@
     "handlebars": "^4.0.11",
     "koa": "^2.5.1",
     "koa-body": "^4.0.3",
+    "koa-compress": "^3.0.0",
     "koa-methodoverride": "^2.0.0",
     "koa-router": "^7.4.0",
     "koa-session-minimal": "^3.0.4",
@@ -30,7 +32,11 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-lazyload": "^2.3.0",
-    "swiper": "3.4.2"
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
+    "swiper": "3.4.2",
+    "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

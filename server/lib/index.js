@@ -1,6 +1,5 @@
 let React = require('react')
 let ReactDOMServer = require('react-dom/server')
-let axios = require('axios');
 let {resolve} = require('path')
 
 exports.markupOfRoute = (route, initialState, ctx) => {
@@ -10,23 +9,20 @@ exports.markupOfRoute = (route, initialState, ctx) => {
 	})
 }
 
-exports.request = (url,data={},method="post") => {
-	return axios({
-		baseURL:'https://www.hnmall.com/',
-		timeout: 30000,
-		method,
-		url,
-		data:{format:'json',v:'v1',...data}
-	});
+exports.fetchApi = (url,options={})=>{
+	let axios = require('axios').default;
+    let config = {
+    	baseURL:'https://www.hnmall.com/',
+        timeout:30000,
+        headers: {
+            'Content-Type': 'application/json'
+       },
+       ...options
+    }
+    return axios(url,config).then((res)=>{
+        //console.log(res)
+        //if(res.status===200){
+            return res.data
+        //}
+    })
 }
-
-exports.fetchApi = (url,data={},method="get")=>{
-	return axios({
-		baseURL:'https://www.hnmall.com/',
-		timeout:30000,
-		method,
-		url,
-		data
-	})
-}
-

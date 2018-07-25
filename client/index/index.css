@@ -5,6 +5,53 @@
 
 .app-download-bar {
 	display: none;
+	position: fixed;
+	top: 0;
+	z-index: 9;
+	width: 100%;
+	height: 50px;
+	background-color: #ed674a;
+	max-width: 640px;
+}
+
+.app-download-bar .bar {
+	height: 100%;
+	align-items: center;
+}
+
+.app-download-bar .logo {
+	width: 40px;
+	height: 40px;
+	margin-left: 15px;
+	background: url(../assets/images/app_2054.jpg) no-repeat center center;
+	background-size: cover;
+}
+
+.app-download-bar .app-down {
+	color: white;
+	flex-grow: 1;
+	margin-left: 10px;
+}
+
+.app-download-bar .app-name {
+	font-size: 15px;
+}
+
+.app-download-bar .app-desc {
+	padding-top: 4px;
+	font-size: 12px;
+}
+
+.app-download-bar .app-tip {
+	width: 100px;
+	height: 32px;
+	margin-right: 15px;
+	text-align: center;
+	line-height: 32px;
+	background-color: white;
+	border-radius: 5px;
+	color: #ed674a;
+	font-size: 14px;
 }
 
 .app-download-bar.show {
@@ -14,31 +61,41 @@
 	position: relative;
 }
 
-.swiper-lazy {
+.banner .swiper-lazy {
+	min-height: 180px;
+}
+
+.widget-grid .swiper-lazy {
+	min-height: 120px;
+}
+
+.store-goods .swiper-lazy {
 	width: 100%;
-	min-height: 170px;
+	min-height: 80px;
+	border: 0;
 }
 
 .search-bar {
+	position: fixed;
+	top: 50px;
+	z-index: 9;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 3;
 	width: 100%;
-	height: 40px;
+	max-width: 640px;
+	height: 50px;
 }
 
 .search-bar .search-box {
 	display: flex;
 	align-items: center;
-	width: 60%;
+	width: 50%;
 	height: 32px;
 	background-color: white;
 	border-radius: 16px;
 	padding: 0 5px;
+	margin: 0 10px;
 	box-sizing: border-box;
 }
 
@@ -62,9 +119,8 @@
 
 .search-bar .icon-cost {
 	display: block;
-	width: 32px;
-	height: 32px;
-	line-height: 32px;
+	width: 24px;
+	height: 24px;
 	font-size: 24px;
 	margin-left: 10px;
 	color: white;
@@ -228,6 +284,12 @@
 	position: relative;
 	background-color: white;
 }
+
+.goods-list .placeholder {
+	display: block;
+	max-width: 100%;
+	opacity: .5;
+}
  
 .goods-list-item {
 	width: 50%;
@@ -290,12 +352,147 @@
 
 .goods-list-item .goods-title {
     height: 48px;
-    line-height: 22px;
+    line-height: 24px;
     font-size:14px;
 }
 
+.lazy-load-wrap {
+	position: relative;
+	height: 50px;
+}
+
+.lazy-load-text {
+	position: relative;
+	top: 45px;
+	text-align: center;
+	color: gray;
+}
 
 
+/**o20**/
+
+.near-store {
+	position: relative;
+	background-color: white;
+}
+.store-title {
+	height: 40px;
+	line-height: 40px;
+	padding: 0 1rem;
+	font-size: 16px;
+    color: #758692;
+}
+.store-link {
+	float: right;
+	font-size: 12px;
+	color: #758692;
+}
+
+.store-link span {
+	float: left;
+	line-height: 42px;
+}
+
+.icon-more {
+	padding-left: 2px;
+	color: red;
+}
+
+.shop-item {
+	align-items: center;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.near-store .line {
+	margin:0 16px;
+	height: 1px;
+	background-color: #E8E8E8;
+}
+
+.shop-img {
+	display: block;
+	width: 25%;
+	height: 0;
+	padding-bottom: 25%;
+	margin-right: 10px;
+	flex-shrink: 0;
+}
+
+.shop-img img {
+	border-radius: 5px;
+}
+
+.shop-info {
+	flex-grow: 1;
+	padding: 5px 0;
+}
+.flex-around {
+	justify-content: space-between;
+	align-items: center;
+}
+.near-store .shop-name {
+	display: block;
+	max-width: 60%;
+	font-size: 18px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space:nowrap;
+}
+.near-store .distance {
+	display: block;
+	color: gray;
+	padding-left: 5px;
+}
+.near-store .shop-path {
+	display: block;
+	padding: 5px;
+}
+
+.near-store .middle {
+	align-items: center;
+	flex-grow: 1;
+}
+
+.near-store .coupon {
+	margin-top: 10px;
+	font-size: 14px;
+}
+
+.near-store .coupon-tag {
+	display: inline-block;
+	color: #fff;
+    background: #FF6545;
+    padding: 2px 4px;
+    margin-right: 5px;
+}
+
+.near-store .icon-zuji {
+	color: red;
+	font-size: 18px;
+}
+
+.store-goods {
+	width: 100%;
+	padding: 10px 0;
+}
+.store-goods-item {
+	width: 25%;
+}
+
+.store-goods-item a {
+	display: block;
+	text-align: center;
+}
+
+.store-goods-item .price {
+	color: #FF6545;
+	padding-top: 5px;
+}
+
+/** copyright **/
  
 .copy-right {
 	text-align: center;

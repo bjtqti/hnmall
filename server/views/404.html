@@ -1,12 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>404</title>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <title>友阿微店</title>
+    <style>
+    	 
+		body {
+			position: fixed;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			width: 100%;
+			background-color: white;
+			margin: 0;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		.container {
+			max-width: 640px;
+			margin: 0 auto;
+			height: 100%;
+		}
+
+		.logo {
+			position: absolute;
+			top: 0;
+			left: 0;
+			padding:18px 10px;
+		}
+
+		.logo img {
+			width: 120px;
+			height: 50px;
+		}
+
+		.main {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flex;
+			display: -moz-flex;
+			display: flex;
+			-webkit-flex-direction:column;
+			-webkit-ms-direction:column;
+			-webkit-moz-direction:column;
+			flex-direction:column;
+			-webkit-justify-content:center;
+			-ms-justify-content:center;
+			-moz-justify-content:center;
+			justify-content:center;
+			width: 100%;
+			height: 90%;
+			text-align: center;
+		}
+
+		.error {
+			width: 50%;
+			margin: 0 auto;
+		}
+
+		.error img {
+			width: 100%;
+		}
+
+
+		.big {
+			font-size: 20px;
+			line-height: 40px;
+		}
+
+		.small {
+			font-size: 12px;
+			line-height: 24px;
+		}
+
+		.small img {
+			width: 24px;
+			vertical-align: middle;
+		}
+
+		.link {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flex;
+			display: -moz-flex;
+			display: flex;
+			-webkit-justify-content:center;
+			-ms-justify-content:center;
+			-moz-justify-content:center;
+			justify-content:center;
+			margin-top: 20px;
+		}
+
+		.button {
+			display: inline-block;
+			width: 75px;
+			height: 25px;
+			margin-right: 20px;
+			line-height: 25px;
+			background-color: #e62129;
+			border-radius: 5px;
+			color: white;
+			font-size: 12px;
+		}
+    </style>
 </head>
 <body>
-  <p>not found</p>
+	<div class="container">
+		<a class="logo" href="/">
+			<img src="https://www.hnmall.com/res/images/logo.png" alt="logo">
+		</a>
+		<div class="main">
+			<div class="error"><img src="https://www.hnmall.com/res/images/404.png" alt="404"></div>
+			<div class="big">很抱歉，您访问的页面不在地球上...</div>
+			<div class="small">
+				<img src="https://www.hnmall.com/res/images/loading.gif" alt="">
+				<span>正在跳转到上一页,如果没有跳转请点击此链接</span>
+			</div>
+			<div class="link">
+				<a href="/" class="button">返回首页</a>
+				<a href="javascript:history.back();" class="button">返回上一页</a>	
+			</div>
+		</div>
+	</div>
+	<script>
+		setTimeout(function(){
+			window.history.back();
+		},3000);
+	</script>
 </body>
 </html>

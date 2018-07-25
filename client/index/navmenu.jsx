@@ -18,19 +18,20 @@ export default class NavMenu extends Component {
 	formatMenuData(){
 		let data = [];
 		let {icons} = this.props;
-		const app = {
-			'new':`${BASE_HOST}wap/itemlist.html?type=new`,
-			coupon:`${BASE_HOST}wap/s-coupon.html`,
-			seckill:`${BASE_HOST}seckill/index.php`
-		};
-		icons.forEach((item)=>{
-			item.image = item.image.replace(/^\//,BASE_HOST);
+		const app = [
+			null,`${BASE_HOST}wap/itemlist.html?type=new`,
+			null,null,`${BASE_HOST}wap/s-coupon.html`,
+			`${BASE_HOST}seckill/index.php`
+		]
+		icons.forEach((item,i)=>{
+			let nav = {...item};
+			nav.image = item.image.replace(/^\//,BASE_HOST);
 			if(item.linktype==='cat'){
-				item.linktarget=`${BASE_HOST}wap/item-list.html?cat_id=${item.linktarget}`
+				nav.linktarget = `${BASE_HOST}wap/item-list.html?cat_id=${item.linktarget}`;
 			}else if(item.linktype==='app'){
-				item.linktarget=app[item.linktarget];
+				nav.linktarget=app[i];
 			}
-			data.push(item)
+			data.push(nav)
 		})
 		return data;
 	}

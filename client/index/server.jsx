@@ -1,12 +1,12 @@
 "use strict";
 
 import React from 'react'
-import {Index} from './app.jsx';
+import IndexApp from './wrap.jsx';
  
 
 export default (initialState) => {
     return new Promise((resolve,reject)=>{
-        let app = <Index  initialState={initialState}/>
+        let app = <IndexApp  initialState={initialState}/>
         resolve({app})
     })
 }

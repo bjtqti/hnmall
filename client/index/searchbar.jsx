@@ -1,41 +1,31 @@
 import React, {Component} from 'react'
-import classNames from "classnames";
-import {BASE_HOST,INSTALL_APP} from '../common/constant'
-import {getLocationTencent} from '../lib'
-
+import {getScrollTop,isArray} from '../lib/index.js'
+import {BASE_HOST} from '../common/constant.js'
+ 
 export default class SearchBar extends Component {
 	 
+
 	constructor(props) {
 		super(props); 
 		this.state = {
-			showApp:false,
-			value:'',
-			shopName:''
+			isInsApp:false,
+			opacity:0,
+			value:''
 		}
 	}
 
 	componentDidMount(){
-		let install = localStorage.getItem(INSTALL_APP)
-		this.setState({
-			showApp:install?false:true
-		})
-
-		this.getShopLocation();
-	}
-
-	getShopLocation(){
-		let axios = require('../common/axios.min.js');
-		let update = (r)=>{
-			r = r || {lat:'28.234589',lng:'112.913554'}
-			axios.get(`/shopinfo?lat=${r.lat}&lng=${r.lng}`).then((res)=>{
-				//console.log(res)
-				this.setState({
-					shopName:res.data.message[0].shop_name
-				})
+		let install = this.props.install;
+		window.addEventListener('scroll',()=>{
+			let height = 1000; //body.scrollHeight
+			let ms = getScrollTop();
+			let move = (ms > 50 ) ? true : false;
+			let num = ms / height;
+			let opacity = num > 1 ? 1 : num.toFixed(1);
+			this.setState({
+				isInsApp:install?true:move,
+				opacity:num.toFixed(1)
 			})
-		}
-		getLocationTencent((res)=>{
-			update(res)
 		})
 	}
 
@@ -45,11 +35,16 @@ export default class SearchBar extends Component {
 	}
 
 	render() {
+		let {isInsApp,opacity} = this.state;
+		let {shops} = this.props.index;
+		let position = {top:isInsApp ? '0':'50px','backgroundColor':`rgba(237,103,74,${opacity})`}
+		let shopName = isArray(shops) ? shops[0].shop_name:''
+		//console.log(this.props.index)
 		return (
-			<div className="search-bar">
+			<div style={position} className="search-bar">
 				<a href={`${BASE_HOST}oto/shop-list.html`} className="shop-link">
 					<i className="icon-point"></i>
-					<span className="shop-name ellipsis">{this.state.shopName}</span>
+					<span className="shop-name ellipsis">{shopName}</span>
 				</a>
 				<form action={`${BASE_HOST}wap/item-list.html`} method="post" className="search-box">
 					<i className="iconfont icon-zoom"></i>

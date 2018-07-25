@@ -1,52 +1,25 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import classNames from "classnames";
-import axios from 'axios';
-import {isArray,localCache} from '../lib'
+import {isArray} from '../lib'
 import {BASE_HOST} from '../common/constant'
 import FootBar from '../commponents/footbar.jsx'
 import Loading from '../commponents/loading.jsx'
 import SearchBar from './searchbar.jsx';
 
-export class Index extends Component {
-	static propTypes = {
-		initialState: PropTypes.array
-	}
+export class Category extends Component {
+	 
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			categoryList:props.initialState,
-			isLoading:true,
 			activeIndex:0
 		}
 	}
 
 	componentDidMount() {
-		let cache = localCache('category');
-		if(cache){
-			this.setState({
-				isLoading:false,
-				categoryList:cache
-			})
-		}else{
-			this.fetchCategoryList()
-		}
+		this.props.fetchCategory()
 	}
 
-	fetchCategoryList(){
-		axios.get('/category/list').then((res)=>{
-			console.log(res.data)
-			if(res.data && res.data.categoryList){
-				//this.props.initialState = res.data.categoryList;
-				localCache('category',res.data.categoryList,7)
-				this.setState({
-					isLoading:false,
-					categoryList:res.data.categoryList
-				})
-			}
-		})
-	}
 
 	handleClick(index){
 		if(this.state.activeIndex === index){
@@ -65,7 +38,7 @@ export class Index extends Component {
 				active :activeIndex===i
 			})
 			return (
-				<div onClick={this.handleClick.bind(this,i)} className={active} key={i}>{item.name}</div>
+				<div onClick={this.handleClick.bind(this,i)} className={active} key={item.id}>{item.name}</div>
 			)
 		})
 	}
@@ -75,7 +48,8 @@ export class Index extends Component {
 			return '';
 		}
 		return list.map((item,i)=>{
-			let url = item.icon.replace(/^\//,BASE_HOST);
+			let placeImg = `${BASE_HOST}res/images/cplogo.jpg`;
+			let url = item.icon.replace(/^\//,BASE_HOST)||placeImg;
 			return (
 				<div className="category-nav-item" key={`r_${i}`}>
 					<a href={`${BASE_HOST}wap/item-list.html?cat_id=${item.id}`}>
@@ -88,7 +62,9 @@ export class Index extends Component {
 	}
 
 	renderList(category){
-		//console.log(category)
+		if(!isArray(category)){
+			return '';
+		}
 		return category.map((item,i)=>{
 			return (
 				<div className="category-group" key={`g_${i}`}>
@@ -103,8 +79,9 @@ export class Index extends Component {
 	}
 
 	renderCategory(){
-		let {categoryList,activeIndex} = this.state
-		if(categoryList.length < 1){
+		let {activeIndex} = this.state;
+		let {categoryList,isFetching} = this.props.category;
+		if(!isArray(categoryList)||categoryList.length<1){
 			return '';
 		}
 		let category = categoryList[activeIndex].children;
@@ -117,13 +94,13 @@ export class Index extends Component {
 	}
 
 	render() {
-		//console.log(this.props.initialState)
+		let {isFetching} = this.props.category;
 		return (
 			<div className="app-wrap">
 				<SearchBar />
 				{this.renderCategory()}
 				<FootBar />
-				<Loading active={this.state.isLoading}/>
+				<Loading active={isFetching}/>
 			</div>
 		)
 	}

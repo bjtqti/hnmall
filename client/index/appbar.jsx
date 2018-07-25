@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
 import {BASE_HOST,INSTALL_APP} from '../common/constant';
-import {localCache} from '../lib'
+import {localCache,getScrollTop} from '../lib'
 
 export default class AppBar extends Component {
 	 
 	constructor(props) {
 		super(props);
-		//this.handleClick = this.handleClick.bind(this)
 		this.state = {
 			active : false
 		}
@@ -17,6 +16,21 @@ export default class AppBar extends Component {
 		let install = localCache(INSTALL_APP)
 		this.setState({
 			active:!install
+		});
+		if(!install){
+			this.onViewScroll();
+		}
+	}
+
+
+	onViewScroll(){
+		window.addEventListener('scroll',()=>{
+			let ms = getScrollTop();
+			//console.log(ms)
+			let active = ms > 50 ? false : true
+			this.setState({
+				active
+			})
 		})
 	}
 
@@ -32,7 +46,14 @@ export default class AppBar extends Component {
 		})
 		return (
 			<div className={appStatus} onClick={this.handleClick}>
-				<img src={`${BASE_HOST}res/images/app_2054.png`} className="img"/>
+				<div className="flex bar">
+					<div className="logo"></div>
+						<div className="app-down">
+							<div className="app-name">友阿微店APP</div>
+							<div className="app-desc">002277友阿股份旗下新零售平台</div>
+						</div>
+						<div className="app-tip">立即打开</div>
+				</div>
 			</div>
 		)
 	}

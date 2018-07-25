@@ -3,7 +3,7 @@ import './index.css'
 //import '../common/responsive'
 import React from 'react'
 import ReactDOM from "react-dom"
-import {Index} from './app';
+import CategoryApp from './wrap.jsx';
  
 
 if (module.hot) {
@@ -13,7 +13,7 @@ if (module.hot) {
  
 var initialState =JSON.parse(document.getElementById("initial-state").textContent);
 	//console.log(initialState)
-ReactDOM.hydrate(<Index initialState={initialState} />,document.getElementById('app'))
+ReactDOM.hydrate(<CategoryApp initialState={initialState} />,document.getElementById('app'))
 	
   
  

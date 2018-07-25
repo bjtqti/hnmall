@@ -4,12 +4,15 @@ let serveStatic = require('koa-static')
 let bodyParser = require('koa-body')
 let methodOverride = require('koa-methodoverride')
 let session = require('koa-session-minimal')
+let compression = require('koa-compress');
 let views = require('koa-views')
 let pkgJSON = require('../package.json')
 let router = require('./router')
 let {error} = require('./controller/main')
 
-const app = new Koa()
+const app = new Koa();
+
+app.use(compression());
 app.use(serveStatic(join('dist', 'client')))
 app.use(bodyParser())
 app.use(methodOverride())

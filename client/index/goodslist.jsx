@@ -1,56 +1,63 @@
 import React, {Component} from 'react'
-import LazyLoad from 'react-lazyload'
-import {formatPrice,getScrollTop} from '../lib'
-import axios from 'axios';
-import {BASE_HOST} from '../common/constant'
+import LazyLoad from 'react-lazyload';
+import {formatPrice,getScrollTop,localCache,throttle,getScrollHeight,isArray} from '../lib'
+import {BASE_HOST,TOKEN} from '../common/constant'
 
 export default class GoodsList extends Component {
 	 
 	constructor(props) {
 		super(props);
-		this.state = {
-			isBusy:false,
-			goodsData:[]
-		}
 	}
 
 	componentDidMount() {
-		let bounce = Math.ceil(window.innerHeight/2);
-		window.addEventListener('scroll',()=>{
-			if(this.state.isBusy){
-				return false;
-			}
-
+		this.token = localCache(TOKEN);
+		let height = window.innerHeight;
+		window.addEventListener('scroll',throttle((e)=>{
 			let  scrollTop = getScrollTop();
-			//console.log(scrollTop)
-			if(scrollTop>bounce){
-				this.fetchGoodsList()
+			let scrollHeight = getScrollHeight();
+			if((scrollTop+height)/scrollHeight>0.4){
+				this.fetchGoodsList();
 			}
-		})
+		},200),false)
 	}
 
 	fetchGoodsList() {
-		this.setState({
-			isBusy:true
-		})
-		axios.get('/index/goodslist').then((res)=>{
-			//console.log(res)
-			this.setState({
-				goodsData:res.data.goodslist
-			})
+		let {pageIndex=1,isFetching,isFetched,goodsList} = this.props.index;
+		
+		//正在获取数据
+		if(isFetching) {
+			return false;
+		}
+
+		//获取不到数据
+		if(isFetched){
+			return false;
+		}
+
+		//App上猜你喜欢只取前200条数据
+		if(goodsList.length >=200){
+			return false;
+		}
+		this.props.fetchGoods({
+			page:pageIndex,
+			size:20,
+			token:''
 		})
 	}
 
-
 	renderList(){
-		let {goodsData} = this.state;
-		let list = goodsData.map((goods)=>{
+		let {goodsList} = this.props.index;
+		if(!isArray(goodsList)){
+			return ''
+		}
+		let placeImg  = (<img src={`${BASE_HOST}res/images/cplogo.jpg`} />);
+		let list = goodsList.map((goods,i)=>{
 			return(
 				<div className="goods-list-item" key={goods.item_id}>
 					<a href={`${BASE_HOST}wap/item-detail.html?item_id=${goods.item_id}`}>
 						<div className="goods-img">
-						<LazyLoad once={true} height={177} offsetTop={500}
-						placeholder = {<img className="img" src="https://wd.hnmall.com/res/images/cplogo.jpg" debounce={500} />}>
+						<LazyLoad once height={177} offset={200}
+						placeholder = {placeImg}>
 							<img src={goods.image_default_id} className="img" />
 						</LazyLoad>
 						</div>
@@ -64,19 +71,24 @@ export default class GoodsList extends Component {
 				</div>
 			)
 		})
-		return(
-			<div className="goods-list">
-				{list}
-			</div>
+		return (
+			<div className="goods-list">{list}</div>
 		)
 	}
-	 
 
 	render() {
+		//console.log(this.props)
+		let {isFetching} = this.props.index;
+		let display = {display:isFetching ? 'block':'none'}
+
 		return (
 			<div className="wrap">
 				<div className="goods-list-title">猜你喜欢</div>
 				{this.renderList()}
+				<div className="lazy-load-wrap" style={display}>
+					<div className="swiper-lazy-preloader"></div>
+					<div className="lazy-load-text">加载中...</div>
+				</div>
 			</div>
 		)
 	}

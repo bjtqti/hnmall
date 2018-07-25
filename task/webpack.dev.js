@@ -38,7 +38,7 @@ module.exports = merge(base,{
 	mode:'development',
 	devtool: 'inline-source-map',
 	devServer: {
-		//https: true,
+		https: true,
 		contentBase: path.join(__dirname, "../dist"),
 		compress: true,
 		historyApiFallback:true,

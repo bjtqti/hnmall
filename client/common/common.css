@@ -1,11 +1,10 @@
 @import '~normalize.css/normalize.css';
 @font-face {
   font-family: 'iconfont';  /* project id 204824 */
-  src: url('//at.alicdn.com/t/font_204824_lrgu67e4b2r.eot');
-  src: url('//at.alicdn.com/t/font_204824_lrgu67e4b2r.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_204824_lrgu67e4b2r.woff') format('woff'),
-  url('//at.alicdn.com/t/font_204824_lrgu67e4b2r.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_204824_lrgu67e4b2r.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_204824_y3fpu4rgss.eot');
+  src: url('//at.alicdn.com/t/font_204824_y3fpu4rgss.woff') format('woff'),
+  url('//at.alicdn.com/t/font_204824_y3fpu4rgss.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_204824_y3fpu4rgss.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -22,17 +21,15 @@
 
 .icon-sortasc:before { content: "\ec0c"; }
 
-.icon-weixinzhifu2:before { content: "\e62c"; }
-
 .icon-guangbo:before { content: "\e639"; }
-
-.icon-checkbox:before { content: "\e63f"; }
 
 .icon-sortdesc:before { content: "\e7ff"; }
 
 .icon-star1:before { content: "\e683"; }
 
 .icon-zoom:before { content: "\e629"; }
+
+.icon-more:before { content: "\e674"; }
 
 .icon-aui-icon-star:before { content: "\e62b"; }
 
@@ -48,7 +45,7 @@
 
 .icon-zuo:before { content: "\e63e"; }
 
-.icon-xuanze:before { content: "\e724"; }
+.icon-zuji:before { content: "\ec0d"; }
 
 
 html,body {
@@ -81,6 +78,9 @@ input {
 	padding: 0;
 }
 
+input:-webkit-autofill {
+	background-color: transparent;
+}
 
 #app {
 	max-width: 640px;
