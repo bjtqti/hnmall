@@ -8,7 +8,7 @@ const webpack = require('webpack')
 const config = require('./config');
 let plugins = [];
 
-config.pages = ['goodsdetail']
+//config.pages = ['goodsdetail']
 
 config.pages.forEach((page)=>{
 	plugins.push(

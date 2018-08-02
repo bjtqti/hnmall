@@ -55,7 +55,7 @@ export default class GoodsList extends Component {
 			let price = formatPrice(goods.price).split('.');
 			return(
 				<div className="goods-list-item" key={goods.item_id}>
-					<a href={`${BASE_HOST}wap/item-detail.html?item_id=${goods.item_id}`}>
+					<a href={`/item-${goods.item_id}.html`}>
 						<div className="goods-img">
 						<LazyLoad once height={177} offset={200}
 						placeholder = {placeImg}>
