@@ -8,6 +8,8 @@ const webpack = require('webpack')
 const config = require('./config');
 let plugins = [];
 
+config.pages = ['goodsdetail']
+
 config.pages.forEach((page)=>{
 	plugins.push(
 		new HtmlWebpackPlugin({
@@ -39,7 +41,7 @@ module.exports = merge(base,{
 	devtool: 'inline-source-map',
 	devServer: {
 		https: true,
-		contentBase: path.join(__dirname, "../dist"),
+		contentBase: "/",
 		compress: true,
 		historyApiFallback:true,
 		open:true,

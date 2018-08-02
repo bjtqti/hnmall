@@ -16,6 +16,7 @@ config.pages.forEach((page)=>{
 	}))
 })
 
+base.output.publicPath = '/';
 base.mode = 'production';
 base.module.rules.push({
 	test:/\.css$/,

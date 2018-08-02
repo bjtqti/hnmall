@@ -312,14 +312,21 @@
 }
 .goods-list-item .price {
 	display: inline-block;
-	margin-right: 5px;
-	font-size: 14px;
+	font-size: 18px;
 	line-height: 20px;
 	color: #ff0000;
 }
 
-.goods-list-item .goods-price span::before {
-	content: '￥';
+.goods-list-item .price-s {
+	display: inline-block;
+	margin-right: 5px;
+	font-size: 12px;
+	line-height: 20px;
+	color: #ff0000;
+}
+
+.goods-list-item .goods-price .sign {
+	color: #ff0000;
 	font-size: 12px;
 }
 

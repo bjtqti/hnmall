@@ -52,6 +52,7 @@ export default class GoodsList extends Component {
 		}
 		let placeImg  = (<img src={`${BASE_HOST}res/images/cplogo.jpg`} />);
 		let list = goodsList.map((goods,i)=>{
+			let price = formatPrice(goods.price).split('.');
 			return(
 				<div className="goods-list-item" key={goods.item_id}>
 					<a href={`${BASE_HOST}wap/item-detail.html?item_id=${goods.item_id}`}>
@@ -63,7 +64,9 @@ export default class GoodsList extends Component {
 						</div>
 						<div className="goods-title mutiple-text">{goods.title}</div>
 						<div className="goods-price">
-							<span className="price">{formatPrice(goods.price)}</span>
+							<span className="sign">￥</span>
+							<span className="price">{price[0]}</span>
+							<b className="price-s">.{price[1]}</b>
 							<span className="mkt-price">{formatPrice(goods.mkt_price)}</span>
 							<i className="buy">马上抢</i>
 						</div>

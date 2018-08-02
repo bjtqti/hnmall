@@ -16,6 +16,7 @@ function _externals() {
 
 //let externals = _externals();
 let entry = {};
+
 config.pages.forEach((page)=>{
 	entry[page] = `./client/${page}/server.jsx`
 })

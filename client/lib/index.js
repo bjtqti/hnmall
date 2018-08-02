@@ -59,7 +59,7 @@ function tencentGelocation(callback){
     let options = {timeout: 8000};
     let geolocation = new qq.maps.Geolocation("PMOBZ-DSBK6-7NQSZ-EUK5J-A4PR6-DEB4V", "hnmall");
     let success = function(rs){
-        console.log(rs)
+        //console.log(rs)
         let position = {latitude:rs.lat,longitude:rs.lng,accuracy:rs.accuracy}
         callback(position)
     }
