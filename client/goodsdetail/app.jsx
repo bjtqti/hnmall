@@ -4,6 +4,7 @@ import BannerSwipe from './banner.jsx'
 import Detail from './detail.jsx'
 import ToolBar from './toolbar.jsx'
 import Popup from './popup.jsx';
+import Menu from './menu.jsx'
 import GoTop from '../commponents/gotop.jsx'
 import Loading from '../commponents/loading.jsx'
  
@@ -14,25 +15,48 @@ export class GoodsDetail extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			showMenu:false,
 			isActivePop:false
 		}
-		this.handleClickPop = this.handleClickPop.bind(this)
+		this.handleClickPop = this.handleClickPop.bind(this);
+		this.handleShowMenu = this.handleShowMenu.bind(this);
+		this.handleHideMenu = this.handleHideMenu.bind(this);
 	}
 
 	componentDidMount() {
 		
 	}
 
+	handleBack(){
+		history.back()
+	}
+
+	handleShowMenu(){
+		this.setState({
+			showMenu:true
+		})
+	}
+
+	handleHideMenu(){
+		this.setState({
+			showMenu:false
+		})
+	}
+
 	filterCheckedAttr(goodsDetail){
-		let {sku} = goodsDetail;
-		let value = "请选择商品规格";
-		for(let s of sku){
-			if(s.checked) {
-				value = s.value;
-				break;
+		let {attr} = goodsDetail;
+		let value = [];
+		let name = [];
+		for(let s of attr){
+			name.push(s.name)
+			for(let v of s.values){
+				if(v.checked){
+					value.push(v.value);
+					break;
+				}
 			}
 		}
-		return value;
+		return value.join(';')||'请选择'+name.join(',');
 	}
 
 	handleClickPop(){
@@ -46,8 +70,18 @@ export class GoodsDetail extends Component {
 		let {goodsDetail,isFetching} = this.props.goods;
 		let price = goodsDetail.price.split('.');
 		let shopLink = `${BASE_HOST}wap/shop-index.html?shop_id=${goodsDetail.shop_id}`;
+		//console.log(maskClass)
 		return (
 			<div className="app-wrap">
+				<div className="header">
+					<div className="back" onClick={this.handleBack}>
+						<i className="iconfont icon-zuo"></i>
+					</div>
+					<div className="menu" onClick={this.handleShowMenu}>
+						<i className="iconfont icon-caidan"></i>
+					</div>
+				</div>
+				<Menu bindTap={this.handleHideMenu} active={this.state.showMenu}/>
 				<BannerSwipe sliders={goodsDetail.images} />
 				<div className="section">
 					<div className="title">{goodsDetail.title}</div>

@@ -5,11 +5,40 @@ import {isArray} from '../lib'
 import {
 	START_FETCH_DETAIL,FINISH_FETCH_DETAIL,
     TOGGLE_ITEM_ATTR,CLOSE_ALERT
-} from './constant'
+} from './constant';
+
+/**
+ * 置灰不可用属性
+ */
+
+function checkStatus(attr,sku,param){
+    let {i,j} = param;
+    let checkedItem = attr[i].values[j];
+    let validId = [];
+    for(let s of sku){
+        if(checkedItem.checked && s.id.indexOf(checkedItem.id) !== -1){
+            let id = s.id.replace(checkedItem.id,'').replace('_','')
+            validId.push(id)
+        }
+    }
+    for(let k =0;k<attr.length;k++){
+        if(k===i){
+            continue;
+        }
+        for(let value of attr[k].values){
+            value.disabled = false;
+            if(validId.length && validId.indexOf(value.id) === -1){
+                value.disabled = true;
+            }
+        }
+    }
+    return attr;
+}
 
 function toggleItem(attr,param){
     let {i,j} = param;
-    let checked = !attr[i].values[j].checked;
+    let checkedItem = attr[i].values[j];
+    let checked = !checkedItem.checked;
     let _attr = attr.map((item,m)=>{
         let values = item.values.map((val,k)=>{
             if(m===i){
@@ -43,17 +72,6 @@ function toggleSku(attr,sku){
     return _sku;
 }
 
-function checkError(sku){
-    let exist = false;
-    for(let s of sku){
-        if(s.checked){
-            exist = true;
-            break;
-        }
-    }
-    return exist ? '' : '无效的商品规格';
-}
-
 function goods(state={},action){
     switch(action.type){
         case START_FETCH_DETAIL:
@@ -64,9 +82,9 @@ function goods(state={},action){
         case TOGGLE_ITEM_ATTR:
             let attr = toggleItem(state.goodsDetail.attr,action.param);
             let sku = toggleSku(attr,state.goodsDetail.sku);
+            attr = checkStatus(attr,sku,action.param);
             let goodsDetail = {...state.goodsDetail,attr,sku}
-            let error = checkError(sku);
-            return {...state,goodsDetail,error}
+            return {...state,goodsDetail}
         case CLOSE_ALERT:
             return {...state,error:false}
         default:

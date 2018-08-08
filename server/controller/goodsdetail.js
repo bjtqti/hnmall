@@ -2,7 +2,6 @@
 
 let { markupOfRoute ,fetchApi,getUri,formatPrice} = require('../lib')
 
-
 function formatGoodsInfo(res){
   let images = res.item.images.map((path)=>{
     return getUri(path)
@@ -10,18 +9,18 @@ function formatGoodsInfo(res){
   let spec = res.item.spec;
   let attr = [];
   let sku = [];
-  let book = {};
-  
-  spec.specs.forEach((item)=>{
+  let type = {};
+  let checked = spec.specSku.length ===1;
+
+  spec.specs.forEach((item,i)=>{
     let values = [];
-    let arr = spec.specSku[0].spec_sku_id.split('_');
-    item.spec_values.forEach((v,i)=>{
+    item.spec_values.forEach((v,j)=>{
       let id = v.spec_value_id+"";
-      book[id] = v.spec_value;
+      type[id]=v.spec_value;
       values.push({
         id:id,
         value:v.spec_value,
-        checked:arr.indexOf(id)!==-1 ? true:false
+        checked
       })
     })
     attr.push({
@@ -34,17 +33,17 @@ function formatGoodsInfo(res){
   spec.specSku.forEach((item,i)=>{
     let arr = item.spec_sku_id.split('_');
     let name = [];
-    arr.forEach((key,i)=>{
-      name[i]=book[key]
-    })
+    arr.forEach((key)=>{
+      name.push(type[key]);
+    });
     sku.push({
       id:item.spec_sku_id,
       skuid:item.sku_id,
-      value:name.join(';'),
       price:formatPrice(item.price),
       store:parseInt(item.store),
       valid:!!item.valid,
-      checked:i===0
+      value:name.join(';'),
+      checked:checked
     })
   })
 

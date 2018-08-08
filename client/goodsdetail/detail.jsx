@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import classNames from "classnames";
+import classNames from "classnames"
 import {isArray,isObject} from '../lib'
 import {BASE_HOST} from '../common/constant'
 
@@ -68,8 +68,8 @@ export default class Detail extends Component {
 
 	renderGoodsParam(detail){
 		//console.log(detail)
-		if(!detail || !isArray(detail.props)){
-			return '';
+		if(!detail || !isArray(detail.props)|| !detail.props.length){
+			return <div className="empty-props">暂无参数信息</div>;
 		}
 		return detail.props.map((item,i)=>{
 			return (
@@ -82,8 +82,8 @@ export default class Detail extends Component {
 	}
 
 	renderGoodsNote(detail){
-		if(!detail || !isArray(detail.remark)){
-			return '';
+		if(!detail || !isArray(detail.remark) || !detail.remark.length){
+			return <div className="empty-props">暂无信息</div>;
 		}
 		return detail.remark.map((item,i)=>{
 			//console.log(item)

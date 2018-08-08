@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
-import {isObject} from '../lib'
-import NumberPicker from './numberpicker.jsx'
+import {isObject,isArray} from '../lib'
+import NumberPicker from '../commponents/numberpicker.jsx'
 import Alert from '../commponents/alert'
 import {BASE_HOST} from '../common/constant'
 
@@ -14,15 +14,17 @@ export default class Popup extends Component {
 	}
 
 	componentDidMount() {
-		let popup = this.refs.popup;
-		popup.addEventListener('touchmove',(e)=>{
-			console.log(e)
-		})
+
+		// let popup = this.refs.popup;
+		// popup.addEventListener('touchmove',(e)=>{
+		// 	e.preventDefault();
+		// })
 	}
 
 	toggle(i,j) {
 		let {attr}=this.props.goods.goodsDetail;
-		if(attr[i].values[j].checked) return false;
+		//if(attr[i].values[j].checked) return false;
+		if(attr[i].values[j].disabled) return false;
 		this.props.toggleAttr({i,j});
 	}
 
@@ -30,7 +32,7 @@ export default class Popup extends Component {
 		let {sku} = goodsDetail;
 		let allowed = false;
 		for(let s of sku){
-			if(s.checked){
+			if(s.checked && s.valid && s.store >0){
 				allowed = true;
 				break;
 			}
@@ -39,16 +41,29 @@ export default class Popup extends Component {
 	}
 
 	filter(goodsDetail){
-		let {sku} = goodsDetail;
-		let result = {id:0,price:"0.00",value:"请选择商品规格"};
+		let {attr,sku} = goodsDetail;
+		let name = '';
+		let title=[];
+		let price = '';
+		
 		for(let s of sku){
 			if(s.checked){
-				result = s;
+				price = s.price;
+				name = s.value;
 				break;
 			}
 		}
 
-		return result;
+		if(!name){
+			attr.forEach((item)=>{
+				title.push(item.name);
+			})
+		}
+
+		return {
+			name:name||'请选择'+title.join(''),
+			price:price||'0.00'
+		}
 	}
 
 	handleHidePop(){
@@ -60,14 +75,15 @@ export default class Popup extends Component {
 	}
 
 	renderAttrList(goods){
-		if(!isObject(goods)) {
+		if(!isObject(goods)||!isArray(goods.attr)) {
 			return ''
 		}
 		let attrList = [];
 		goods.attr.forEach((item,i)=>{
 			let values = item.values.map((v,j)=>{
 				let status = classNames("attr-item",{
-					checked:v.checked
+					checked:v.checked,
+					disabled:v.disabled
 				})
 				return (
 					<div onClick={this.toggle.bind(this,i,j)} className={status} key={v.id}>{v.value}</div>
@@ -99,7 +115,7 @@ export default class Popup extends Component {
 				</div>
 				<div className="goods-attr">
 					<div className="price">￥<b>{price[0]}</b>.{price[1]}</div>
-					<div className="attr">{selected.value}</div>
+					<div className="attr">{selected.name}</div>
 				</div>
 				<div className="close" onClick={this.handleHidePop}>
 					<i className="iconfont icon-close"></i>

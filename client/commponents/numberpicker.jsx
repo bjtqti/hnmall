@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import classNames from "classnames";
 
 export default class NumberPicker extends Component {
 	 
@@ -62,14 +63,21 @@ export default class NumberPicker extends Component {
 	 
 	render() {
 		let {value} = this.state;
+		let {minimum,maximum} = this.props;
+		let minusClass = classNames("minus",{
+			disabled:value <= minimum
+		});
+		let plusClass = classNames("plus",{
+			disabled:value >= maximum
+		});
 		return (
 			<div className="number-pick">
 				<div className="picker flex">
-					<div className="minus" onClick={this.handleDecrease}>-</div>
+					<div className={minusClass} onClick={this.handleDecrease}>-</div>
 					<div className="value">
 						<input type="number" value={value} onChange={this.handleChange}/>
 					</div>
-					<div className="plus" onClick={this.handleIncrease}>+</div>
+					<div className={plusClass} onClick={this.handleIncrease}>+</div>
 				</div>
 			</div>
 		)
