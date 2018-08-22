@@ -62,7 +62,7 @@ export class Index extends Component {
 				timestamp:data.timestamp,
 				agentid:data.agentid,
 				title:"友阿微店",
-				link:url,
+				link:location.href,
 				desc:'友阿微店--更高品质,便捷生活',
 				imgUrl:'https://www.hnmall.com/images/3a/e5/c5/076ec271495f7494427fad42f6c0d2443189019b.jpg'
 			},(res)=>{

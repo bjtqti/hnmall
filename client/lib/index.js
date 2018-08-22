@@ -370,7 +370,7 @@ exports.wxShare = (config={},callback)=>{
     //配置信息appId,nonceStr,signature,timestamp
     let {agentid,title,desc,imgUrl,link,type} = config;
     wx.config({
-        debug       : false,
+        debug       : true,
         appId       : config.appId,
         timestamp   : config.timestamp,
         nonceStr    : config.nonceStr,
@@ -405,12 +405,12 @@ exports.wxShare = (config={},callback)=>{
         }
     }
     var shareConfig = {
-        title: 'title', // 分享标题
+        title: title, // 分享标题
         desc: desc, // 分享描述
         link: link, // 分享链接
-        imgUrl:'https://www.hnmall.com/images/3a/e5/c5/076ec271495f7494427fad42f6c0d2443189019b.jpg', // 分享图标
+        imgUrl:imgUrl, // 分享图标
         success: function() {
-            console.log('ok')
+            alert('ok')
             // 用户确认分享后执行的回调函数
             callback&&callback({
                 type :type||'news',
