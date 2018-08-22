@@ -370,7 +370,7 @@ exports.wxShare = (config={},callback)=>{
     //配置信息appId,nonceStr,signature,timestamp
     let {agentid,title,desc,imgUrl,link,type} = config;
     wx.config({
-        debug       : true,
+        debug       : false,
         appId       : config.appId,
         timestamp   : config.timestamp,
         nonceStr    : config.nonceStr,
@@ -379,38 +379,24 @@ exports.wxShare = (config={},callback)=>{
             'onMenuShareTimeline',
             'onMenuShareAppMessage',
             'onMenuShareQQ',
-            'onMenuShareWeibo',
-            'onMenuShareQZone'
+            'onMenuShareWeibo'
         ]
     });
-    var checkAgentId=function(url){
-        var str = url.split('?');
-        var result = false;
-        if(str.length<2||str[1]===''){
-            return result;
-        }
-        var arr = str[1].split('&');
-        for(var i=0,length=arr.length;i<length;i++){
-            if(arr[i].indexOf('agentid')!== -1){
-                result = true;
-            }
-        }
-        return result;
-    }
-    if(!checkAgentId(link)){
+    
+    if(link.indexOf('agentid=') === -1){
         if(link.indexOf('?')!== -1){
             link = link+'&agentid='+agentid;
         }else{
             link = link+'?agentid='+agentid;
         }
     }
-    var shareConfig = {
+
+    let shareConfig = {
         title: title, // 分享标题
         desc: desc, // 分享描述
         link: link, // 分享链接
         imgUrl:imgUrl, // 分享图标
         success: function() {
-            alert('ok')
             // 用户确认分享后执行的回调函数
             callback&&callback({
                 type :type||'news',
@@ -418,14 +404,6 @@ exports.wxShare = (config={},callback)=>{
                 link:link,
                 desc:desc
             });
-        },
-        fail:function(err){
-            alert('err',err)
-        },
-        cancel: function() {
-            // 用户取消分享后执行的回调函数
-            //isFunction(opt.cancel)&&opt.cancel();
-            alert('取消分享')
         }
     }
 
@@ -439,7 +417,5 @@ exports.wxShare = (config={},callback)=>{
         wx.onMenuShareQQ(shareConfig);
         //获取“分享到腾讯微博”按钮点击状态及自定义分享内容接口
         wx.onMenuShareWeibo(shareConfig);
-        //获取“分享到QQ空间”按钮点击状态及自定义分享内容接口
-        wx.onMenuShareQZone(shareConfig);
     });
 }
