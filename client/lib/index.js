@@ -1,5 +1,7 @@
 "use strict";
 
+require('es6-promise').polyfill();
+
 /**
  * 货币格式
  * n 要格式化的数字
@@ -29,6 +31,15 @@ exports.formatPrice = (n,r=2)=>{
 exports.isWechat = ()=>{
 	var ua = navigator.userAgent.toLowerCase();
 	return /micromessenger/i.test(ua);
+}
+
+/**
+ *
+ * 判断是否是App访问
+ */
+exports.isApp = ()=>{
+    var ua = navigator.userAgent.toLowerCase();
+    return /YouAWeishop/i.test(ua);
 }
 
 /**
