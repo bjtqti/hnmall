@@ -404,11 +404,11 @@ exports.wxShare = (config={},callback)=>{
             link = link+'?agentid='+agentid;
         }
     }
-    const shareConfig = {
-        title: title, // 分享标题
+    var shareConfig = {
+        title: 'title', // 分享标题
         desc: desc, // 分享描述
         link: link, // 分享链接
-        imgUrl:imgUrl, // 分享图标
+        imgUrl:'https://www.hnmall.com/images/3a/e5/c5/076ec271495f7494427fad42f6c0d2443189019b.jpg', // 分享图标
         success: function() {
             console.log('ok')
             // 用户确认分享后执行的回调函数
@@ -425,6 +425,7 @@ exports.wxShare = (config={},callback)=>{
         cancel: function() {
             // 用户取消分享后执行的回调函数
             //isFunction(opt.cancel)&&opt.cancel();
+            alert('取消分享')
         }
     }
 
