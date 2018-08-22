@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-//import Swiper from 'swiper'
 
 export default class TextSwiper extends Component {
+
 	static propTypes = {
 		message: PropTypes.array
 	}
+
 	constructor(props) {
 		super(props);
 	}
@@ -20,7 +21,6 @@ export default class TextSwiper extends Component {
 				autoplay:5000
 			});
 		});
-
 	}
 
 	renderSlider(){

@@ -3,28 +3,53 @@ import {BASE_HOST} from '../common/constant'
 import BannerSwipe from './banner.jsx'
 import Detail from './detail.jsx'
 import ToolBar from './toolbar.jsx'
-import Popup from './popup.jsx';
-import Menu from './menu.jsx'
+import Popup from './popup.jsx'
+import Menu from './sidemenu.jsx'
 import GoTop from '../commponents/gotop.jsx'
 import Loading from '../commponents/loading.jsx'
- 
+import {fetchApi,isWechat,wxShare} from '../lib/index.js'
 
 export class GoodsDetail extends Component {
 	 
-
 	constructor(props) {
 		super(props);
 		this.state = {
-			showMenu:false,
-			isActivePop:false
+			showMenu:false
 		}
 		this.handleClickPop = this.handleClickPop.bind(this);
 		this.handleShowMenu = this.handleShowMenu.bind(this);
 		this.handleHideMenu = this.handleHideMenu.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	componentDidMount() {
-		
+		const url = encodeURIComponent(document.location.href);
+		const {title,sub_title,thumbnail} = this.props.goods.goodsDetail;
+		//console.log(title,sub_title,thumbnail)
+		if(isWechat()){
+			fetchApi('/index/weixin',{
+				method:'POST',
+				data: {url:url}
+			}).then((data)=>{
+				//console.log(data)
+				wxShare({
+					appId:data.appId,
+					nonceStr:data.nonceStr,
+					signature:data.signature,
+					timestamp:data.timestamp,
+					agentid:data.agentid,
+					title:title,
+					link:url,
+					desc:sub_title,
+					imgUrl:thumbnail
+				},(res)=>{
+					fetchApi('/index/wxshare',{
+						method:'POST',
+						data:res
+					})
+				})
+			})
+		}
 	}
 
 	handleBack(){
@@ -43,6 +68,17 @@ export class GoodsDetail extends Component {
 		})
 	}
 
+	handleClickPop(){
+		this.props.togglePopup({
+			status:true
+		})
+	}
+
+	handleSubmit(){
+		 
+		 
+	}
+
 	filterCheckedAttr(goodsDetail){
 		let {attr} = goodsDetail;
 		let value = [];
@@ -59,18 +95,23 @@ export class GoodsDetail extends Component {
 		return value.join(';')||'请选择'+name.join(',');
 	}
 
-	handleClickPop(){
-		let {isActivePop} = this.state;
-		this.setState({
-			isActivePop:!isActivePop
-		})
+	submitCheck(){
+		let {sku} = this.props.goods.goodsDetail;
+		let checkedItem;
+		for(let s of sku){
+			if(s.checked && s.valid && s.store >0){
+				checkedItem = s;
+				break;
+			}
+		}
+		return checkedItem;
 	}
 
 	render() {
 		let {goodsDetail,isFetching} = this.props.goods;
 		let price = goodsDetail.price.split('.');
 		let shopLink = `${BASE_HOST}wap/shop-index.html?shop_id=${goodsDetail.shop_id}`;
-		//console.log(maskClass)
+		let buttonStatus = this.submitCheck();
 		return (
 			<div className="app-wrap">
 				<div className="header">
@@ -106,9 +147,9 @@ export class GoodsDetail extends Component {
 					<a className="shop-enter" href={shopLink}>进店逛逛</a>
 				</div>
 				<Detail {...this.props} />
-				<ToolBar {...this.props} />
-				<Popup {...this.props} show={this.state.isActivePop} onTap={this.handleClickPop} />
-				<Loading active={isFetching}/>
+				<ToolBar {...this.props} buy={this.handleSubmit} status={buttonStatus} />
+				<Popup {...this.props} buy={this.handleSubmit} status={buttonStatus} />
+				<Loading active={isFetching} />
 				<GoTop />
 			</div>
 		)

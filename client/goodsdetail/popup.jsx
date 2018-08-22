@@ -10,7 +10,8 @@ export default class Popup extends Component {
 	constructor(props) {
 		super(props);
 		this.handleHidePop = this.handleHidePop.bind(this);
-		this.handleCloseAlert=this.handleCloseAlert.bind(this)
+		this.handleCloseAlert=this.handleCloseAlert.bind(this);
+		this.handleBuy = this.handleBuy.bind(this)
 	}
 
 	componentDidMount() {
@@ -28,17 +29,6 @@ export default class Popup extends Component {
 		this.props.toggleAttr({i,j});
 	}
 
-	submitCheck(goodsDetail){
-		let {sku} = goodsDetail;
-		let allowed = false;
-		for(let s of sku){
-			if(s.checked && s.valid && s.store >0){
-				allowed = true;
-				break;
-			}
-		}
-		return allowed
-	}
 
 	filter(goodsDetail){
 		let {attr,sku} = goodsDetail;
@@ -58,16 +48,27 @@ export default class Popup extends Component {
 			attr.forEach((item)=>{
 				title.push(item.name);
 			})
+			name = '请选择'+title.join('');
 		}
 
+		if(!price){
+			sku.sort((num1, num2) => {
+			    return num1.price - num2.price
+			});
+			let p1 = sku[0].price;
+			let p2 = sku[sku.length-1].price;
+			price = p2 != p1 ? `${p1} - ${p2}` : p1;
+		}
 		return {
-			name:name||'请选择'+title.join(''),
-			price:price||'0.00'
+			name,
+			price
 		}
 	}
 
 	handleHidePop(){
-		this.props.onTap()
+		this.props.togglePopup({
+			status:false
+		})
 	}
 
 	handleCloseAlert(){
@@ -105,8 +106,15 @@ export default class Popup extends Component {
 		if(!isObject(goods)) {
 			return '数据错误'
 		}
-		let selected = this.filter(goods);
-		let price = selected.price.split('.');
+		let {name,price} = this.filter(goods);
+		//console.log(name,price)
+		let fprice = (price)=>{
+			if(price.indexOf('-')>0){
+				return price
+			}
+			let arr = price.split('.');
+			return <span><b>{arr[0]}</b>.{arr[1]}</span>
+		}
 		
 		return (
 			<div className="goods-info flex">
@@ -114,8 +122,8 @@ export default class Popup extends Component {
 					<a href="javascript:;"><img className="img" src={goods.thumbnail} /></a>
 				</div>
 				<div className="goods-attr">
-					<div className="price">￥<b>{price[0]}</b>.{price[1]}</div>
-					<div className="attr">{selected.name}</div>
+					<div className="price">￥{fprice(price)}</div>
+					<div className="attr">{name}</div>
 				</div>
 				<div className="close" onClick={this.handleHidePop}>
 					<i className="iconfont icon-close"></i>
@@ -124,22 +132,28 @@ export default class Popup extends Component {
 		)
 	}
 
+	handleBuy(){
+		this.props.togglePopup({
+			status:false
+		})
+		this.props.buy();
+	}
+
 	render() {
-		let {onTap,show} = this.props;
-		let {goodsDetail,error} = this.props.goods;
+		let {goodsDetail,error,popupStatus} = this.props.goods;
 		let maximum = Math.max(goodsDetail.user_max_limit||goodsDetail.store);
-		let allowed = this.submitCheck(goodsDetail);
+		 
 		let popupWrap = classNames("popup-wrap",{
-			active:show
+			active:popupStatus
 		})
 		let showPop = classNames("popup",{
-			active:show
+			active:popupStatus
 		});
 		let submit = classNames("button",{
-			active:allowed
+			active:this.props.status
 		});
 
-		console.log(goodsDetail)
+		//console.log(goodsDetail)
 		return (
 			<div ref="popup" className={popupWrap}>
 				<div className="mask" onClick={this.handleHidePop}></div>
@@ -148,7 +162,7 @@ export default class Popup extends Component {
 					{this.renderAttrList(goodsDetail)}
 					<div className="bar">
 						<NumberPicker minimum={1} maximum={maximum}/>
-						<div className={submit}>立即购买</div>
+						<div className={submit} onClick={this.handleBuy}>立即购买</div>
 					</div>
 				</div>
 				<Alert message={error} close={this.handleCloseAlert}/>

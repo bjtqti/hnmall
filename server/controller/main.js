@@ -1,10 +1,10 @@
 "use strict";
 
-let { markupOfRoute ,fetchApi} = require('../lib')
+let { markupOfRoute ,fetchApi} = require('../lib');
 
 exports.index = async function(ctx, next) {
   let ret,markup = '',initialState={}
-
+  
   try {
     ret = await fetchApi("index.php/topapi",{
       method:'POST',
@@ -49,10 +49,6 @@ exports.goodslist = async function(ctx,next){
     //     'Access-Control-Allow-Headers',
     //     'Content-Type, Authorization, Content-Length, X-Requested-With, Accept, x-csrf-token, origin'
     // )
-    
-
-  token = token ? token :'10773c1db51c5f3366386bb0b9078bea62a4fc87e7f6e21fe7002545c981c952';
-
 
   try {
     ret = await fetchApi("/index.php/topapi",{
@@ -111,18 +107,79 @@ exports.shopinfo = async function(ctx,next){
   ctx.body = ret;
 }
 
+/**
+ * 获取用户token
+ */
+exports.getUserToken = async function(ctx,next){
+  let {code} = ctx.request.body;
+  let ret;
+  try {
+    ret = await fetchApi('/weidian/code-token.html',{
+      data:{
+        code:code
+      }
+    })
+  }catch(err){
+    throw(err)
+  }
+ // console.log(code)
+  ctx.body = ret;
+}
+
+/**
+ * 检查token是否过期
+ */
+exports.checkToken = async function(ctx,next){
+  let {token} = ctx.request.body;
+  let ret;
+  try {
+    ret = await fetchApi("/index.php/topapi",{
+      method:'POST',
+      data:{
+        format:'json',
+        v:'v1',
+        method:'member.index',
+        accessToken:token
+      }
+    })
+  }catch(err){
+    throw (err)
+  }
+  //console.log(token)
+  ctx.body = ret;
+}
+
+/**
+ * 微信分享回调
+ */
+exports.wxShare = async function(ctx,next){
+  let {data} = ctx.request.body;
+  let ret;
+  try {
+    ret = await fetchApi("/wap/wxaddsharelog.html",{
+      method:"POST",
+      data:{
+        data:data
+      }
+    })
+  }catch (err){
+    throw(err)
+  }
+  ctx.body = ret;
+}
+
+
 exports.error = async function (ctx, next) {
   try {
     await next()
   } catch (err) {
     if (err.code === 404) {
-      await ctx.render('404')
+      let ret = await ctx.render('404')
     } else {
       await ctx.render('error', { msg: err.message })
     }
   }
 }
-
 
 exports.notFound = async function (ctx) {
   await ctx.render('404')

@@ -4,7 +4,8 @@ import {combineReducers} from "redux";
 import {isArray} from '../lib'
 import {
 	START_FETCH_DETAIL,FINISH_FETCH_DETAIL,
-    TOGGLE_ITEM_ATTR,CLOSE_ALERT
+    TOGGLE_ITEM_ATTR,CLOSE_ALERT,
+    TOGGLE_POPUP
 } from './constant';
 
 /**
@@ -87,6 +88,9 @@ function goods(state={},action){
             return {...state,goodsDetail}
         case CLOSE_ALERT:
             return {...state,error:false}
+        case TOGGLE_POPUP:
+            let popupStatus = action.param.status;
+            return {...state,popupStatus}
         default:
             return state;
     }

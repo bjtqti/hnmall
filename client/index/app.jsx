@@ -10,8 +10,8 @@ import FootBar from '../commponents/footbar.jsx'
 import GoodsList from './goodslist.jsx'
 import Copyright from './copyright.jsx'
 import GoTop from '../commponents/gotop.jsx'
-import {GPS_KEY,INSTALL_APP,BASE_HOST} from '../common/constant.js';
-import {fetchApi,localCache,isWechat,navigatorGeolocation,getLocationByWeixin} from '../lib/index.js'
+import {GPS_KEY,INSTALL_APP,BASE_HOST,TOKEN,APPID} from '../common/constant.js';
+import {fetchApi,localCache,isWechat,navigatorGeolocation,getLocationByWeixin,createNonceStr,parseUrl,wxShare} from '../lib/index.js'
  
 export class Index extends Component {
 
@@ -23,8 +23,9 @@ export class Index extends Component {
 	}
 
 	componentDidMount() {
-		let install = localCache(INSTALL_APP)
-		let pos = localCache(GPS_KEY)
+		let install = localCache(INSTALL_APP);
+		let pos = localCache(GPS_KEY);
+		let token = localCache(TOKEN);
 
 		if(pos) {
 			this.props.getNearStore(pos)
@@ -33,9 +34,85 @@ export class Index extends Component {
 				this.props.getNearStore(r);
 			})
 		}
+ 
 		this.setState({
 			isInsApp:install
-		});
+		})
+		
+		if(token){
+			this.checkToken(token);
+		}else{
+			this.getUserInfo();
+		}
+
+		isWechat() && this.setWeixinShare();
+	}
+
+	setWeixinShare(){
+		const url = encodeURIComponent(document.location.href);
+		fetchApi('/index/weixin',{
+			method:'POST',
+			data: {url:url}
+		}).then((data)=>{
+			//console.log(data)
+			wxShare({
+				appId:data.appId,
+				nonceStr:data.nonceStr,
+				signature:data.signature,
+				timestamp:data.timestamp,
+				agentid:data.agentid,
+				title:"友阿微店",
+				link:url,
+				desc:'友阿微店--更高品质,便捷生活',
+				imgUrl:'https://www.hnmall.com/images/3a/e5/c5/076ec271495f7494427fad42f6c0d2443189019b.jpg'
+			},(res)=>{
+				fetchApi('/index/wxshare',{
+					method:'POST',
+					data:res
+				})
+			})
+		})
+	}
+
+	checkToken(token){
+		fetchApi('/index/checktoken',{
+			method:'POST',
+			data:{
+				token:token
+			}
+		}).then((res)=>{
+			if(res.code !== 0){
+				this.getUserInfo();
+			}
+		})
+	}
+
+	getUserInfo(){
+		let code = parseUrl('code');
+		if(!code && isWechat()){
+			let state = createNonceStr(16);
+			let redirect = encodeURIComponent(window.location.origin);
+			let getcode = `${BASE_HOST}weidian/get-code.html?appid=${APPID}&state=${state}&scope=snsapi_base&redirect_uri=${redirect}`;
+			//console.log(getcode)
+			location.href = getcode;
+			return false;
+		}
+		
+		//console.log(code)
+		if(!code) {
+			return false;
+		}
+
+		fetchApi('/index/token',{
+			method:'POST',
+			data:{
+				code:code
+			}
+		}).then((res)=>{
+			if(res && res.message && res.message.accessToken){
+				localCache(TOKEN,res.message.accessToken,90)
+			}
+		})
 	}
 
 	//获取位置信息
@@ -59,6 +136,7 @@ export class Index extends Component {
 			})
 		}else{
 			navigatorGeolocation((res)=>{
+				//console.log(res)
 				if(res){
 					pos = res;
 					localCache(GPS_KEY,pos);
@@ -103,11 +181,12 @@ export class Index extends Component {
 		let position = {height:isInsApp?'0':'50px'}
 		let widgets = this.renderWidgets();
 		//插入线下门店
-		widgets.splice(3,0,<Shop {...this.props} key={'shop'}/>)
+		widgets.splice(3,0,<Shop {...this.props} key={'shop'}/>);
+
 		return (
 			<div className="app-wrap">
-				<AppBar />
-				<SearchBar {...this.props} install={isInsApp}/>
+				<AppBar/>
+				<SearchBar {...this.props}/>
 				<div style={position}></div>
 				{widgets}
 				<GoodsList {...this.props}/>

@@ -2,7 +2,8 @@
 import {fetchApi} from '../lib'
 import {
 	START_FETCH_DETAIL,FINISH_FETCH_DETAIL,
-	TOGGLE_ITEM_ATTR,CLOSE_ALERT
+	TOGGLE_ITEM_ATTR,CLOSE_ALERT,
+	TOGGLE_POPUP
 } from './constant'
 
 
@@ -53,6 +54,13 @@ function finishCloseAlert (param){
 	}
 }
 
+function finishTogglePopup(param){
+	return {
+		type:TOGGLE_POPUP,
+		param
+	}
+}
+
 /**
  * 切换商品属性
  */
@@ -68,6 +76,12 @@ export function toggleAttr(param){
 export function closeAlert(param){
 	return(dispatch)=>{
 		dispatch(finishCloseAlert(param))
+	}
+}
+
+export function togglePopup(param) {
+	return (dispatch)=>{
+		dispatch(finishTogglePopup(param))
 	}
 }
 

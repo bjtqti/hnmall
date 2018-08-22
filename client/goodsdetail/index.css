@@ -284,7 +284,7 @@
 	line-height: 50px;
 	text-align: center;
 	color: white;
-	font-size: 14px;
+	font-size: 16px;
 }
 
 .tool-bar .add-cart {
@@ -293,6 +293,10 @@
 
 .tool-bar .buy {
 	background-color: #ea2329;
+}
+.tool-bar .buy.disabled {
+	color: #666;
+	background-color: #dfdfdf;
 }
 
 .popup-wrap {
@@ -397,7 +401,9 @@
 }
 
 .popup-wrap .attr-list {
+	max-height: 200px;
 	padding: 10px;
+	overflow: auto;
 }
 
 .popup-wrap .attr-wrap {
@@ -407,6 +413,7 @@
 
 .popup-wrap .attr-type {
 	height: 32px;
+	line-height: 32px;
 	font-size: 16px;
 }
 
@@ -441,9 +448,12 @@
 	height: 50px;
 	width: 100%;
 	border-top: 1px solid #e4e5e6;
+	background-color: white;
 }
 
-
+.icon-start-on {
+	color: red;
+}
 
 .popup .bar .button {
 	width: 40%;

@@ -30,6 +30,7 @@ function index(state={},action){
         case START_GET_STORE:
         	return {...state,isUpdating:true,isUpdated:false}
         case FINISH_GET_STORE:
+            //console.log(action)
         	let shops = action.res? action.res.message:null;
         	return {...state,isUpdating:false,isUpdated:true,coords:action.param,shops}
         default:

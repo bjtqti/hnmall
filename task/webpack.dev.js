@@ -40,7 +40,7 @@ module.exports = merge(base,{
 	mode:'development',
 	devtool: 'inline-source-map',
 	devServer: {
-		https: true,
+		https: false,
 		contentBase: "/",
 		compress: true,
 		historyApiFallback:true,

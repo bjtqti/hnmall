@@ -201,6 +201,7 @@
 	padding-left: 10px;
 }
 
+
 .message-slogan span {
 	display: inline-block;
 	padding: 5px;
@@ -513,4 +514,24 @@
 }
 
 
+/* iphone5 */
 
+@media screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2){
+
+	.message-slogan {
+		width: 125px;
+		padding-left: 5px;
+	}
+	.message-slogan span {
+		display: inline-block;
+		padding: 4px 2px;
+		border-radius: 6px;
+		margin-left: 4px;
+		background-color: #FF6545;
+		color: white;
+	}
+
+	.near-store .shop-name {
+	    font-size: 14px;
+	}
+}

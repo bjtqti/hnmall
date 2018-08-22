@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {formatPrice,isArray,distance} from '../lib'
+import LazyLoad from 'react-lazyload'
 import {BASE_HOST} from '../common/constant';
 //import {localCache} from '../lib'
 
@@ -35,7 +36,7 @@ export default class Shop extends Component {
 				list.push(
 					<div className="swiper-slide store-goods-item" key={i}>
 						<a href={`${BASE_HOST}wap/prepare-item.html?shop_id=${item.shop_id}&item_id=${g.item_id}`}>
-							<img src={goodsImg} className="img" />
+							<LazyLoad once height={80}><img src={goodsImg} className="img"/></LazyLoad>
 							<span className="price">{`￥${price}`}</span>
 						</a>
 					</div>
@@ -50,8 +51,8 @@ export default class Shop extends Component {
 		let list = [];
 		if(!isArray(shops) || shops.length < 1) return '';
 		shops.forEach((item,i)=>{
-			//console.log(item)
-			let way = distance(coords.lat,coords.lng,item.dimensions,item.longitude);
+			//console.log(item,coords)
+			let way = distance(coords.latitude,coords.longitude,item.dimensions,item.longitude);
 			list.push(
 				<div className="flex shop-item" key={i}>
 					<a className="shop-img" href={`${BASE_HOST}oto/shop-index.html?shop_id=${item.shop_id}`}><img src={item.shop_logo} className="img"/></a>
@@ -73,15 +74,36 @@ export default class Shop extends Component {
 		return list;
 	}
 
+	renderShopIcon(modules,shopId){
+		let pic = [];
+		for(let m of modules){
+			if(m.widget === "shop_icon"){
+				pic = m.params.pic;
+				break;
+			}
+		}
+		//console.log(pic)
+		return pic.map((item,i)=>{
+			return (
+				<div className="grid-half" key={`icon_${i}`}>
+					<a className="widget" href={`${item.h5link}?shop_id=${shopId}`}>
+						<LazyLoad once height={120}><img src={item.image} className="img"/></LazyLoad>
+					</a>
+				</div>
+			)
+		})
+	}
+
 	render() {
-		let {shops} = this.props.index;
+		let {shops,modules} = this.props.index;
 		let shopId = isArray(shops) ?  shops[0].shop_id : '';
+		
 		return (
 			<div className="near-store">
 				<div className="store-title">
 					<span>附近的微店</span>
 					<a  className="store-link" href={`${BASE_HOST}oto/shop-list.html`}>
-						<span>更多</span><i className="iconfont icon-more"></i>
+						<span>更多店铺</span><i className="iconfont icon-more"></i>
 					</a>
 				</div>
 				<div className="store-list">
@@ -96,6 +118,9 @@ export default class Shop extends Component {
 				<div className="line"></div>
 				<div ref="store" className="store-goods swiper-container">
 					<div className="swiper-wrapper">{this.storePublicGoods()}</div>
+				</div>
+				<div className="flex">
+					{this.renderShopIcon(modules,shopId)}
 				</div>
 			</div>
 		)

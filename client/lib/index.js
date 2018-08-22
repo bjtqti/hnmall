@@ -96,7 +96,7 @@ exports.getLocationByWeixin = (config,callback)=>{
         signature	: config.signature,
         jsApiList	: 	[	// 接口列表
             'checkJsApi',
-            'openLocation',
+            //'openLocation',
             'getLocation'
         ]
     });
@@ -131,7 +131,7 @@ exports.getLocationByWeixin = (config,callback)=>{
                             callback(resArr);
                         },
                         fail:function(){
-                            console.log('error***weixin')
+                            //console.log('error***weixin')
                             tencentGelocation(callback)
                         }
                     });
@@ -311,6 +311,20 @@ exports.fetchApi = function(url,options={}){
     })
 }
 
+exports.parseUrl = function(name){
+    let url = window.location.search;
+    let query = url.replace('?','').split('&');
+    let code = '';
+    for(let i = 0 ;i <query.length;i++){
+        let path = query[i].split('=');
+        if(path[0]===name){
+            code = path[1];
+            break;
+        }
+    }
+    return code;
+}
+
 /**
  * 生成随机串
  */
@@ -345,4 +359,86 @@ exports.isObject =(o)=>{
  */
 exports.isArray =(o)=>{
   return Object.prototype.toString.call(o)=='[object Array]';
+}
+
+
+/**
+ * 微信分享
+ */
+exports.wxShare = (config={},callback)=>{  
+    if(typeof wx === undefined) callback();
+    //配置信息appId,nonceStr,signature,timestamp
+    let {agentid,title,desc,imgUrl,link,type} = config;
+    wx.config({
+        debug       : false,
+        appId       : config.appId,
+        timestamp   : config.timestamp,
+        nonceStr    : config.nonceStr,
+        signature   : config.signature,
+        jsApiList   : [   // 接口列表
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'onMenuShareQZone'
+        ]
+    });
+    var checkAgentId=function(url){
+        var str = url.split('?');
+        var result = false;
+        if(str.length<2||str[1]===''){
+            return result;
+        }
+        var arr = str[1].split('&');
+        for(var i=0,length=arr.length;i<length;i++){
+            if(arr[i].indexOf('agentid')!== -1){
+                result = true;
+            }
+        }
+        return result;
+    }
+    if(!checkAgentId(link)){
+        if(link.indexOf('?')!== -1){
+            link = link+'&agentid='+agentid;
+        }else{
+            link = link+'?agentid='+agentid;
+        }
+    }
+    const shareConfig = {
+        title: title, // 分享标题
+        desc: desc, // 分享描述
+        link: link, // 分享链接
+        imgUrl:imgUrl, // 分享图标
+        success: function() {
+            console.log('ok')
+            // 用户确认分享后执行的回调函数
+            callback&&callback({
+                type :type||'news',
+                title:title,
+                link:link,
+                desc:desc
+            });
+        },
+        fail:function(err){
+            console.log('err',err)
+        },
+        cancel: function() {
+            // 用户取消分享后执行的回调函数
+            //isFunction(opt.cancel)&&opt.cancel();
+        }
+    }
+
+    //通过ready接口处理成功验证
+    wx.ready(function(){
+        //获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareTimeline(shareConfig);
+        //获取“分享给朋友”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareAppMessage(shareConfig);
+        //获取“分享到QQ”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareQQ(shareConfig);
+        //获取“分享到腾讯微博”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareWeibo(shareConfig);
+        //获取“分享到QQ空间”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareQZone(shareConfig);
+    });
 }

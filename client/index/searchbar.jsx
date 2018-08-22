@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {getScrollTop,isArray} from '../lib/index.js'
-import {BASE_HOST} from '../common/constant.js'
+import {getScrollTop,isArray,localCache} from '../lib/index.js'
+import {BASE_HOST,INSTALL_APP} from '../common/constant.js'
  
 export default class SearchBar extends Component {
 	 
@@ -15,7 +15,10 @@ export default class SearchBar extends Component {
 	}
 
 	componentDidMount(){
-		let install = this.props.install;
+		let install = localCache(INSTALL_APP);
+		this.setState({
+			isInsApp:install
+		})
 		window.addEventListener('scroll',()=>{
 			let height = 1000; //body.scrollHeight
 			let ms = getScrollTop();
@@ -39,7 +42,7 @@ export default class SearchBar extends Component {
 		let {shops} = this.props.index;
 		let position = {top:isInsApp ? '0':'50px','backgroundColor':`rgba(237,103,74,${opacity})`}
 		let shopName = isArray(shops) ? shops[0].shop_name:''
-		//console.log(this.props.index)
+		 
 		return (
 			<div style={position} className="search-bar">
 				<a href={`${BASE_HOST}oto/shop-list.html`} className="shop-link">

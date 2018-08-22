@@ -14,6 +14,7 @@ export default class AppBar extends Component {
 
 	componentDidMount() {
 		let install = localCache(INSTALL_APP)
+		//console.log(install,this.props.install)
 		this.setState({
 			active:!install
 		});

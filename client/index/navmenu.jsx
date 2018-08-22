@@ -15,34 +15,13 @@ export default class NavMenu extends Component {
 
 	}
 
-	formatMenuData(){
-		let data = [];
-		let {icons} = this.props;
-		const app = [
-			null,`${BASE_HOST}wap/itemlist.html?type=new`,
-			null,null,`${BASE_HOST}wap/s-coupon.html`,
-			`${BASE_HOST}seckill/index.php`
-		]
-		icons.forEach((item,i)=>{
-			let nav = {...item};
-			nav.image = item.image.replace(/^\//,BASE_HOST);
-			if(item.linktype==='cat'){
-				nav.linktarget = `${BASE_HOST}wap/item-list.html?cat_id=${item.linktarget}`;
-			}else if(item.linktype==='app'){
-				nav.linktarget=app[i];
-			}
-			data.push(nav)
-		})
-		return data;
-	}
-
 	renderMenu(){
-		let icons = this.formatMenuData();
+		let {icons} = this.props;
 		return icons.map((d,i)=>{
 			return (
 				<div className="nav-menu-item" key={i}>
-					<a href={d.linktarget}>
-						<img className="nav-menu-icon" src={d.image} alt={d.tag}/>
+					<a href={d.h5link}>
+						<img className="nav-menu-icon" src={d.image.replace(/^\//,BASE_HOST)} alt={d.tag}/>
 						<span className="nav-menu-text">{d.tag}</span>
 					</a>
 				</div>

@@ -28,6 +28,7 @@ class GoodsDetailApp extends Component{
         const initialState = {
             goods:{
                 goodsDetail,
+                popupStatus:false,
                 isFetching:false,
                 isFetched:false
             }
