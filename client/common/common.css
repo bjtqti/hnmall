@@ -117,6 +117,10 @@ ul {
 	display: none;
 }
 
+.flex {
+	display: flex;
+}
+
 .ellipsis {
 	overflow:hidden;
     white-space:nowrap;

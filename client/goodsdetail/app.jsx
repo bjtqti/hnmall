@@ -23,33 +23,34 @@ export class GoodsDetail extends Component {
 	}
 
 	componentDidMount() {
+		isWechat() && this.setWeixinShare();
+	}
+
+	setWeixinShare(){
 		const url = encodeURIComponent(document.location.href);
 		const {title,sub_title,thumbnail} = this.props.goods.goodsDetail;
-		//console.log(title,sub_title,thumbnail)
-		if(isWechat()){
-			fetchApi('/index/weixin',{
-				method:'POST',
-				data: {url:url}
-			}).then((data)=>{
-				//console.log(data)
-				wxShare({
-					appId:data.appId,
-					nonceStr:data.nonceStr,
-					signature:data.signature,
-					timestamp:data.timestamp,
-					agentid:data.agentid,
-					title:title,
-					link:url,
-					desc:sub_title,
-					imgUrl:thumbnail
-				},(res)=>{
-					fetchApi('/index/wxshare',{
-						method:'POST',
-						data:res
-					})
+		fetchApi('/index/weixin',{
+			method:'POST',
+			data: {url:url}
+		}).then((data)=>{
+			//console.log(data)
+			wxShare({
+				appId:data.appId,
+				nonceStr:data.nonceStr,
+				signature:data.signature,
+				timestamp:data.timestamp,
+				agentid:data.agentid,
+				title:title,
+				link:location.href,
+				desc:sub_title,
+				imgUrl:thumbnail
+			},(res)=>{
+				fetchApi('/index/wxshare',{
+					method:'POST',
+					data:res
 				})
 			})
-		}
+		})
 	}
 
 	handleBack(){

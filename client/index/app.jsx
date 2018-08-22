@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import AppBar from './appbar.jsx'
+import AppBar from '../commponents/appbar.jsx'
 import SearchBar from './searchbar.jsx'
 import BannerSwiper from './bannerswiper.jsx'
 import NavMenu from './navmenu.jsx'
@@ -186,8 +186,8 @@ export class Index extends Component {
 		return (
 			<div className="app-wrap">
 				<AppBar/>
-				<SearchBar {...this.props}/>
 				<div style={position}></div>
+				<SearchBar {...this.props}/>
 				{widgets}
 				<GoodsList {...this.props}/>
 				<FootBar />

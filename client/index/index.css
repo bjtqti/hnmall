@@ -1,62 +1,10 @@
 @import '../common/common.css';
+@import '../commponents/appbar.css';
 @import '../commponents/footbar.css';
 @import '../commponents/gotop.css';
 @import '../common/swiper.min.css';
 
-.app-download-bar {
-	display: none;
-	position: fixed;
-	top: 0;
-	z-index: 9;
-	width: 100%;
-	height: 50px;
-	background-color: #ed674a;
-	max-width: 640px;
-}
 
-.app-download-bar .bar {
-	height: 100%;
-	align-items: center;
-}
-
-.app-download-bar .logo {
-	width: 40px;
-	height: 40px;
-	margin-left: 15px;
-	background: url(../assets/images/app_2054.jpg) no-repeat center center;
-	background-size: cover;
-}
-
-.app-download-bar .app-down {
-	color: white;
-	flex-grow: 1;
-	margin-left: 10px;
-}
-
-.app-download-bar .app-name {
-	font-size: 15px;
-}
-
-.app-download-bar .app-desc {
-	padding-top: 4px;
-	font-size: 12px;
-}
-
-.app-download-bar .app-tip {
-	width: 100px;
-	height: 32px;
-	margin-right: 15px;
-	text-align: center;
-	line-height: 32px;
-	background-color: white;
-	border-radius: 5px;
-	color: #ed674a;
-	font-size: 14px;
-}
-
-.app-download-bar.show {
-	display: block;
-}
 .header-view {
 	position: relative;
 }
@@ -246,9 +194,6 @@
 
 .grid-25 {
 	width: 25%;
-}
-.flex {
-	display: flex;
 }
  
 .widget-grid-title {

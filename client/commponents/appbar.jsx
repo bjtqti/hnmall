@@ -37,7 +37,7 @@ export default class AppBar extends Component {
 
 	handleClick(){
 		localCache(INSTALL_APP,1);
-		location.href=`${BASE_HOST}downloadPage/default.html`
+		location.href='https://www.hnmall.com/downloadPage/default.html'
 	}
 
 	render() {
