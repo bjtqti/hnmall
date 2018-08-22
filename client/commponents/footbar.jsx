@@ -33,7 +33,7 @@ export default class FootBar extends Component {
 					<img className="icon" src="https://www.hnmall.com/themes/mobilemall/images/d-icon4.png" />
 					<span>店铺</span>
 				</a>
-				<a className="foot-bar-item" href="https://www.hnmall.com/wap/member.html">
+				<a className="foot-bar-item" href={`${BASE_HOST}wap/member.html`}>
 					<img className="icon" src="https://www.hnmall.com/themes/mobilemall/images/d-icon5.png" />
 					<span>会员</span>
 				</a>

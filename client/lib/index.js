@@ -420,7 +420,7 @@ exports.wxShare = (config={},callback)=>{
             });
         },
         fail:function(err){
-            console.log('err',err)
+            alert('err',err)
         },
         cancel: function() {
             // 用户取消分享后执行的回调函数
