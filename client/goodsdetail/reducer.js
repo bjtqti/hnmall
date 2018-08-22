@@ -16,7 +16,8 @@ function checkStatus(attr,sku,param){
     let {i,j} = param;
     let checkedItem = attr[i].values[j];
     let validId = [];
-    for(let s of sku){
+    for(let l=0;l<sku.length;l++){
+        let s = sku[l];
         if(checkedItem.checked && s.id.indexOf(checkedItem.id) !== -1){
             let id = s.id.replace(checkedItem.id,'').replace('_','')
             validId.push(id)
@@ -26,7 +27,8 @@ function checkStatus(attr,sku,param){
         if(k===i){
             continue;
         }
-        for(let value of attr[k].values){
+        for(let l=0;l<attr[k].values;l++){
+            let value = attr[k].values[l];
             value.disabled = false;
             if(validId.length && validId.indexOf(value.id) === -1){
                 value.disabled = true;

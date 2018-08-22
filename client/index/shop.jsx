@@ -76,13 +76,14 @@ export default class Shop extends Component {
 
 	renderShopIcon(modules,shopId){
 		let pic = [];
-		for(let m of modules){
+		for(let i = 0;i<modules.length;i++){
+			let m = modules[i];
 			if(m.widget === "shop_icon"){
 				pic = m.params.pic;
 				break;
 			}
 		}
-		//console.log(pic)
+		
 		return pic.map((item,i)=>{
 			return (
 				<div className="grid-half" key={`icon_${i}`}>

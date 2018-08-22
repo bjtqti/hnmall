@@ -36,7 +36,8 @@ export default class Popup extends Component {
 		let title=[];
 		let price = '';
 		
-		for(let s of sku){
+		for(let i=0;i<sku.length;i++){
+			let s = sku[i];
 			if(s.checked){
 				price = s.price;
 				name = s.value;

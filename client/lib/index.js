@@ -1,7 +1,5 @@
 "use strict";
 
-require('es6-promise').polyfill();
-
 /**
  * 货币格式
  * n 要格式化的数字

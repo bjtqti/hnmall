@@ -84,9 +84,11 @@ export class GoodsDetail extends Component {
 		let {attr} = goodsDetail;
 		let value = [];
 		let name = [];
-		for(let s of attr){
+		for(let i=0;i<attr.length;i++){
+			let s = attr[i];
 			name.push(s.name)
-			for(let v of s.values){
+			for(let j=0;j<s.values.length;j++){
+				let v = s.values[j];
 				if(v.checked){
 					value.push(v.value);
 					break;
@@ -99,7 +101,8 @@ export class GoodsDetail extends Component {
 	submitCheck(){
 		let {sku} = this.props.goods.goodsDetail;
 		let checkedItem;
-		for(let s of sku){
+		for(let i=0;i<sku.length;i++){
+			let s = sku[i];
 			if(s.checked && s.valid && s.store >0){
 				checkedItem = s;
 				break;
