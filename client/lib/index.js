@@ -431,10 +431,9 @@ exports.platform = {
         isWx : function() {
             return navigator.userAgent.match(/micromessenger/i) ? true : false;
         },
-        isChrome : function() {
-            return navigator.userAgent.match(/chrome/i) ? true : false;
+        isQQ:function(){
+            return navigator.userAgent.match(/QQ/i) ? true : false;
         }
 }
 
 
-            

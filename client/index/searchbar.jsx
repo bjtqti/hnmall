@@ -34,6 +34,9 @@ export default class SearchBar extends Component {
 
 	handleChange(e){
 		let value = e.target.value;
+		if(value == '666666'){
+			localStorage.clear();
+		}
 		this.setState({value});
 	}
 

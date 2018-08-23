@@ -88,11 +88,12 @@ export class Index extends Component {
 	}
 
 	getUserInfo(){
+		//https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxdbb96d20de9ed62a&redirect_uri=https%3A%2F%2Fwd.hnmall.com%2Fwap%2Ftrustlogin-bind.html%3Fflag%3Dwapweixin&response_type=code&scope=snsapi_userinfo&state=c7e71d0a2783446daff2aba6be1f6178#wechat_redirect
 		let code = parseUrl('code');
 		if(!code && isWechat()){
 			let state = createNonceStr(16);
 			let redirect = encodeURIComponent(window.location.origin);
-			let getcode = `${BASE_HOST}weidian/get-code.html?appid=${APPID}&state=${state}&scope=snsapi_base&redirect_uri=${redirect}`;
+			let getcode = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${redirect}&response_type=code&scope=snsapi_userinfo&state=${state}#wechat_redirect`;
 			//console.log(getcode)
 			location.href = getcode;
 			return false;

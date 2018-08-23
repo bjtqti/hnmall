@@ -10,6 +10,7 @@ export default class AppBar extends Component {
 		this.state = {
 			active : false
 		}
+		this.handleClick = this.handleClick.bind(this)
 	}
 
 	componentDidMount() {
@@ -22,38 +23,45 @@ export default class AppBar extends Component {
 			this.onViewScroll();
 		}
 
-		this.launchApp()
+		this.launchApp();
 	}
 
 	//唤醒本机APP
-	launchApp(){
+	launchApp(fn){
 		let last = Date.now();
 		let doc = window.document;
 		let ifr = doc.createElement('iframe');
 		let scheme = '';
 		const config = {
-            /*scheme:必须*/
-            scheme_IOS: 'YouAWeishop://',
-            scheme_Adr: 'YouAWeishop://'
-        };
-
+		    ios: 'YouAWeishop://',
+		    android: 'YouAWeishop://'
+		};
+		if(platform.isWx()){
+			fn && fn();
+		}
         if(platform.isIOS()){
-        	scheme = config.scheme_IOS;
-        	location.href = scheme;
+        	scheme = config.ios;
+        	if(!platform.isQQ()){
+        		location.href = scheme;
+        	}
         }else if(platform.isAndroid()){
-        	scheme = config.scheme_Adr;
-        	ifr.src = scheme;
-		    ifr.style.display = 'none';  
-		    document.body.appendChild(ifr);
-		    setTimeout(function(){
-		    	doc.body.removeChild(ifr);
-		    	if(Date.now()-last < 2000){
-		    		//launch fail
-		    	}
-		    },1000); 
+        	scheme = config.android; 
         }else {
         	return false;
         }
+
+        ifr.src = scheme;
+	    ifr.style.display = 'none';  
+	    document.body.appendChild(ifr);
+	    setTimeout(function(){
+	    	if(Date.now()-last < 1050){
+	    		//launch fail
+	    		fn && fn();
+	    	}else{
+	    		localCache(INSTALL_APP,'install',7*24*60*60);
+	    	}
+	    	doc.body.removeChild(ifr);
+	    },1000);
 	}
 
 
@@ -69,8 +77,9 @@ export default class AppBar extends Component {
 	}
 
 	handleClick(){
-		localCache(INSTALL_APP,1,24*60*60);
-		location.href='https://www.hnmall.com/downloadPage/default.html'
+		this.launchApp(()=>{
+			location.href='https://www.hnmall.com/downloadPage/default.html'
+		})
 	}
 
 	render() {
