@@ -1,0 +1,12 @@
+/** copyright **/
+ 
+.copy-right {
+	text-align: center;
+	padding: 10px 0;
+}
+
+.copy-right a {
+	display: block;
+	line-height: 20px;
+	color: #999;
+}

@@ -7,6 +7,9 @@ export default class GoodsList extends Component {
 	 
 	constructor(props) {
 		super(props);
+		this.state = {
+			isReachButton:false
+		}
 	}
 
 	componentDidMount() {
@@ -36,6 +39,9 @@ export default class GoodsList extends Component {
 
 		//App上猜你喜欢只取前200条数据
 		if(goodsList.length >=200){
+			this.setState({
+				isReachButton:true
+			})
 			return false;
 		}
 		this.props.fetchGoods({
@@ -57,7 +63,7 @@ export default class GoodsList extends Component {
 				<div className="goods-list-item" key={goods.item_id}>
 					<a href={`${BASE_HOST}wap/item-detail.html?item_id=${goods.item_id}`}>
 						<div className="goods-img">
-						<LazyLoad once height={177} offset={200}
+						<LazyLoad once height={177} offsetVertical={200}
 						placeholder = {placeImg}>
 							<img src={goods.image_default_id} className="img" />
 						</LazyLoad>
@@ -82,8 +88,9 @@ export default class GoodsList extends Component {
 	render() {
 		//console.log(this.props)
 		let {isFetching} = this.props.index;
+		let {isReachButton} = this.state;
 		let display = {display:isFetching ? 'block':'none'}
-
+		let showmore={display:isReachButton ? 'block':'none'};
 		return (
 			<div className="wrap">
 				<div className="goods-list-title">猜你喜欢</div>
@@ -91,6 +98,9 @@ export default class GoodsList extends Component {
 				<div className="lazy-load-wrap" style={display}>
 					<div className="swiper-lazy-preloader"></div>
 					<div className="lazy-load-text">加载中...</div>
+				</div>
+				<div style={showmore} className="more-goods">
+					<a href="/category.html"><span>没有找到想要的商品?换个方式</span><i className="iconfont icon-more"></i></a>
 				</div>
 			</div>
 		)

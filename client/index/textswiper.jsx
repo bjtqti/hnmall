@@ -1,18 +1,18 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+//import PropTypes from 'prop-types'
 
 export default class TextSwiper extends Component {
 
-	static propTypes = {
-		message: PropTypes.array
-	}
+	// static propTypes = {
+	// 	message: PropTypes.array
+	// }
 
 	constructor(props) {
 		super(props);
 	}
 
 	componentDidMount() {
-		let Swiper = import('swiper').then((m)=>{
+		import('swiper').then((m)=>{
 			//console.log(m.default);
 			let Swiper = m.default
 			let mySwiper = new Swiper(this.refs.marquee, {

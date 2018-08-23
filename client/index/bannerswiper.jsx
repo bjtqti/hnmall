@@ -1,17 +1,15 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+//import PropTypes from 'prop-types'
 import {BASE_HOST} from '../common/constant'
 
 export default class BannerSwipe extends Component {
-	static propTypes = {
-		sliders: PropTypes.array
-	}
+	
 	constructor(props) {
 		super(props);
 	}
 
 	componentDidMount() {
-		let Swiper = import('swiper').then((m)=>{
+		import('swiper').then((m)=>{
 			let Swiper = m.default;
 			let mySwiper = new Swiper(this.refs.slider, {
 				autoplay:5000,

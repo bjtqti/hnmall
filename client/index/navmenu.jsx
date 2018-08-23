@@ -1,18 +1,10 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import {BASE_HOST} from '../common/constant'
 
 export default class NavMenu extends Component {
-	static propTypes = {
-		icons: PropTypes.array
-	}
 
 	constructor(props) {
 		super(props);
-	}
-
-	componentDidMount() {
-
 	}
 
 	renderMenu(){

@@ -12,16 +12,14 @@ export default class Shop extends Component {
 	}
 
 	componentDidMount() {
-		let Swiper = require('swiper');
-		let store = this.refs.store;
-		let slider = new Swiper(store, {
-			slidesPerView:4,
-			preloadImages:false
-		});
-	}
-
-	handleClick(){
-		 
+		import('swiper').then((m)=>{
+			let Swiper = m.default;
+			let store = this.refs.store;
+			let slider = new Swiper(store, {
+				slidesPerView:4,
+				preloadImages:false
+			});
+		})
 	}
 
 	storePublicGoods(){
@@ -55,8 +53,9 @@ export default class Shop extends Component {
 			let way = distance(coords.latitude,coords.longitude,item.dimensions,item.longitude);
 			list.push(
 				<div className="flex shop-item" key={i}>
-					<a className="shop-img" href={`${BASE_HOST}oto/shop-index.html?shop_id=${item.shop_id}`}><img src={item.shop_logo} className="img"/></a>
-					 
+					<a className="shop-img" href={`${BASE_HOST}oto/shop-index.html?shop_id=${item.shop_id}`}>
+					<LazyLoad once height={88}><img src={item.shop_logo} className="img"/></LazyLoad>
+					</a>
 						<div className="shop-info">
 								<div className="flex flex-around">
 									<span className="shop-name">{item.shop_name}</span>
@@ -83,7 +82,7 @@ export default class Shop extends Component {
 				break;
 			}
 		}
-		
+		//console.log(modules)
 		return pic.map((item,i)=>{
 			return (
 				<div className="grid-half" key={`icon_${i}`}>

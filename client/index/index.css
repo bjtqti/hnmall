@@ -1,6 +1,7 @@
 @import '../common/common.css';
 @import '../commponents/appbar.css';
 @import '../commponents/footbar.css';
+@import '../commponents/copyright.css';
 @import '../commponents/gotop.css';
 @import '../common/swiper.min.css';
 
@@ -445,17 +446,10 @@
 	padding-top: 5px;
 }
 
-/** copyright **/
- 
-.copy-right {
+.more-goods {
+	height: 40px;
+	line-height: 40px;
 	text-align: center;
-	padding: 10px 0;
-}
-
-.copy-right a {
-	display: block;
-	line-height: 20px;
-	color: #999;
 }
 
 

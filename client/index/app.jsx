@@ -8,10 +8,10 @@ import Shop from './shop.jsx'
 import Widget from './widget.jsx'
 import FootBar from '../commponents/footbar.jsx'
 import GoodsList from './goodslist.jsx'
-import Copyright from './copyright.jsx'
+import Copyright from '../commponents/copyright.jsx'
 import GoTop from '../commponents/gotop.jsx'
-import {GPS_KEY,INSTALL_APP,BASE_HOST,TOKEN,APPID} from '../common/constant.js';
-import {fetchApi,localCache,isWechat,navigatorGeolocation,getLocationByWeixin,createNonceStr,parseUrl,wxShare} from '../lib/index.js'
+import {GPS_KEY,INSTALL_APP,BASE_HOST,TOKEN,APPID} from '../common/constant.js'
+import {fetchApi,localCache,isWechat,navigatorGeolocation,createNonceStr,parseUrl,wxShare} from '../lib/index.js'
  
 export class Index extends Component {
 
@@ -61,7 +61,7 @@ export class Index extends Component {
 				signature:data.signature,
 				timestamp:data.timestamp,
 				agentid:data.agentid,
-				title:"友阿微店",
+				title:"友阿微店--更高品质,便捷生活",
 				link:location.href,
 				desc:'友阿微店--更高品质,便捷生活',
 				imgUrl:'https://www.hnmall.com/images/3a/e5/c5/076ec271495f7494427fad42f6c0d2443189019b.jpg'
@@ -110,40 +110,22 @@ export class Index extends Component {
 			}
 		}).then((res)=>{
 			if(res && res.message && res.message.accessToken){
-				localCache(TOKEN,res.message.accessToken,90)
+				localCache(TOKEN,res.message.accessToken,7*24*60*60)
 			}
 		})
 	}
 
 	//获取位置信息
 	getGeoLocation(fn){
-		//let pos = {latitude:28.194104,longitude:113.013206}
 		let pos = {latitude:28.234589,longitude:112.913554};
-		if(isWechat()){
-			fetchApi('/index/weixin',{
-				method:'POST',
-				data: {url:encodeURIComponent(document.location.href)}
-			}).then((data)=>{
-				//console.log(data)
-				let {appId,nonceStr,signature,timestamp} = data;
-				getLocationByWeixin({appId,nonceStr,signature,timestamp},(r)=>{
-					if(r){
-						pos = r;
-						localCache(GPS_KEY,pos);
-					}
-					fn(pos)
-				})
-			})
-		}else{
-			navigatorGeolocation((res)=>{
-				//console.log(res)
-				if(res){
-					pos = res;
-					localCache(GPS_KEY,pos);
-				}
-				fn(pos)
-			})
-		}
+		navigatorGeolocation((res)=>{
+			//console.log(res)
+			if(res){
+				pos = res;
+				localCache(GPS_KEY,pos,60*60);
+			}
+			fn(pos)
+		})
 	}
 
 

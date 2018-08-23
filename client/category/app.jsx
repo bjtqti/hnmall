@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
 import {isArray,localCache} from '../lib'
-import {BASE_HOST,INSTALL_APP} from '../common/constant'
-import AppBar from '../commponents/appbar.jsx'
+import {BASE_HOST} from '../common/constant'
 import FootBar from '../commponents/footbar.jsx'
 import Loading from '../commponents/loading.jsx'
 import SearchBar from './searchbar.jsx';
@@ -13,18 +12,12 @@ export class Category extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			activeIndex:0,
-			isInsApp:false
-
+			activeIndex:0
 		}
 	}
 
 	componentDidMount() {
-		let install = localCache(INSTALL_APP);
 		this.props.fetchCategory();
-		this.setState({
-			isInsApp:install
-		})
 	}
 
 
@@ -81,20 +74,18 @@ export class Category extends Component {
 					</div>
 				</div>
 			)
-	
 		})
 	}
 
 	renderCategory(){
-		let {activeIndex,isInsApp} = this.state;
-		let position = {top:isInsApp?'44px':'94px'}
+		let {activeIndex} = this.state;
 		let {categoryList,isFetching} = this.props.category;
 		if(!isArray(categoryList)||categoryList.length<1){
 			return '';
 		}
 		let category = categoryList[activeIndex].children;
 		return (
-			<div style={position} className="category-container">
+			<div className="category-container">
 				<div className="category-nav">{this.renderNav(categoryList)}</div>
 				<div className="category-main">{this.renderList(category)}</div>
 			</div>
@@ -103,11 +94,9 @@ export class Category extends Component {
 
 	render() {
 		let {isFetching} = this.props.category;
-		let {isInsApp} = this.state;
 		return (
 			<div className="app-wrap">
-				<AppBar/>
-				<SearchBar isInsApp={isInsApp}/>
+				<SearchBar/>
 				{this.renderCategory()}
 				<FootBar />
 				<Loading active={isFetching}/>

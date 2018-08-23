@@ -49,7 +49,6 @@ export function fetchGoods(param){
 				page:param.page,
 				size:param.size,
 				token:param.token
-
 			}
 		}).then((res)=>{
             dispatch(finishFetchGoods(param,res));

@@ -10,21 +10,14 @@ export default class SearchBar extends Component {
 		}
 	}
 
-	componentDidMount(){
-		
-	}
-
-
 	handleChange(e){
 		let value = e.target.value;
 		this.setState({value});
 	}
 
 	render() {
-		let {isInsApp} = this.props;
-		let position = {top:isInsApp?'0px':'50px'}
 		return (
-			<div style={position} className="app-search-box">
+			<div className="app-search-box">
                 <form action={`${BASE_HOST}wap/item-list.html`} method="post" className="search">
                 	<i className="iconfont icon-zoom"></i>
                 	<input type="text" name="search_keywords" value={this.state.value} onChange={(e)=>{this.handleChange(e)}} placeholder="搜索店内商品" />
