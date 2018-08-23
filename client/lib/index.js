@@ -56,7 +56,7 @@ exports.navigatorGeolocation = (callback)=>{
  * 腾讯地图定位
  */
 function tencentGelocation(callback){
-    let options = {timeout: 8000};
+    let options = {timeout: 80000};
     let geolocation = new qq.maps.Geolocation("PMOBZ-DSBK6-7NQSZ-EUK5J-A4PR6-DEB4V", "hnmall");
     let success = function(rs){
         //console.log(rs)
@@ -85,67 +85,67 @@ exports.appendScript = (src)=>{
 /**
  * 微信sdk定位
  */
-// exports.getLocationByWeixin = (config,callback)=>{	
-// 	if(typeof wx === undefined) callback();
-//     //配置信息appId,nonceStr,signature,timestamp
-//     wx.config({
-//         debug		: false,
-//         appId		: config.appId,
-//         timestamp	: config.timestamp,
-//         nonceStr	: config.nonceStr,
-//         signature	: config.signature,
-//         jsApiList	: 	[	// 接口列表
-//             'checkJsApi',
-//             'openLocation',
-//             'getLocation'
-//         ]
-//     });
+exports.getLocationByWeixin = (config,callback)=>{	
+	if(typeof wx === undefined) callback();
+    //配置信息appId,nonceStr,signature,timestamp
+    wx.config({
+        debug		: false,
+        appId		: config.appId,
+        timestamp	: config.timestamp,
+        nonceStr	: config.nonceStr,
+        signature	: config.signature,
+        jsApiList	: 	[	// 接口列表
+            'checkJsApi',
+            'openLocation',
+            'getLocation'
+        ]
+    });
 
-//     //通过ready接口处理成功验证
-//     wx.ready(function(){
-//         //判断当前客户端版本是否支持指定JS接口
-//         wx.checkJsApi({	// 需要检测的JS接口列表
-//             jsApiList: [
-//                 'getLocation'
-//             ],
-//             success: function(result) {
-//                 // 以键值对的形式返回，可用的api值true，不可用为false
-//                 //console.log(result)
-//                 // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-//                 //if (result.checkResult.getLocation == true){
-//                     //微信接口获取成功
-//                     wx.getLocation({
-//                         type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-//                         success: function (res) {
-//                             //console.log(res,'***ok')
-//                             var resArr = {
-//                                 // 纬度，浮点数，范围为90 ~ -90
-//                                 latitude: res.latitude,
-//                                 // 经度，浮点数，范围为180 ~ -180
-//                                 longitude: res.longitude,
-//                                 // 速度，以米/每秒计
-//                                 speed: res.speed,
-//                                 // 位置精度
-//                                 accuracy: res.accuracy,
-//                             };
-//                             callback(resArr);
-//                         },
-//                         fail:function(){
-//                             console.log('error***weixin')
-//                             tencentGelocation(callback)
-//                         }
-//                     });
-//                 //} else {
-//                    // callback();
-//                 //}
-//             },
-//             fail: function() {
-//                 //console.log('fail***')
-//                 tencentGelocation(callback)
-//             }
-//         });
-//     });
-// }
+    //通过ready接口处理成功验证
+    wx.ready(function(){
+        //判断当前客户端版本是否支持指定JS接口
+        wx.checkJsApi({	// 需要检测的JS接口列表
+            jsApiList: [
+                'getLocation'
+            ],
+            success: function(result) {
+                // 以键值对的形式返回，可用的api值true，不可用为false
+                //console.log(result)
+                // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                //if (result.checkResult.getLocation == true){
+                    //微信接口获取成功
+                    wx.getLocation({
+                        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                        success: function (res) {
+                            //console.log(res,'***ok')
+                            var resArr = {
+                                // 纬度，浮点数，范围为90 ~ -90
+                                latitude: res.latitude,
+                                // 经度，浮点数，范围为180 ~ -180
+                                longitude: res.longitude,
+                                // 速度，以米/每秒计
+                                speed: res.speed,
+                                // 位置精度
+                                accuracy: res.accuracy,
+                            };
+                            callback(resArr);
+                        },
+                        fail:function(){
+                            console.log('error***weixin')
+                            tencentGelocation(callback)
+                        }
+                    });
+                //} else {
+                   // callback();
+                //}
+            },
+            fail: function() {
+                //console.log('fail***')
+                tencentGelocation(callback)
+            }
+        });
+    });
+}
 
 /** 
  * 获取滚动条距离顶端的距离 

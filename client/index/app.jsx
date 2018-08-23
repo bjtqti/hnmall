@@ -11,7 +11,7 @@ import GoodsList from './goodslist.jsx'
 import Copyright from '../commponents/copyright.jsx'
 import GoTop from '../commponents/gotop.jsx'
 import {GPS_KEY,INSTALL_APP,BASE_HOST,TOKEN,APPID} from '../common/constant.js'
-import {fetchApi,localCache,isWechat,navigatorGeolocation,createNonceStr,parseUrl,wxShare} from '../lib/index.js'
+import {fetchApi,localCache,isWechat,navigatorGeolocation,getLocationByWeixin,createNonceStr,parseUrl,wxShare} from '../lib/index.js'
  
 export class Index extends Component {
 
@@ -117,15 +117,34 @@ export class Index extends Component {
 
 	//获取位置信息
 	getGeoLocation(fn){
-		let pos = {latitude:28.234589,longitude:112.913554};
-		navigatorGeolocation((res)=>{
-			//console.log(res)
-			if(res){
-				pos = res;
-				localCache(GPS_KEY,pos,60*60);
-			}
-			fn(pos)
-		})
+		let pos = {latitude:28.194104,longitude:113.013206}
+		//let pos = {latitude:28.234589,longitude:112.913554};
+		if(isWechat()){
+			fetchApi('/index/weixin',{
+				method:'POST',
+				data: {url:encodeURIComponent(document.location.href)}
+			}).then((data)=>{
+				//console.log(data)
+				let {appId,nonceStr,signature,timestamp} = data;
+				getLocationByWeixin({appId,nonceStr,signature,timestamp},(r)=>{
+					if(r){
+						pos = r;
+						localCache(GPS_KEY,pos,60*60);
+					}
+					fn(pos)
+				})
+			})
+		}else{
+			navigatorGeolocation((res)=>{
+				//console.log(res)
+				if(res){
+					pos = res;
+					localCache(GPS_KEY,pos,60*60);
+				}
+				fn(pos)
+			})
+		}
+
 	}
 
 
