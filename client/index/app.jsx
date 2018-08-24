@@ -165,20 +165,20 @@ export class Index extends Component {
 			}
 			
 		})
+
+		//插入线下门店
+		widgets.splice(3,0,<Shop {...this.props} key={'shop'}/>);
+
 		return widgets;
 	}
 
 	render() {
 		//console.log(this.props)
-		let widgets = this.renderWidgets();
-		//插入线下门店
-		widgets.splice(3,0,<Shop {...this.props} key={'shop'}/>);
-
 		return (
 			<div className="app-wrap">
 				<AppBar/>
 				<Headerbar {...this.props}/>
-				{widgets}
+				{this.renderWidgets()}
 				<GoodsList {...this.props}/>
 				<FootBar />
 				<Copyright />

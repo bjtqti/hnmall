@@ -24,6 +24,7 @@ exports.index = async function(ctx, next) {
     initialState = ret.data;
     
   }
+  
   try {
     markup = await markupOfRoute('index', initialState, ctx)
   } catch (err) {

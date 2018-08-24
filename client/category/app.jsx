@@ -61,10 +61,12 @@ export class Category extends Component {
 		})
 	}
 
-	renderList(category){
-		if(!isArray(category)){
+	renderList(categoryList){
+		let {activeIndex} = this.state;
+		if(!isArray(categoryList) || !categoryList[activeIndex]){
 			return '';
 		}
+		let category = categoryList[activeIndex].children;
 		return category.map((item,i)=>{
 			return (
 				<div className="category-group" key={`g_${i}`}>
@@ -78,18 +80,14 @@ export class Category extends Component {
 	}
 
 	render() {
-		let {activeIndex} = this.state;
 		let {isFetching,categoryList} = this.props.category;
-		if(!isArray(categoryList)||categoryList.length<1){
-			return '';
-		}
-		let category = categoryList[activeIndex].children;
+		
 		return (
 			<div className="app-wrap">
 				<SearchBar placeholder="搜索店内商品"/>
 				<div className="category-container">
 					<div className="category-nav">{this.renderNav(categoryList)}</div>
-					<div className="category-main">{this.renderList(category)}</div>
+					<div className="category-main">{this.renderList(categoryList)}</div>
 				</div>
 				<FootBar />
 				<Loading active={isFetching}/>

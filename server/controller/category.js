@@ -1,4 +1,4 @@
- 
+let fs = require("fs");
 let { markupOfRoute ,fetchApi} = require('../lib')
 
 //格式化分类数据
@@ -22,7 +22,7 @@ function formatCateList (data,n) {
 }
 
 exports.category = async function(ctx, next) {
-  let ret,markup = '',initialState=[];
+  let ret = '',markup = '',initialState=[];
   // try {
   //   ret = await request('index.php/topapi',{
   //     method:'category.itemCategory'
@@ -35,15 +35,19 @@ exports.category = async function(ctx, next) {
   //   initialState = formatCateList(ret.data.data.categorys)
   // }
   
-  //由于接口太慢，先用假数据填充，前端更新为真实的数据
-  ret = require('./mock');
-  initialState = ret.mockdata
+  //由于接口太慢，先用缓存数据填充，稍后更新为真实的数据
+  //if(fs.existsSync('./cate.json')){
+    initialState = require('./cate.json');
+  //}
+  
+  //console.log(initialState)
 
   try {
     markup = await markupOfRoute('category', initialState)
   } catch (err) {
     throw err
   }
+  
   await ctx.render('category', {
     markup,
     initialState: JSON.stringify(initialState)
@@ -51,6 +55,7 @@ exports.category = async function(ctx, next) {
 }
 
 exports.categoryList = async function(ctx,next){
+  let ret,list=[];
   try {
     ret = await fetchApi('index.php/topapi',{
       method:'POST',
@@ -64,11 +69,17 @@ exports.categoryList = async function(ctx,next){
     throw err;
   }
 
-  //if(ret.code===0 && ret.data){
-    let list = formatCateList(ret.data.categorys)
+  if(ret.code === 0 && ret.data){
+    list = formatCateList(ret.data.categorys);
+    fs.writeFile('./server/controller/cate.json', JSON.stringify(list),function(err){
+      if(err){
+        console.log(err)
+      }
+    });
+  }
 
-    ctx.body = {
-      categoryList:list
-    }
-  //}
+  ctx.body = {
+    categoryList:list
+  }
 }
+
