@@ -23,7 +23,7 @@ export default class AppBar extends Component {
 			this.onViewScroll();
 		}
 
-		this.launchApp();
+		//this.launchApp();
 	}
 
 	//唤醒本机APP
@@ -38,7 +38,7 @@ export default class AppBar extends Component {
 		let scheme = '';
 		const config = {
 		    ios: 'YouAWeishop://',
-		    android: ''
+		    android: 'YouAWeishop://'
 		};
 
         if(platform.isIOS()){
@@ -51,14 +51,14 @@ export default class AppBar extends Component {
 	    ifr.style.display = 'none';  
 	    document.body.appendChild(ifr);
 	    setTimeout(function(){
-	    	if(Date.now()-last < 1050){
+	    	if(Date.now()-last < 150){
 	    		//launch fail
 	    		fn && fn(scheme);
 	    	}else{
 	    		localCache(INSTALL_APP,'install',7*24*60*60);
 	    	}
 	    	doc.body.removeChild(ifr);
-	    },1000);
+	    },100);
 	}
 
 
@@ -74,9 +74,9 @@ export default class AppBar extends Component {
 	}
 
 	handleClick(){
-		this.launchApp(function(scheme){
+		//this.launchApp(function(scheme){
 			location.href='https://www.hnmall.com/downloadPage/default.html'
-		})
+		//})
 	}
 
 	render() {

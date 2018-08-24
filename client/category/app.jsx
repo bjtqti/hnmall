@@ -4,7 +4,7 @@ import {isArray,localCache} from '../lib'
 import {BASE_HOST} from '../common/constant'
 import FootBar from '../commponents/footbar.jsx'
 import Loading from '../commponents/loading.jsx'
-import SearchBar from './searchbar.jsx';
+import SearchBar from '../commponents/searchbar.jsx';
 
 export class Category extends Component {
 	 
@@ -77,27 +77,20 @@ export class Category extends Component {
 		})
 	}
 
-	renderCategory(){
+	render() {
 		let {activeIndex} = this.state;
-		let {categoryList,isFetching} = this.props.category;
+		let {isFetching,categoryList} = this.props.category;
 		if(!isArray(categoryList)||categoryList.length<1){
 			return '';
 		}
 		let category = categoryList[activeIndex].children;
 		return (
-			<div className="category-container">
-				<div className="category-nav">{this.renderNav(categoryList)}</div>
-				<div className="category-main">{this.renderList(category)}</div>
-			</div>
-		)
-	}
-
-	render() {
-		let {isFetching} = this.props.category;
-		return (
 			<div className="app-wrap">
-				<SearchBar/>
-				{this.renderCategory()}
+				<SearchBar placeholder="搜索店内商品"/>
+				<div className="category-container">
+					<div className="category-nav">{this.renderNav(categoryList)}</div>
+					<div className="category-main">{this.renderList(category)}</div>
+				</div>
 				<FootBar />
 				<Loading active={isFetching}/>
 			</div>

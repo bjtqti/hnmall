@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import AppBar from '../commponents/appbar.jsx'
-import SearchBar from './searchbar.jsx'
+import Headerbar from './headerbar.jsx'
 import BannerSwiper from './bannerswiper.jsx'
 import NavMenu from './navmenu.jsx'
 import TextSwiper from './textswiper.jsx'
@@ -10,20 +10,16 @@ import FootBar from '../commponents/footbar.jsx'
 import GoodsList from './goodslist.jsx'
 import Copyright from '../commponents/copyright.jsx'
 import GoTop from '../commponents/gotop.jsx'
-import {GPS_KEY,INSTALL_APP,BASE_HOST,TOKEN,APPID} from '../common/constant.js'
+import {GPS_KEY,BASE_HOST,TOKEN,APPID} from '../common/constant.js'
 import {fetchApi,localCache,isWechat,navigatorGeolocation,getLocationByWeixin,createNonceStr,parseUrl,wxShare} from '../lib/index.js'
  
 export class Index extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			isInsApp:false
-		}
 	}
 
 	componentDidMount() {
-		let install = localCache(INSTALL_APP);
 		let pos = localCache(GPS_KEY);
 		let token = localCache(TOKEN);
 
@@ -34,10 +30,6 @@ export class Index extends Component {
 				this.props.getNearStore(r);
 			})
 		}
- 
-		this.setState({
-			isInsApp:install
-		})
 		
 		if(token){
 			this.checkToken(token);
@@ -178,8 +170,6 @@ export class Index extends Component {
 
 	render() {
 		//console.log(this.props)
-		let {isInsApp} = this.state;
-		let position = {height:isInsApp?'0':'50px'}
 		let widgets = this.renderWidgets();
 		//插入线下门店
 		widgets.splice(3,0,<Shop {...this.props} key={'shop'}/>);
@@ -187,8 +177,7 @@ export class Index extends Component {
 		return (
 			<div className="app-wrap">
 				<AppBar/>
-				<div style={position}></div>
-				<SearchBar {...this.props}/>
+				<Headerbar {...this.props}/>
 				{widgets}
 				<GoodsList {...this.props}/>
 				<FootBar />

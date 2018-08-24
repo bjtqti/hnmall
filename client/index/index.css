@@ -1,5 +1,6 @@
 @import '../common/common.css';
 @import '../commponents/appbar.css';
+@import '../commponents/searchbar.css';
 @import '../commponents/footbar.css';
 @import '../commponents/copyright.css';
 @import '../commponents/gotop.css';
@@ -24,6 +25,42 @@
 	border: 0;
 }
 
+.app-search-box {
+	display: flex;
+	align-items: center;
+	position: static;
+	width: 50%;
+    height: 32px;
+    margin: 0 10px;
+    border-radius: 16px;
+    background-color: #fff;
+}
+
+.app-search-box .search input::-webkit-input-placeholder {
+	color: gray;
+}
+
+.app-search-box .search {
+	width: 100%;
+	margin: 0 10px;
+	background-color: transparent;
+}
+
+.app-search-box .search i {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    color: gray;
+}
+
+.app-search-box .search input {
+    display: block;
+    border: none;
+    outline: none;
+    width: 80%;
+    height: 24px;
+}
+
 .search-bar {
 	position: fixed;
 	top: 50px;
@@ -34,36 +71,6 @@
 	width: 100%;
 	max-width: 640px;
 	height: 50px;
-}
-
-.search-bar .search-box {
-	display: flex;
-	align-items: center;
-	width: 50%;
-	height: 32px;
-	background-color: white;
-	border-radius: 16px;
-	padding: 0 5px;
-	margin: 0 10px;
-	box-sizing: border-box;
-}
-
-.search-bar .search-box i  {
-	display: block;
-	width: 32px;
-	height: 32px;
-	line-height: 32px;
-	text-align: center;
-	font-size: 24px;
-	color: gray;
-}
-
-.search-bar .search-box input {
-	display: block;
-	border: none;
-	outline:none;
-	width: 80%;
-	height: 24px;
 }
 
 .search-bar .icon-cost {
