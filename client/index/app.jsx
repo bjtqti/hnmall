@@ -10,8 +10,9 @@ import FootBar from '../commponents/footbar.jsx'
 import GoodsList from './goodslist.jsx'
 import Copyright from '../commponents/copyright.jsx'
 import GoTop from '../commponents/gotop.jsx'
+import Share from '../commponents/share.jsx'
 import {GPS_KEY,BASE_HOST,TOKEN,APPID} from '../common/constant.js'
-import {fetchApi,localCache,isWechat,navigatorGeolocation,getLocationByWeixin,createNonceStr,parseUrl,wxShare} from '../lib/index.js'
+import {fetchApi,localCache,isWechat,navigatorGeolocation,getLocationByWeixin,createNonceStr,parseUrl} from '../lib/index.js'
  
 export class Index extends Component {
 
@@ -36,34 +37,6 @@ export class Index extends Component {
 		}else{
 			this.getUserInfo();
 		}
-
-		isWechat() && this.setWeixinShare();
-	}
-
-	setWeixinShare(){
-		const url = encodeURIComponent(document.location.href);
-		fetchApi('/index/weixin',{
-			method:'POST',
-			data: {url:url}
-		}).then((data)=>{
-			//console.log(data)
-			wxShare({
-				appId:data.appId,
-				nonceStr:data.nonceStr,
-				signature:data.signature,
-				timestamp:data.timestamp,
-				agentid:data.agentid,
-				title:"友阿微店--更高品质,便捷生活",
-				link:location.href,
-				desc:'友阿微店--更高品质,便捷生活',
-				imgUrl:'https://www.hnmall.com/images/3a/e5/c5/076ec271495f7494427fad42f6c0d2443189019b.jpg'
-			},(res)=>{
-				fetchApi('/index/wxshare',{
-					method:'POST',
-					data:res
-				})
-			})
-		})
 	}
 
 	checkToken(token){
@@ -165,24 +138,30 @@ export class Index extends Component {
 			}
 			
 		})
-
-		//插入线下门店
-		widgets.splice(3,0,<Shop {...this.props} key={'shop'}/>);
-
 		return widgets;
 	}
 
 	render() {
 		//console.log(this.props)
+		let widgets = this.renderWidgets();
+		const shareInfo = {
+			title:'友阿微店--更高品质,便捷生活',
+			desc:'友阿微店--更高品质,便捷生活',
+			image:'https://www.hnmall.com/images/3a/e5/c5/076ec271495f7494427fad42f6c0d2443189019b.jpg'
+		};
+		//插入线下门店
+		widgets.splice(3,0,<Shop {...this.props} key={'shop'}/>);
+
 		return (
 			<div className="app-wrap">
 				<AppBar/>
 				<Headerbar {...this.props}/>
-				{this.renderWidgets()}
+				{widgets}
 				<GoodsList {...this.props}/>
 				<FootBar />
 				<Copyright />
 				<GoTop />
+				<Share info={shareInfo}/>
 			</div>
 		)
 	}

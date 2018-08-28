@@ -4,6 +4,7 @@ import {isArray,localCache} from '../lib'
 import {BASE_HOST} from '../common/constant'
 import FootBar from '../commponents/footbar.jsx'
 import Loading from '../commponents/loading.jsx'
+import Share from '../commponents/share.jsx'
 import SearchBar from '../commponents/searchbar.jsx';
 
 export class Category extends Component {
@@ -81,7 +82,11 @@ export class Category extends Component {
 
 	render() {
 		let {isFetching,categoryList} = this.props.category;
-		
+		const shareInfo = {
+			title:'友阿微店--更高品质，便捷生活',
+			desc:'友阿微店--更高品质，便捷生活',
+			image:'https://www.hnmall.com/res/images/cplogo.jpg'
+		};
 		return (
 			<div className="app-wrap">
 				<SearchBar placeholder="搜索店内商品"/>
@@ -90,6 +95,7 @@ export class Category extends Component {
 					<div className="category-main">{this.renderList(categoryList)}</div>
 				</div>
 				<FootBar />
+				<Share info={shareInfo} />
 				<Loading active={isFetching}/>
 			</div>
 		)
