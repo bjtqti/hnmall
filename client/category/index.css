@@ -91,6 +91,11 @@
 }
 
 .category-nav-item img {
+	display: block;
 	width: 62px;
 	height: 62px;
+	margin: 0 auto;
+}
+.category-nav-item .name {
+	display: block;
 }
