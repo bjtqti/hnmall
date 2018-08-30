@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-//import PropTypes from 'prop-types'
+import {isArray} from '../lib/index.js'
 import {BASE_HOST} from '../common/constant'
 
 export default class BannerSwipe extends Component {
@@ -21,6 +21,9 @@ export default class BannerSwipe extends Component {
 
 	renderSlider(){
 		let {sliders} = this.props;
+		if(!isArray(sliders)){
+			return '';
+		}
 		return sliders.map((d,i)=>{
 			let url = d.link.replace(/^\//,BASE_HOST);
 			return (<div className="swiper-slide banner" key={i}>

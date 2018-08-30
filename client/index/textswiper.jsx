@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {isArray} from '../lib/index.js'
 //import PropTypes from 'prop-types'
 
 export default class TextSwiper extends Component {
@@ -25,6 +26,9 @@ export default class TextSwiper extends Component {
 
 	renderSlider(){
 		let {message} = this.props;
+		if(!isArray(message)){
+			return false;
+		}
 		return message.map((d,i)=>{
 			return (
 				<div className="swiper-slide" key={i}>

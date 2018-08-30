@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {isArray} from '../lib/index.js'
 import {BASE_HOST} from '../common/constant'
 
 export default class NavMenu extends Component {
@@ -9,6 +10,9 @@ export default class NavMenu extends Component {
 
 	renderMenu(){
 		let {icons} = this.props;
+		if(!isArray(icons)){
+			return '';
+		}
 		return icons.map((d,i)=>{
 			return (
 				<div className="nav-menu-item" key={i}>
