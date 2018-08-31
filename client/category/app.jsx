@@ -40,9 +40,11 @@ export class Category extends Component {
 		if(this.state.activeIndex === index){
 			return false;
 		}
-		this.list.scrollTo(0,0)
+		this.list.scrollTo(0,0);
 		this.setState({
 			activeIndex:index
+		},()=>{
+			this.list.refresh();
 		})
 	}
 
