@@ -22,11 +22,11 @@ export class Category extends Component {
 		this.props.fetchCategory();
 		import('../lib/iscroll-lite.js').then((m)=>{
 			let IScroll = m.default;
-			let nav = new IScroll(this.refs.nav,{
+			this.nav = new IScroll(this.refs.nav,{
 				//snap: 'li',
 				tap:'click'
 			});
-			let list = new IScroll(this.refs.list,{
+			this.list = new IScroll(this.refs.list,{
 				//preventDefault:false
 				tap:'click'
 			});
@@ -40,7 +40,7 @@ export class Category extends Component {
 		if(this.state.activeIndex === index){
 			return false;
 		}
-		 
+		this.list.scrollTo(0,0)
 		this.setState({
 			activeIndex:index
 		})
