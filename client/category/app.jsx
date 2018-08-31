@@ -6,7 +6,7 @@ import FootBar from '../commponents/footbar.jsx'
 import Loading from '../commponents/loading.jsx'
 import Share from '../commponents/share.jsx'
 import SearchBar from '../commponents/searchbar.jsx';
-
+//import IScroll from '../lib/iscroll-lite.js'
 export class Category extends Component {
 	 
 
@@ -18,7 +18,21 @@ export class Category extends Component {
 	}
 
 	componentDidMount() {
+		
 		this.props.fetchCategory();
+		import('../lib/iscroll-lite.js').then((m)=>{
+			let IScroll = m.default;
+			let nav = new IScroll(this.refs.nav,{
+				//snap: 'li',
+				tap:'click'
+			});
+			let list = new IScroll(this.refs.list,{
+				//preventDefault:false
+				tap:'click'
+			});
+		});
+		//console.log(IScroll)
+		
 	}
 
 
@@ -34,14 +48,17 @@ export class Category extends Component {
 
 	renderNav(category){
 		let {activeIndex} = this.state;
-		return category.map((item,i)=>{
+		let items = category.map((item,i)=>{
 			let active = classNames("category-name",{
 				active :activeIndex===i
 			})
 			return (
-				<div onClick={this.handleClick.bind(this,i)} className={active} key={item.id}>{item.name}</div>
+				<li onClick={this.handleClick.bind(this,i)} className={active} key={item.id}>{item.name}</li>
 			)
-		})
+		});
+		return (
+			<ul className="item-wrap">{items}</ul>
+		)
 	}
 
 	renderItem(list){
@@ -68,7 +85,7 @@ export class Category extends Component {
 			return '';
 		}
 		let category = categoryList[activeIndex].children;
-		return category.map((item,i)=>{
+		let sliders = category.map((item,i)=>{
 			return (
 				<div className="category-group" key={`g_${i}`}>
 					<div className="category-nav-header">{item.name}</div>
@@ -77,7 +94,10 @@ export class Category extends Component {
 					</div>
 				</div>
 			)
-		})
+		});
+		return (
+			<div className="item-wrap">{sliders}</div>
+		)
 	}
 
 	render() {
@@ -91,8 +111,8 @@ export class Category extends Component {
 			<div className="app-wrap">
 				<SearchBar placeholder="搜索店内商品"/>
 				<div className="category-container">
-					<div className="category-nav">{this.renderNav(categoryList)}</div>
-					<div className="category-main">{this.renderList(categoryList)}</div>
+					<div ref="nav" className="category-nav">{this.renderNav(categoryList)}</div>
+					<div ref="list" className="category-main">{this.renderList(categoryList)}</div>
 				</div>
 				<FootBar />
 				<Share info={shareInfo} />

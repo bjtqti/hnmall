@@ -181,10 +181,10 @@ export default class Widget extends Component {
 	}
 
 	render() {
-		 
+		let {title} =  this.props.params;
 		return (
 			<div className="widget-grid">
-				<div className="widget-grid-title">{this.props.params.title}</div>
+				<div className="widget-grid-title">{title}</div>
 				{this.renderGrid()}
 			</div>
 		)

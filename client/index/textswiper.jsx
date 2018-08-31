@@ -13,6 +13,9 @@ export default class TextSwiper extends Component {
 	}
 
 	componentDidMount() {
+		if(!this.refs.marquee){
+			return false;
+		}
 		import('swiper').then((m)=>{
 			//console.log(m.default);
 			let Swiper = m.default
@@ -24,27 +27,23 @@ export default class TextSwiper extends Component {
 		});
 	}
 
-	renderSlider(){
-		let {message} = this.props;
+	render() {
+		let {more,message} = this.props;
 		if(!isArray(message)){
-			return false;
+			return '';
 		}
-		return message.map((d,i)=>{
+		let sliders = message.map((d,i)=>{
 			return (
 				<div className="swiper-slide" key={i}>
 					<a className="swiper-slide-row" href={d.link}>{d.linkinfo}</a>
 				</div>
 			)
 		})
-	}
-
-	render() {
-		let {more} = this.props;
 		return (
 			<div className="swiper-message">
 				<div className="message-slogan">友阿<span>快报</span></div>
 				<div ref="marquee" className="swiper-container">
-					<div className="swiper-wrapper">{this.renderSlider()}</div>
+					<div className="swiper-wrapper">{sliders}</div>
 				</div>
 				<div className="message-core">| <a href={more}>更多</a></div>
 			</div>

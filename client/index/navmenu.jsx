@@ -8,12 +8,12 @@ export default class NavMenu extends Component {
 		super(props);
 	}
 
-	renderMenu(){
+	render() {
 		let {icons} = this.props;
 		if(!isArray(icons)){
 			return '';
 		}
-		return icons.map((d,i)=>{
+		let menu = icons.map((d,i)=>{
 			return (
 				<div className="nav-menu-item" key={i}>
 					<a href={d.h5link}>
@@ -23,12 +23,9 @@ export default class NavMenu extends Component {
 				</div>
 			)
 		})
-	}
-
-	render() {
 		return (
 			<div className="nav-menu">
-				{this.renderMenu()}
+				{menu}
 			</div>
 		)
 	}

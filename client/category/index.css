@@ -3,6 +3,10 @@
 @import '../commponents/footbar.css';
 @import '../commponents/loading.css';
 
+.item-wrap {
+	padding: 0;
+	margin: 0;
+}
 
 #app {
 	height: 100%;
@@ -31,16 +35,15 @@
 }
 
 .category-nav {
-	position: static;
+	position: relative;
 	width: 25%;
-	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow: hidden;
 	background-color: #efeff4;
 	-webkit-overflow-scrolling:touch;
 }
 
 .category-main {
-	position: static;
+	position: relative;
 	width: 75%;
 	overflow-x: hidden;
 	overflow-y: scroll;

@@ -24,7 +24,7 @@ export default class Headerbar extends Component {
 			let move = (ms > 50 ) ? true : false;
 			let num = ms / height;
 			let opacity = num > 1 ? 1 : num.toFixed(1);
-			if(opacity ===1) return false;
+			if(this.state.opacity >=1 && move > 200) return false;
 			this.setState({
 				isInsApp:install?true:move,
 				opacity
