@@ -37,19 +37,17 @@
 .category-nav {
 	position: relative;
 	width: 25%;
+	height: 100%;
 	overflow: hidden;
 	background-color: #efeff4;
-	-webkit-overflow-scrolling:touch;
 }
 
 .category-main {
 	position: relative;
 	width: 75%;
-	overflow-x: hidden;
-	overflow-y: scroll;
+	height: 100%;
+	overflow: hidden;
 	background-color: white;
-	will-change: scroll-position;
-	-webkit-overflow-scrolling:touch;
 }
 
 .category-name {
@@ -67,7 +65,7 @@
 }
 
 .category-group {
-	padding-bottom: 10px;
+	padding-bottom: 20px;
 }
 
 .category-nav-header {
@@ -84,6 +82,8 @@
 
 .category-nav-item {
 	width: 30%;
+	height: 0;
+	padding-bottom: 30%;
 }
 
 .category-nav-item a {
@@ -95,8 +95,7 @@
 
 .category-nav-item img {
 	display: block;
-	width: 62px;
-	height: 62px;
+	width: 100%;
 	margin: 0 auto;
 }
 .category-nav-item .name {

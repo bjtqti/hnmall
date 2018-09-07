@@ -18,33 +18,43 @@ export class Category extends Component {
 	}
 
 	componentDidMount() {
-		
 		this.props.fetchCategory();
 		import('../lib/iscroll-lite.js').then((m)=>{
 			let IScroll = m.default;
-			this.nav = new IScroll(this.refs.nav,{
-				//snap: 'li',
+			this.leftScroll = new IScroll(this.refs.nav,{
+				snap: 'li',
 				tap:'click'
 			});
-			this.list = new IScroll(this.refs.list,{
+			this.rightScroll = new IScroll(this.refs.list,{
 				//preventDefault:false
 				tap:'click'
 			});
 		});
-		//console.log(IScroll)
-		
 	}
 
+	componentDidUpdate(prevProps,prevState) {
+		let prevIsFetched = prevProps.category.isFetched;
+		let {isFetched} = this.props.category;
+		let {activeIndex} = this.state;
+
+		if(this.rightScroll){
+			if(prevState.activeIndex !== activeIndex){
+				this.rightScroll.refresh();
+			}
+			if(prevIsFetched !== isFetched){
+				this.leftScroll.refresh();
+				this.rightScroll.refresh();
+			}
+		}
+	}
 
 	handleClick(index){
 		if(this.state.activeIndex === index){
 			return false;
 		}
-		this.list.scrollTo(0,0);
+		this.rightScroll.scrollTo(0,0);
 		this.setState({
 			activeIndex:index
-		},()=>{
-			this.list.refresh();
 		})
 	}
 
@@ -103,12 +113,13 @@ export class Category extends Component {
 	}
 
 	render() {
-		let {isFetching,categoryList} = this.props.category;
+		let {isFetching,isFetched,categoryList} = this.props.category;
 		const shareInfo = {
 			title:'友阿微店--更高品质，便捷生活',
 			desc:'友阿微店--更高品质，便捷生活',
 			image:'https://www.hnmall.com/res/images/cplogo.jpg'
 		};
+		 
 		return (
 			<div className="app-wrap">
 				<SearchBar placeholder="搜索店内商品"/>
