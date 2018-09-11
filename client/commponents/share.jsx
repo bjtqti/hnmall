@@ -11,6 +11,18 @@ export default class Alert extends Component {
 		isWechat() && this.setWeixinShare();
 	}
 
+	formatShareLink(url,id){
+		if(url.indexOf('?')!== -1){
+			if(url.indexOf('agent_id=') !== -1){
+				return url.replace(/agent_id=\d+/,`agent_id=${id}`)
+			}else{
+				return `${url}&agent_id=${id}`
+			}
+		}else{
+			return `${url}?agent_id=${id}`
+		}
+	}
+
 	setWeixinShare(){
 		const url = document.location.href;
 		const {title,desc,image} = this.props.info;
@@ -19,6 +31,7 @@ export default class Alert extends Component {
 			data: {url:encodeURIComponent(url)}
 		}).then((data)=>{
 			//console.log(data)
+			let shareLink = this.formatShareLink(url,data.agentid);
 			wxShare({
 				appId:data.appId,
 				nonceStr:data.nonceStr,
@@ -26,7 +39,7 @@ export default class Alert extends Component {
 				timestamp:data.timestamp,
 				agentid:data.agentid,
 				title:title,
-				link:url.replace(/agent_id=[0-9]+/,'agent_id='+data.agentid),
+				link:shareLink,
 				desc:desc,
 				imgUrl:image
 			},(res)=>{
