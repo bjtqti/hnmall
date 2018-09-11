@@ -383,11 +383,11 @@ exports.wxShare = (config={},callback)=>{
         ]
     });
     
-    if(link.indexOf('agentid=') === -1){
+    if(link.indexOf('agent_id=') === -1){
         if(link.indexOf('?')!== -1){
-            link = link+'&agentid='+agentid;
+            link = link+'&agent_id='+agentid;
         }else{
-            link = link+'?agentid='+agentid;
+            link = link+'?agent_id='+agentid;
         }
     }
 
