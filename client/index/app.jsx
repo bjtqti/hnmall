@@ -13,7 +13,7 @@ import GoTop from '../commponents/gotop.jsx'
 import Share from '../commponents/share.jsx'
 import {GPS_KEY,BASE_HOST,TOKEN,APPID} from '../common/constant.js'
 import {fetchApi,localCache,isWechat,navigatorGeolocation,getLocationByWeixin,createNonceStr,parseUrl} from '../lib/index.js'
- 
+
 export class Index extends Component {
 
 	constructor(props) {
@@ -23,6 +23,8 @@ export class Index extends Component {
 	componentDidMount() {
 		let pos = localCache(GPS_KEY);
 		let token = localCache(TOKEN);
+
+		this.props.fetchIndexModules();
 
 		if(pos) {
 			this.props.getNearStore(pos)
@@ -37,6 +39,7 @@ export class Index extends Component {
 		}else{
 			this.getUserInfo();
 		}
+
 	}
 
 	checkToken(token){
@@ -119,6 +122,7 @@ export class Index extends Component {
 	renderWidgets(){
 		let {modules,more_url} = this.props.index;
 		let widgets = [];
+		//console.log(modules,more_url)
 		modules.forEach((module,i)=>{
 			switch(module.widget){
 				case 'slider':

@@ -1,3 +1,5 @@
+"use strict";
+
 let fs = require("fs");
 let { markupOfRoute ,fetchApi} = require('../lib')
 
@@ -37,7 +39,7 @@ exports.category = async function(ctx, next) {
   
   //由于接口太慢，先用缓存数据填充，稍后更新为真实的数据
   //if(fs.existsSync('./cate.json')){
-    initialState = require('./cate.json');
+    initialState = require('../cache/category.json');
   //}
   
   //console.log(initialState)
@@ -71,7 +73,7 @@ exports.categoryList = async function(ctx,next){
 
   if(ret.code === 0 && ret.data){
     list = formatCateList(ret.data.categorys);
-    fs.writeFile('./server/controller/cate.json', JSON.stringify(list),function(err){
+    fs.writeFile('./server/cache/category.json', JSON.stringify(list),function(err){
       if(err){
         console.log(err)
       }

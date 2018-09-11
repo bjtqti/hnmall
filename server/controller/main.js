@@ -1,30 +1,29 @@
 "use strict";
-
+let fs = require("fs");
 let { markupOfRoute ,fetchApi} = require('../lib');
 
 exports.index = async function(ctx, next) {
   let ret,markup = '',initialState={}
-  
-  try {
-    ret = await fetchApi("index.php/topapi",{
-      method:'POST',
-      data:{
-        format:'json',
-        v:'v1',
-        method:'theme.modules',
-        tmpl:'index'
-      }
-    })
-  } catch (err) {
-    throw err
-  }
-  //console.log(ret)
-  if (ret.code === 0 && ret.data) {
-    //console.log(ret.data)
-    initialState = ret.data;
+  initialState = require('../cache/main.json');
+  // try {
+  //   ret = await fetchApi("index.php/topapi",{
+  //     method:'POST',
+  //     data:{
+  //       format:'json',
+  //       v:'v1',
+  //       method:'theme.modules',
+  //       tmpl:'index'
+  //     }
+  //   })
+  // } catch (err) {
+  //   throw err
+  // }
+  // //console.log(ret)
+  // if (ret.code === 0 && ret.data) {
+  //   //console.log(ret.data)
+  //   initialState = ret.data;
     
-  }
-  
+  // }
   try {
     markup = await markupOfRoute('index', initialState, ctx)
   } catch (err) {
@@ -50,7 +49,6 @@ exports.goodslist = async function(ctx,next){
     //     'Access-Control-Allow-Headers',
     //     'Content-Type, Authorization, Content-Length, X-Requested-With, Accept, x-csrf-token, origin'
     // )
-
   try {
     ret = await fetchApi("/index.php/topapi",{
       method:'POST',
@@ -167,6 +165,37 @@ exports.wxShare = async function(ctx,next){
     throw(err)
   }
   ctx.body = ret;
+}
+
+exports.fetchModules = async function(ctx,next){
+  let ret,initialState =[];
+  try {
+    ret = await fetchApi("index.php/topapi",{
+      method:'POST',
+      data:{
+        format:'json',
+        v:'v1',
+        method:'theme.modules',
+        tmpl:'index'
+      }
+    })
+  } catch (err) {
+    throw err
+  }
+  //console.log(ret)
+  if (ret.code === 0 && ret.data) {
+    //console.log(ret.data)
+    initialState = ret.data;
+    fs.writeFile('./server/cache/main.json',JSON.stringify(ret.data),function(err){
+      if(err){
+        console.log(err)
+      }
+    });
+  }
+
+  ctx.body = {
+    modules:initialState
+  }
 }
 
 

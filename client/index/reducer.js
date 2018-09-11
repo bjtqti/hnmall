@@ -4,7 +4,8 @@ import {combineReducers} from "redux";
 import {isArray} from '../lib'
 import {
 	START_FETCH_LIST,FINISH_FETCH_LIST,
-	START_GET_STORE,FINISH_GET_STORE
+	START_GET_STORE,FINISH_GET_STORE,
+    START_FETCH_MODULES,FINISH_FETCH_MODULES,
 } from './constant'
  
 function formartGoodsList(goodsList,list){
@@ -19,6 +20,12 @@ function formartGoodsList(goodsList,list){
 
 function index(state={},action){
     switch(action.type){
+        case START_FETCH_MODULES:
+            return {...state,isFetching:true,isFetched:false}
+        case FINISH_FETCH_MODULES:
+        //console.log(res)
+            let {modules,more_url} = action.res.modules;
+            return {...state,isFetching:false,isFetched:true,modules,more_url}
         case START_FETCH_LIST:
             return {...state,isFetching:true,isFetched:false}
         case FINISH_FETCH_LIST:

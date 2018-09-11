@@ -35,7 +35,7 @@ export function fetchCategory(param){
 				method:'POST'
 			}).then((res)=>{
 				let list = res.categoryList;
-				localCache(LOCAL_STORE_CATE,list,60*60)
+				localCache(LOCAL_STORE_CATE,list,3600)
 	            dispatch(finishFetchList(param,list));
 	        });
         }

@@ -1,8 +1,10 @@
 'use strict';
-import {fetchApi} from '../lib'
+import {fetchApi,localCache} from '../lib'
 import {
 	START_FETCH_LIST,FINISH_FETCH_LIST,
-	START_GET_STORE,FINISH_GET_STORE
+	START_GET_STORE,FINISH_GET_STORE,
+	START_FETCH_MODULES,FINISH_FETCH_MODULES,
+	LOCAL_CACHE_MODULES
 } from './constant'
 
 
@@ -33,6 +35,19 @@ function finishFetchGoods(param,res){
 	return {
 		type:FINISH_FETCH_LIST,
 		param,
+		res
+	}
+}
+
+function startFetchModules(){
+	return {
+		type:START_FETCH_MODULES
+	}
+}
+
+function finshFetchModules(res){
+	return {
+		type : FINISH_FETCH_MODULES,
 		res
 	}
 }
@@ -74,4 +89,23 @@ export function getNearStore(param){
     }
 }
 
-
+/**
+ * 获取首页模块
+ */
+export function fetchIndexModules(){
+	return (dispatch)=>{
+		dispatch(startFetchModules());
+		let cache = localCache(LOCAL_CACHE_MODULES);
+		if(cache){
+			dispatch(finshFetchModules(cache))
+		}else{
+			fetchApi('/index/modules',{
+				method:'POST'
+			}).then((res)=>{
+				//console.log(res)
+				localCache(LOCAL_CACHE_MODULES,res,3600)
+				dispatch(finshFetchModules(res));
+			})
+		}
+	}
+}
