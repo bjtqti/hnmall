@@ -21,11 +21,11 @@ function formartGoodsList(goodsList,list){
 function index(state={},action){
     switch(action.type){
         case START_FETCH_MODULES:
-            return {...state,isFetching:true,isFetched:false}
+            return {...state,isGetching:true,isGetched:false}
         case FINISH_FETCH_MODULES:
         //console.log(res)
             let {modules,more_url} = action.res.modules;
-            return {...state,isFetching:false,isFetched:true,modules,more_url}
+            return {...state,isGetching:false,isGetched:true,modules,more_url}
         case START_FETCH_LIST:
             return {...state,isFetching:true,isFetched:false}
         case FINISH_FETCH_LIST:
