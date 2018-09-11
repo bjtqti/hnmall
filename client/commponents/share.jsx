@@ -26,7 +26,7 @@ export default class Alert extends Component {
 				timestamp:data.timestamp,
 				agentid:data.agentid,
 				title:title,
-				link:url,
+				link:url.replace(/agent_id=[0-9]+/,'agent_id='+data.agentid),
 				desc:desc,
 				imgUrl:image
 			},(res)=>{
