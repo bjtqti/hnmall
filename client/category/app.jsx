@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
 import {isArray,localCache,fetchApi,isWechat,createNonceStr,parseUrl} from '../lib'
-import {BASE_HOST,AGENTID,APPID} from '../common/constant'
+import {BASE_HOST,AGENTID,APPID,TOKEN} from '../common/constant'
 import FootBar from '../commponents/footbar.jsx'
 import Loading from '../commponents/loading.jsx'
 import Share from '../commponents/share.jsx'
@@ -124,7 +124,7 @@ export class Category extends Component {
 		let code = parseUrl('code');
 		if(!code){
 			let state = createNonceStr(16);
-			let redirect = encodeURIComponent(window.location.origin);
+			let redirect = encodeURIComponent(window.location.href);
 			let getcode = `${BASE_HOST}weidian/get-code.html?appid=${APPID}&state=${state}&scope=snsapi_base&redirect_uri=${redirect}`;
 			//console.log(getcode)
 			location.href = getcode;
@@ -148,6 +148,7 @@ export class Category extends Component {
 	render() {
 		let {isFetching,isFetched,categoryList} = this.props.category;
 		const shareInfo = {
+			agentid:this.agentid,
 			title:'友阿微店--更高品质，便捷生活',
 			desc:'友阿微店--更高品质，便捷生活',
 			image:'https://www.hnmall.com/res/images/cplogo.jpg'
