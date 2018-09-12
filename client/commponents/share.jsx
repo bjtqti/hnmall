@@ -16,7 +16,7 @@ export default class Share extends Component {
 		this.setWeixinShare();
 	}
 
-	setWeixinShare(aid){
+	setWeixinShare(aid,lock){
 		const {title,desc,image} = this.props.info;
 		let url = document.location.href;
 		fetchApi('/index/weixin',{
@@ -26,7 +26,8 @@ export default class Share extends Component {
 			//console.log(agentid)
 			let agentid = localCache(AGENTID)||aid;
 			if(!agentid){
-				this.getUserInfo()
+				!lock && this.getUserInfo();
+				return false;
 			}
 			wxShare({
 				appId:data.appId,
@@ -68,7 +69,7 @@ export default class Share extends Component {
 				let {accessToken,agent_id} =  res.message;
 				localCache(TOKEN,accessToken,7*24*60*60);
 				localCache(AGENTID,agent_id,30*24*60*60);
-				this.setWeixinShare(agent_id);
+				this.setWeixinShare(agent_id,true);
 			}
 		})
 	}

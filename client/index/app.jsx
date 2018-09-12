@@ -11,7 +11,7 @@ import GoodsList from './goodslist.jsx'
 import Copyright from '../commponents/copyright.jsx'
 import GoTop from '../commponents/gotop.jsx'
 import Share from '../commponents/share.jsx'
-import {GPS_KEY,BASE_HOST,TOKEN,APPID} from '../common/constant.js'
+import {GPS_KEY,BASE_HOST,TOKEN,APPID,AGENTID} from '../common/constant.js'
 import {fetchApi,localCache,isWechat,navigatorGeolocation,getLocationByWeixin,createNonceStr,parseUrl} from '../lib/index.js'
 
 export class Index extends Component {
