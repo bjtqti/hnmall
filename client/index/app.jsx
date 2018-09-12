@@ -11,7 +11,7 @@ import GoodsList from './goodslist.jsx'
 import Copyright from '../commponents/copyright.jsx'
 import GoTop from '../commponents/gotop.jsx'
 import Share from '../commponents/share.jsx'
-import {GPS_KEY,BASE_HOST,TOKEN,APPID} from '../common/constant.js'
+import {GPS_KEY,BASE_HOST,TOKEN,APPID,AGENTID} from '../common/constant.js'
 import {fetchApi,localCache,isWechat,navigatorGeolocation,getLocationByWeixin,createNonceStr,parseUrl} from '../lib/index.js'
 
 export class Index extends Component {
@@ -56,8 +56,11 @@ export class Index extends Component {
 	}
 
 	getUserInfo(){
+		if(!isWechat()){
+			return false;
+		}
 		let code = parseUrl('code');
-		if(!code && isWechat()){
+		if(!code){
 			let state = createNonceStr(16);
 			let redirect = encodeURIComponent(window.location.origin);
 			let getcode = `${BASE_HOST}weidian/get-code.html?appid=${APPID}&state=${state}&scope=snsapi_base&redirect_uri=${redirect}`;
@@ -66,11 +69,6 @@ export class Index extends Component {
 			return false;
 		}
 		
-		//console.log(code)
-		if(!code) {
-			return false;
-		}
-
 		fetchApi('/index/token',{
 			method:'POST',
 			data:{
@@ -78,7 +76,9 @@ export class Index extends Component {
 			}
 		}).then((res)=>{
 			if(res && res.message && res.message.accessToken){
-				localCache(TOKEN,res.message.accessToken,7*24*60*60)
+				localCache(TOKEN,res.message.accessToken,7*24*60*60);
+				localCache(AGENTID,res.message.agent_id,30*24*60*60);
+				this.agentid = res.message.agent_id;
 			}
 		})
 	}
@@ -149,6 +149,7 @@ export class Index extends Component {
 		//console.log(this.props)
 		let widgets = this.renderWidgets();
 		const shareInfo = {
+			agentid:this.agentid,
 			title:'友阿微店--更高品质,便捷生活',
 			desc:'友阿微店--更高品质,便捷生活',
 			image:'https://www.hnmall.com/images/3a/e5/c5/076ec271495f7494427fad42f6c0d2443189019b.jpg'

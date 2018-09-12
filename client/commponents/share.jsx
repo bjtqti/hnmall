@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {fetchApi,isWechat,wxShare} from '../lib/index.js'
 
-export default class Alert extends Component {
+export default class Share extends Component {
 	 
 	constructor(props) {
 		super(props);
@@ -13,7 +13,7 @@ export default class Alert extends Component {
 
 	setWeixinShare(){
 		const url = document.location.href;
-		const {title,desc,image} = this.props.info;
+		const {title,desc,image,agentid} = this.props.info;
 		fetchApi('/index/weixin',{
 			method:'POST',
 			data: {url:encodeURIComponent(url)}
@@ -24,7 +24,7 @@ export default class Alert extends Component {
 				nonceStr:data.nonceStr,
 				signature:data.signature,
 				timestamp:data.timestamp,
-				agentid:data.agentid,
+				agentid:agentid,
 				title:title,
 				link:url,
 				desc:desc,

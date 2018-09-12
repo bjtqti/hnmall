@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
-import {isArray,localCache} from '../lib'
-import {BASE_HOST} from '../common/constant'
+import {isArray,localCache,fetchApi,isWechat,createNonceStr,parseUrl} from '../lib'
+import {BASE_HOST,AGENTID,APPID} from '../common/constant'
 import FootBar from '../commponents/footbar.jsx'
 import Loading from '../commponents/loading.jsx'
 import Share from '../commponents/share.jsx'
@@ -30,6 +30,11 @@ export class Category extends Component {
 				tap:'click'
 			});
 		});
+		let agentid = localCache(AGENTID);
+		if(!agentid){
+			this.getUserInfo();
+		}
+		this.agentid= agentid;
 	}
 
 	componentDidUpdate(prevProps,prevState) {
@@ -110,6 +115,34 @@ export class Category extends Component {
 		return (
 			<div className="item-wrap">{sliders}</div>
 		)
+	}
+
+	getUserInfo(){
+		if(!isWechat()){
+			return false;
+		}
+		let code = parseUrl('code');
+		if(!code){
+			let state = createNonceStr(16);
+			let redirect = encodeURIComponent(window.location.origin);
+			let getcode = `${BASE_HOST}weidian/get-code.html?appid=${APPID}&state=${state}&scope=snsapi_base&redirect_uri=${redirect}`;
+			//console.log(getcode)
+			location.href = getcode;
+			return false;
+		}
+		
+		fetchApi('/index/token',{
+			method:'POST',
+			data:{
+				code:code
+			}
+		}).then((res)=>{
+			if(res && res.message && res.message.accessToken){
+				localCache(TOKEN,res.message.accessToken,7*24*60*60);
+				localCache(AGENTID,res.message.agent_id,30*24*60*60);
+				this.agentid = res.message.agent_id;
+			}
+		})
 	}
 
 	render() {

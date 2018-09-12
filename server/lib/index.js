@@ -1,6 +1,7 @@
 let React = require('react')
 let ReactDOMServer = require('react-dom/server')
 let {resolve} = require('path')
+let axios = require('axios').default;
 const BASE_HOST = 'https://wd.hnmall.com/'
 
 exports.markupOfRoute = (route, initialState, ctx) => {
@@ -11,7 +12,6 @@ exports.markupOfRoute = (route, initialState, ctx) => {
 }
 
 exports.fetchApi = (url,options={})=>{
-	let axios = require('axios').default;
     let config = {
     	baseURL:BASE_HOST,
         timeout:30000,
