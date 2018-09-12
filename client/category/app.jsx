@@ -26,9 +26,8 @@ export class Category extends Component {
 				tap:'click'
 			});
 			this.rightScroll = new IScroll(this.refs.list,{
-				//preventDefault:false
-				//tap:'click'
-				click:true
+				preventDefault:false,
+				tap:'click'
 			});
 		});
 	}
