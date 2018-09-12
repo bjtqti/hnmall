@@ -30,11 +30,6 @@ export class Category extends Component {
 				tap:'click'
 			});
 		});
-		let agentid = localCache(AGENTID);
-		if(!agentid){
-			this.getUserInfo();
-		}
-		this.agentid= agentid;
 	}
 
 	componentDidUpdate(prevProps,prevState) {
@@ -117,38 +112,9 @@ export class Category extends Component {
 		)
 	}
 
-	getUserInfo(){
-		if(!isWechat()){
-			return false;
-		}
-		let code = parseUrl('code');
-		if(!code){
-			let state = createNonceStr(16);
-			let redirect = encodeURIComponent(window.location.href);
-			let getcode = `${BASE_HOST}weidian/get-code.html?appid=${APPID}&state=${state}&scope=snsapi_base&redirect_uri=${redirect}`;
-			//console.log(getcode)
-			location.href = getcode;
-			return false;
-		}
-		
-		fetchApi('/index/token',{
-			method:'POST',
-			data:{
-				code:code
-			}
-		}).then((res)=>{
-			if(res && res.message && res.message.accessToken){
-				localCache(TOKEN,res.message.accessToken,7*24*60*60);
-				localCache(AGENTID,res.message.agent_id,30*24*60*60);
-				this.agentid = res.message.agent_id;
-			}
-		})
-	}
-
 	render() {
 		let {isFetching,isFetched,categoryList} = this.props.category;
 		const shareInfo = {
-			agentid:this.agentid,
 			title:'友阿微店--更高品质，便捷生活',
 			desc:'友阿微店--更高品质，便捷生活',
 			image:'https://www.hnmall.com/res/images/cplogo.jpg'

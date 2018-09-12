@@ -1,5 +1,7 @@
 "use strict";
 
+let Axios;
+
 /**
  * 货币格式
  * n 要格式化的数字
@@ -291,23 +293,26 @@ exports.throttle = function (func, wait){
 }
 
 exports.fetchApi = function(url,options={}){
-    return import('axios').then((m)=>{
-        //console.log(m)
-        let axios = m.default;
-        //let axios = require('axios').default;
-        let config = {
-            timeout:30000,
-            headers: {
-                'Content-Type': 'application/json'
-           },
-           ...options
-        }
-        return axios(url,config).then((res)=>{
-            //console.log(res)
+    let config = {
+        timeout:30000,
+        headers: {
+            'Content-Type': 'application/json'
+       },
+       ...options
+    }
+    let callback = ()=>{
+        return Axios(url,config).then((res)=>{
             //if(res.status===200){
                 return res.data
             //}
         })
+    }
+    if(Axios){
+        return callback()
+    }
+    return import('axios').then((m)=>{
+        Axios = m.default;
+        return callback()
     })
 }
 
