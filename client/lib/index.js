@@ -374,7 +374,7 @@ exports.wxShare = (config={},callback)=>{
     if(typeof wx === undefined) callback();
     //配置信息appId,nonceStr,signature,timestamp
     let {agentid,title,desc,imgUrl,link,type} = config;
-    console.log(agentid,'**')
+    //console.log(agentid,'**')
     wx.config({
         debug       : false,
         appId       : config.appId,
