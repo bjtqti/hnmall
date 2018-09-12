@@ -13,10 +13,12 @@ export default class Share extends Component {
 		//console.log(agentid)
 		if(isWechat()){
 			if(!agentid){
-				this.getUserInfo();
-				return false;
+				setTimeout(()=>{
+					this.getUserInfo();
+				},1000)
+			}else{
+				this.setWeixinShare(agentid);
 			}
-			this.setWeixinShare(agentid);
 		}
 	}
 
@@ -27,7 +29,7 @@ export default class Share extends Component {
 			method:'POST',
 			data: {url:encodeURIComponent(url)}
 		}).then((data)=>{
-			console.log(agentid)
+			//console.log(agentid)
 			wxShare({
 				appId:data.appId,
 				nonceStr:data.nonceStr,
