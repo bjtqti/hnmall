@@ -10,6 +10,7 @@ export default class Share extends Component {
 
 	componentDidMount() {
 		let agentid = localCache(AGENTID);
+		//console.log(agentid)
 		if(isWechat()){
 			if(!agentid){
 				this.getUserInfo();
@@ -20,13 +21,13 @@ export default class Share extends Component {
 	}
 
 	setWeixinShare(agentid){
-		const {title,desc,image,agentid} = this.props.info;
+		const {title,desc,image} = this.props.info;
 		let url = document.location.href;
 		fetchApi('/index/weixin',{
 			method:'POST',
 			data: {url:encodeURIComponent(url)}
 		}).then((data)=>{
-			//console.log(data)
+			console.log(agentid)
 			wxShare({
 				appId:data.appId,
 				nonceStr:data.nonceStr,

@@ -27,7 +27,8 @@ export class Category extends Component {
 			});
 			this.rightScroll = new IScroll(this.refs.list,{
 				//preventDefault:false
-				tap:'click'
+				//tap:'click'
+				click:true
 			});
 		});
 	}

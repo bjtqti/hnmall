@@ -62,7 +62,7 @@ export class Index extends Component {
 		let code = parseUrl('code');
 		if(!code){
 			let state = createNonceStr(16);
-			let redirect = encodeURIComponent(window.location.origin);
+			let redirect = encodeURIComponent(window.location.href);
 			let getcode = `${BASE_HOST}weidian/get-code.html?appid=${APPID}&state=${state}&scope=snsapi_base&redirect_uri=${redirect}`;
 			//console.log(getcode)
 			location.href = getcode;
