@@ -9,20 +9,14 @@ export default class Share extends Component {
 	}
 
 	componentDidMount() {
-		let agentid = localCache(AGENTID);
 		//console.log(agentid)
-		if(isWechat()){
-			if(!agentid){
-				setTimeout(()=>{
-					this.getUserInfo();
-				},1000)
-			}else{
-				this.setWeixinShare(agentid);
-			}
+		if(!isWechat()){
+			return false;
 		}
+		this.setWeixinShare();
 	}
 
-	setWeixinShare(agentid){
+	setWeixinShare(aid){
 		const {title,desc,image} = this.props.info;
 		let url = document.location.href;
 		fetchApi('/index/weixin',{
@@ -30,6 +24,10 @@ export default class Share extends Component {
 			data: {url:encodeURIComponent(url)}
 		}).then((data)=>{
 			//console.log(agentid)
+			let agentid = localCache(AGENTID)||aid;
+			if(!agentid){
+				this.getUserInfo()
+			}
 			wxShare({
 				appId:data.appId,
 				nonceStr:data.nonceStr,
@@ -50,9 +48,6 @@ export default class Share extends Component {
 	}
 
 	getUserInfo(){
-		if(!isWechat()){
-			return false;
-		}
 		let code = parseUrl('code');
 		if(!code){
 			let state = createNonceStr(16);
