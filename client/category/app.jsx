@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
-import {isArray,localCache,fetchApi,isWechat,createNonceStr,parseUrl} from '../lib'
-import {BASE_HOST,AGENTID,APPID,TOKEN} from '../common/constant'
+import {isArray,localCache} from '../lib'
+import {AGENTID,BASE_HOST} from '../common/constant'
 import FootBar from '../commponents/footbar.jsx'
 import Loading from '../commponents/loading.jsx'
 import Share from '../commponents/share.jsx'
@@ -58,6 +58,13 @@ export class Category extends Component {
 		})
 	}
 
+	handleNaviget(id){
+		let aid = localCache(AGENTID);
+		let url = `${BASE_HOST}wap/item-list.html?cat_id=${id}`;
+		url += aid ? `&agent_id=${aid}`:'';
+		location.href=url;
+	}
+
 	renderNav(category){
 		let {activeIndex} = this.state;
 		let items = category.map((item,i)=>{
@@ -82,10 +89,10 @@ export class Category extends Component {
 			let url = item.icon.replace(/^\//,BASE_HOST)||placeImg;
 			return (
 				<div className="category-nav-item" key={`r_${i}`}>
-					<a href={`${BASE_HOST}wap/item-list.html?cat_id=${item.id}`}>
+					<span onClick={this.handleNaviget.bind(this,item.id)}>
 						<img src={url} />
 						<span className="name">{item.name}</span>
-					</a>
+					</span>
 				</div>
 			)
 		})
