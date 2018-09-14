@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {fetchApi,localCache,isWechat,wxShare,createNonceStr} from '../lib/index.js'
 import {AGENTID,TOKEN} from '../common/constant'
-import config from '../../share/config.js'
+import Config from '../../share/config.js'
 
 export default class Share extends Component {
 	 
@@ -82,7 +82,8 @@ export default class Share extends Component {
 
 	getUserInfo(){
 		let code = this.parseUrl('code');
-		let {host,appid} = config;
+		let {host,appid} = Config;
+		console.log(Config)
 		if(!code){
 			let state = createNonceStr(16);
 			let redirect = encodeURIComponent(location.href);
@@ -110,19 +111,19 @@ export default class Share extends Component {
 	/**
 	 * 微信分享
 	 */
-	wxShare(config={},callback){  
+	wxShare(params={},callback){  
 	    if(typeof wx === undefined) {
 	    	return false;
 	    }
 	    //配置信息appId,nonceStr,signature,timestamp
-	    let {agentid,title,desc,imgUrl,link,type} = config;
+	    let {agentid,title,desc,imgUrl,link,type} = params;
 	    //console.log(agentid,'**')
 	    wx.config({
 	        debug       : false,
-	        appId       : config.appId,
-	        timestamp   : config.timestamp,
-	        nonceStr    : config.nonceStr,
-	        signature   : config.signature,
+	        appId       : params.appId,
+	        timestamp   : params.timestamp,
+	        nonceStr    : params.nonceStr,
+	        signature   : params.signature,
 	        jsApiList   : [   // 接口列表
 	            'onMenuShareTimeline',
 	            'onMenuShareAppMessage',

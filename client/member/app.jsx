@@ -2,9 +2,8 @@ import React, {Component} from 'react'
 import classNames from "classnames";
 import axios from 'axios';
 import {localCache,isObject} from '../lib'
-//import {USER_INFO,BASE_HOST} from  '../common/constant'
 import FootBar from '../commponents/footbar.jsx'
-
+import Config from '../../share/config.js'
 export class Index extends Component {
 	 
 	constructor(props) {
@@ -41,7 +40,7 @@ export class Index extends Component {
 				<div className="header">
 					<div className="flex header-top">
 						<div className="flex user-avatar">
-							<img src={`${BASE_HOST}/res/images/session.png`} className="img"/>
+							<img src={`${Config.host}/res/images/session.png`} className="img"/>
 							<div className="login">登录/注册</div>
 						</div>
 						<div className="edit">编辑</div>

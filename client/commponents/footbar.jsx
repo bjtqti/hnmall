@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 //import classNames from "classnames";
-import config from '../../share/config.js'
+import Config from '../../share/config.js'
 
 export default class FootBar extends Component {
 	 
@@ -14,7 +14,7 @@ export default class FootBar extends Component {
 	}
 
 	render() {
-		let {host} = config;
+		let {host} = Config;
 		return (
 			<div className="app-foot-bar">
 				<a className="foot-bar-item" href="/">

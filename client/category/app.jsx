@@ -5,7 +5,7 @@ import FootBar from '../commponents/footbar.jsx'
 import Loading from '../commponents/loading.jsx'
 import Share from '../commponents/share.jsx'
 import SearchBar from '../commponents/searchbar.jsx';
-import config from '../../share/config.js'
+import Config from '../../share/config.js'
 import {AGENTID} from '../common/constant'
 //import IScroll from '../lib/iscroll-lite.js'
 export class Category extends Component {
@@ -62,7 +62,7 @@ export class Category extends Component {
 
 	handleNaviget(id){
 		let aid = localCache(AGENTID);
-		let url = `${config.host}wap/item-list.html?cat_id=${id}`;
+		let url = `${Config.host}wap/item-list.html?cat_id=${id}`;
 		url += aid ? `&agent_id=${aid}`:'';
 		location.href=url;
 	}
@@ -87,7 +87,7 @@ export class Category extends Component {
 			return '';
 		}
 		return list.map((item,i)=>{
-			let placeImg = `${config.host}res/images/cplogo.jpg`;
+			let placeImg = `${Config.host}res/images/cplogo.jpg`;
 			let icon = item.icon||placeImg;
 			return (
 				<div onClick={this.handleNaviget.bind(this,item.id)} className="category-nav-item" key={`r_${i}`}>

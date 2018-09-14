@@ -11,7 +11,6 @@ import GoodsList from './goodslist.jsx'
 import Copyright from '../commponents/copyright.jsx'
 import GoTop from '../commponents/gotop.jsx'
 import Share from '../commponents/share.jsx'
-import config from '../../share/config.js'
 
 export class Index extends Component {
 
