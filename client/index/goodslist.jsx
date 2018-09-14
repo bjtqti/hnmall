@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import LazyLoad from 'react-lazyload';
-import {formatPrice,getScrollTop,localCache,throttle,getScrollHeight,isArray} from '../lib'
-import {BASE_HOST,TOKEN} from '../common/constant'
+import {getScrollTop,localCache,throttle,getScrollHeight,isArray} from '../lib'
+import {TOKEN} from '../common/constant'
+import config from '../../share/config.js'
 
 export default class GoodsList extends Component {
 	 
@@ -53,15 +54,16 @@ export default class GoodsList extends Component {
 
 	renderList(){
 		let {goodsList} = this.props.index;
+		let {host} = config;
 		if(!isArray(goodsList)){
 			return ''
 		}
-		let placeImg  = (<img src={`${BASE_HOST}res/images/cplogo.jpg`} />);
+		let placeImg  = (<img src={`${host}res/images/cplogo.jpg`} />);
 		let list = goodsList.map((goods,i)=>{
-			let price = formatPrice(goods.price).split('.');
+			let price = goods.price.split('.');
 			return(
 				<div className="goods-list-item" key={goods.item_id}>
-					<a href={`${BASE_HOST}wap/item-detail.html?item_id=${goods.item_id}`}>
+					<a href={`${host}wap/item-detail.html?item_id=${goods.item_id}`}>
 						<div className="goods-img">
 						<LazyLoad once height={177} offsetVertical={200}
 						placeholder = {placeImg}>
@@ -73,7 +75,7 @@ export default class GoodsList extends Component {
 							<span className="sign">￥</span>
 							<span className="price">{price[0]}</span>
 							<b className="price-s">.{price[1]}</b>
-							<span className="mkt-price">{formatPrice(goods.mkt_price)}</span>
+							<span className="mkt-price">{goods.mkt_price}</span>
 							<i className="buy">马上抢</i>
 						</div>
 					</a>

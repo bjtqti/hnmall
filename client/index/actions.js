@@ -1,5 +1,6 @@
 'use strict';
 import {fetchApi,localCache} from '../lib'
+import {GPS_KEY} from '../common/constant.js'
 import {
 	START_FETCH_LIST,FINISH_FETCH_LIST,
 	START_GET_STORE,FINISH_GET_STORE,
@@ -9,10 +10,9 @@ import {
 
 
 
-function startGetStore(param){
+function startGetStore(){
 	return {
-		type:START_GET_STORE,
-		param
+		type:START_GET_STORE
 	}
 }
 
@@ -75,8 +75,11 @@ export function fetchGoods(param){
  * 获取附件微店
  */
 export function getNearStore(param){
+	if(!param){
+		param = {latitude:28.194104,longitude:113.013206};
+	}
     return (dispatch)=>{
-        dispatch(startGetStore(param));
+        dispatch(startGetStore());
         fetchApi('/index/shop',{
 			method:'POST',
 			data:{
@@ -84,7 +87,10 @@ export function getNearStore(param){
 				lng:param.longitude	
 			}
 		}).then((res)=>{
+			localCache(GPS_KEY,param,60*60);
             dispatch(finishGetStore(param,res));
+        }).catch((err)=>{
+        	console.log(err)
         });
     }
 }

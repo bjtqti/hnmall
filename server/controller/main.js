@@ -1,29 +1,13 @@
 "use strict";
 let fs = require("fs");
-let { markupOfRoute ,fetchApi} = require('../lib');
+let { markupOfRoute ,fetchApi,formatPrice,getUri} = require('../lib');
+ 
 
 exports.index = async function(ctx, next) {
   let ret,markup = '',initialState={}
   initialState = require('../cache/main.json');
-  // try {
-  //   ret = await fetchApi("index.php/topapi",{
-  //     method:'POST',
-  //     data:{
-  //       format:'json',
-  //       v:'v1',
-  //       method:'theme.modules',
-  //       tmpl:'index'
-  //     }
-  //   })
-  // } catch (err) {
-  //   throw err
-  // }
-  // //console.log(ret)
-  // if (ret.code === 0 && ret.data) {
-  //   //console.log(ret.data)
-  //   initialState = ret.data;
-    
-  // }
+   
+  //console.log(initialState)
   try {
     markup = await markupOfRoute('index', initialState, ctx)
   } catch (err) {
@@ -65,6 +49,11 @@ exports.goodslist = async function(ctx,next){
     throw err;
   }
 
+  ret.data.list.forEach((item)=>{
+    item.price = formatPrice(item.price);
+    item.mkt_price = formatPrice(item.mkt_price);
+  })
+
   //if(ret.code===0 && ret.data){
     ctx.body = ret.data
   //}
@@ -91,18 +80,31 @@ exports.weixinInfo =async function(ctx,next){
  * 附近微店信息
  */
 exports.shopinfo = async function(ctx,next){
-  //console.log(ctx.request.query)
-   
+  //console.log(ctx.request.body)
+  let ret;
   let {lat,lng} = ctx.request.body;
-  let ret = await fetchApi('/oto/store-api.html',{
-    params:{
-      method:'shop.index.storeone',
-      dimensions:lat,
-      longitude:lng,
-      storenum:1,
-      length:4
-    }
-  })
+
+  try{
+    ret = await fetchApi('/oto/store-api.html',{
+      params:{
+        method:'shop.index.storeone',
+        dimensions:lat,
+        longitude:lng,
+        storenum:1,
+        length:4
+      }
+    })
+  }catch(err){
+    throw(err)
+  }
+  ret.message.forEach((item)=>{
+    item.shopLogo = getUri(item.shop_logo);
+    item.store.forEach((g)=>{
+      g.image = getUri(g.image_default_id)
+      g.price = formatPrice(g.price)
+    })
+  });
+
   ctx.body = ret;
 }
 
@@ -168,7 +170,7 @@ exports.wxShare = async function(ctx,next){
 }
 
 exports.fetchModules = async function(ctx,next){
-  let ret,initialState =[];
+  let ret,initialState ={};
   try {
     ret = await fetchApi("index.php/topapi",{
       method:'POST',
@@ -184,8 +186,24 @@ exports.fetchModules = async function(ctx,next){
   }
   //console.log(ret)
   if (ret.code === 0 && ret.data) {
-    //console.log(ret.data)
+    //console.log(ret.data.modules)
+    ret.data.modules.forEach((m)=>{
+      if(m.params&& Array.isArray(m.params.pic)){
+        m.params.pic.forEach((p,i)=>{
+          //console.log(p.link)
+          for(let k in p){
+            //console.log(p[k]);
+            let it=p[k];
+            if(typeof(it) === 'string' && /^\//.test(it)){
+              m.params.pic[i][k] = getUri(it)
+            }
+          }
+        })
+      }
+    })
+
     initialState = ret.data;
+
     fs.writeFile('./server/cache/main.json',JSON.stringify(ret.data),function(err){
       if(err){
         console.log(err)

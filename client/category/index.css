@@ -86,7 +86,7 @@
 	padding-bottom: 30%;
 }
 
-.category-nav-item a {
+.category-nav-item span {
 	display: block;
 	margin: 10px;
 	color: #666;

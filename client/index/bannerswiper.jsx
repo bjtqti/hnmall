@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {isArray} from '../lib/index.js'
-import {BASE_HOST} from '../common/constant'
 
 export default class BannerSwipe extends Component {
 	
@@ -29,9 +28,8 @@ export default class BannerSwipe extends Component {
 			return '';
 		}
 		let items  = sliders.map((d,i)=>{
-			let url = d.link.replace(/^\//,BASE_HOST);
 			return (<div className="swiper-slide banner" key={i}>
-					<a href={d.linktarget}><img className="img swiper-lazy" data-src={url} /></a>
+					<a href={d.linktarget}><img className="img swiper-lazy" data-src={d.link} /></a>
 					<div className="swiper-lazy-preloader"></div>
 				</div>)
 		});

@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {isArray} from '../lib/index.js'
-import {BASE_HOST} from '../common/constant'
 
 export default class NavMenu extends Component {
 
@@ -17,7 +16,7 @@ export default class NavMenu extends Component {
 			return (
 				<div className="nav-menu-item" key={i}>
 					<a href={d.h5link}>
-						<img className="nav-menu-icon" src={d.image.replace(/^\//,BASE_HOST)} alt={d.tag}/>
+						<img className="nav-menu-icon" src={d.image} alt={d.tag}/>
 						<span className="nav-menu-text">{d.tag}</span>
 					</a>
 				</div>

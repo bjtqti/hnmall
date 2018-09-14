@@ -3,7 +3,6 @@ import classNames from "classnames";
 import {isObject,isArray} from '../lib'
 import NumberPicker from '../commponents/numberpicker.jsx'
 import Alert from '../commponents/alert'
-import {BASE_HOST} from '../common/constant'
 
 export default class Popup extends Component {
 	 

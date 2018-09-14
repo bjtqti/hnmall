@@ -1,7 +1,8 @@
 "use strict";
 
 let fs = require("fs");
-let { markupOfRoute ,fetchApi} = require('../lib')
+let { markupOfRoute ,fetchApi,getUri} = require('../lib');
+ 
 
 //格式化分类数据
 function formatCateList (data,n) {
@@ -15,7 +16,7 @@ function formatCateList (data,n) {
       categorys.push({
         id:item.cat_id,
         name:item.cat_name,
-        icon:item.cat_logo,
+        icon:getUri(item.cat_logo),
         children:formatCateList(item['lv'+k],k+1)
       })
     })

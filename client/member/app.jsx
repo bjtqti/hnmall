@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import classNames from "classnames";
 import axios from 'axios';
 import {localCache,isObject} from '../lib'
-import {USER_INFO,BASE_HOST} from  '../common/constant'
+//import {USER_INFO,BASE_HOST} from  '../common/constant'
 import FootBar from '../commponents/footbar.jsx'
 
 export class Index extends Component {
@@ -17,7 +17,7 @@ export class Index extends Component {
 	}
 
 	componentDidMount() {
-		let user = localCache(USER_INFO);
+		//let user = localCache(USER_INFO);
 		if(user && isObject(user)){
 			this.setState({
 				user:user,

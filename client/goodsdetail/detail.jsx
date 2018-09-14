@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import classNames from "classnames"
 import {isArray,isObject} from '../lib'
-import {BASE_HOST} from '../common/constant'
+//import config from '../../share/config.js'
 
 export default class Detail extends Component {
 	static propTypes = {

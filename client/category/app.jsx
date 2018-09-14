@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
 import {isArray,localCache} from '../lib'
-import {AGENTID,BASE_HOST} from '../common/constant'
 import FootBar from '../commponents/footbar.jsx'
 import Loading from '../commponents/loading.jsx'
 import Share from '../commponents/share.jsx'
 import SearchBar from '../commponents/searchbar.jsx';
+import config from '../../share/config.js'
+import {AGENTID} from '../common/constant'
 //import IScroll from '../lib/iscroll-lite.js'
 export class Category extends Component {
 	 
@@ -19,6 +20,7 @@ export class Category extends Component {
 
 	componentDidMount() {
 		this.props.fetchCategory();
+
 		import('../lib/iscroll-lite.js').then((m)=>{
 			let IScroll = m.default;
 			this.leftScroll = new IScroll(this.refs.nav,{
@@ -26,7 +28,7 @@ export class Category extends Component {
 				tap:'click'
 			});
 			this.rightScroll = new IScroll(this.refs.list,{
-				preventDefault:false,
+				//preventDefault:false,
 				tap:'click'
 			});
 		});
@@ -60,7 +62,7 @@ export class Category extends Component {
 
 	handleNaviget(id){
 		let aid = localCache(AGENTID);
-		let url = `${BASE_HOST}wap/item-list.html?cat_id=${id}`;
+		let url = `${config.host}wap/item-list.html?cat_id=${id}`;
 		url += aid ? `&agent_id=${aid}`:'';
 		location.href=url;
 	}
@@ -85,12 +87,12 @@ export class Category extends Component {
 			return '';
 		}
 		return list.map((item,i)=>{
-			let placeImg = `${BASE_HOST}res/images/cplogo.jpg`;
-			let url = item.icon.replace(/^\//,BASE_HOST)||placeImg;
+			let placeImg = `${config.host}res/images/cplogo.jpg`;
+			let icon = item.icon||placeImg;
 			return (
-				<div className="category-nav-item" key={`r_${i}`}>
-					<span onClick={this.handleNaviget.bind(this,item.id)}>
-						<img src={url} />
+				<div onClick={this.handleNaviget.bind(this,item.id)} className="category-nav-item" key={`r_${i}`}>
+					<span>
+						<img src={icon} />
 						<span className="name">{item.name}</span>
 					</span>
 				</div>

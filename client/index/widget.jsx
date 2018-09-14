@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import LazyLoad from 'react-lazyload'
-import {BASE_HOST} from '../common/constant'
 
 export default class Widget extends Component {
 	 
@@ -159,9 +158,6 @@ export default class Widget extends Component {
 			return;
 		}
 
-		params.pic.forEach((item)=>{
-			item.image =  item.image.replace(/^\//,BASE_HOST);
-		})
 		switch(params.styletag){
 			case 'one':
 				return this.gridStyleOne(params.pic);

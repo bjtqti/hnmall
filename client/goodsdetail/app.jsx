@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {BASE_HOST} from '../common/constant'
 import BannerSwipe from './banner.jsx'
 import Detail from './detail.jsx'
 import ToolBar from './toolbar.jsx'
@@ -8,6 +7,7 @@ import Menu from './sidemenu.jsx'
 import GoTop from '../commponents/gotop.jsx'
 import Loading from '../commponents/loading.jsx'
 import {fetchApi,isWechat,wxShare} from '../lib/index.js'
+import config from '../../share/config.js'
 
 export class GoodsDetail extends Component {
 	 
@@ -114,7 +114,7 @@ export class GoodsDetail extends Component {
 	render() {
 		let {goodsDetail,isFetching} = this.props.goods;
 		let price = goodsDetail.price.split('.');
-		let shopLink = `${BASE_HOST}wap/shop-index.html?shop_id=${goodsDetail.shop_id}`;
+		let shopLink = `${config.host}wap/shop-index.html?shop_id=${goodsDetail.shop_id}`;
 		let buttonStatus = this.submitCheck();
 		return (
 			<div className="app-wrap">

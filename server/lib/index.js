@@ -1,8 +1,8 @@
+let {resolve} = require('path')
 let React = require('react')
 let ReactDOMServer = require('react-dom/server')
-let {resolve} = require('path')
 let axios = require('axios').default;
-const BASE_HOST = 'https://wd.hnmall.com/'
+let cfg = require('../../share/config.js');
 
 exports.markupOfRoute = (route, initialState, ctx) => {
 	let creatApp = require(resolve('dist', 'server', 'bundle',`${route}.js`)).default
@@ -13,7 +13,7 @@ exports.markupOfRoute = (route, initialState, ctx) => {
 
 exports.fetchApi = (url,options={})=>{
     let config = {
-    	baseURL:BASE_HOST,
+    	baseURL:cfg.host,
         timeout:30000,
         headers: {
             'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ exports.fetchApi = (url,options={})=>{
  * 获取全路径
  */
 exports.getUri = (path)=>{
-    return path.replace(/^\//,BASE_HOST)
+    return path.replace(/^\//,cfg.host)
 }
 
 /**

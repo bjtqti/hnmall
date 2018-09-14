@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
-import {BASE_HOST} from '../common/constant'
 
 export default class Menu extends Component {
 	 

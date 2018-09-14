@@ -24,9 +24,10 @@ function configureStore(initialState){
 
 class IndexApp extends Component{
     render(){
-        const {modules,more_url} = this.props.initialState;
+        const {modules,more_url,config} = this.props.initialState;
         const initialState = {
             index:{
+                config,
                 modules,
                 more_url,
                 goodsList:[],

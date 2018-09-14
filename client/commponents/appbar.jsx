@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import classNames from "classnames";
-import {BASE_HOST,INSTALL_APP} from '../common/constant';
-import {localCache,getScrollTop,platform} from '../lib'
+import {INSTALL_APP} from '../common/constant';
+import {localCache,getScrollTop,throttle} from '../lib'
 
 export default class AppBar extends Component {
 	 
@@ -26,51 +26,51 @@ export default class AppBar extends Component {
 		//this.launchApp();
 	}
 
-	//唤醒本机APP
-	launchApp(fn){
-		if(platform.isWx()){
-			fn && fn();
-			return false;
-		}
-		let last = Date.now();
-		let doc = window.document;
-		let ifr = doc.createElement('iframe');
-		let scheme = '';
-		const config = {
-		    ios: 'YouAWeishop://',
-		    android: 'YouAWeishop://'
-		};
+	// //唤醒本机APP
+	// launchApp(fn){
+	// 	if(platform.isWx()){
+	// 		fn && fn();
+	// 		return false;
+	// 	}
+	// 	let last = Date.now();
+	// 	let doc = window.document;
+	// 	let ifr = doc.createElement('iframe');
+	// 	let scheme = '';
+	// 	const config = {
+	// 	    ios: 'YouAWeishop://',
+	// 	    android: 'YouAWeishop://'
+	// 	};
 
-        if(platform.isIOS()){
-        	scheme = config.ios;
-        }else if(platform.isAndroid()){
-        	scheme = config.android;
-        }
+ //        if(platform.isIOS()){
+ //        	scheme = config.ios;
+ //        }else if(platform.isAndroid()){
+ //        	scheme = config.android;
+ //        }
 
-        ifr.src = scheme;
-	    ifr.style.display = 'none';  
-	    document.body.appendChild(ifr);
-	    setTimeout(function(){
-	    	if(Date.now()-last < 150){
-	    		//launch fail
-	    		fn && fn(scheme);
-	    	}else{
-	    		localCache(INSTALL_APP,'install',7*24*60*60);
-	    	}
-	    	doc.body.removeChild(ifr);
-	    },100);
-	}
+ //        ifr.src = scheme;
+	//     ifr.style.display = 'none';  
+	//     document.body.appendChild(ifr);
+	//     setTimeout(function(){
+	//     	if(Date.now()-last < 150){
+	//     		//launch fail
+	//     		fn && fn(scheme);
+	//     	}else{
+	//     		localCache(INSTALL_APP,'install',7*24*60*60);
+	//     	}
+	//     	doc.body.removeChild(ifr);
+	//     },100);
+	// }
 
 
 	onViewScroll(){
-		window.addEventListener('scroll',()=>{
+		window.addEventListener('scroll',throttle(()=>{
 			let ms = getScrollTop();
 			//console.log(ms)
 			let active = ms > 50 ? false : true
 			this.setState({
 				active
 			})
-		})
+		},50),false)
 	}
 
 	handleClick(){

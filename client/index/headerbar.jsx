@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import SearchBar from '../commponents/searchbar.jsx';
 import {getScrollTop,isArray,localCache,throttle} from '../lib/index.js'
-import {BASE_HOST,INSTALL_APP} from '../common/constant.js'
+import {INSTALL_APP} from '../common/constant.js'
+import config from '../../share/config.js'
  
 export default class Headerbar extends Component {
 
@@ -35,13 +36,14 @@ export default class Headerbar extends Component {
 	render() {
 		let {isInsApp,opacity} = this.state;
 		let {shops} = this.props.index;
+		let {host} = config;
 		let position = {top:isInsApp ? '0':'50px','backgroundColor':`rgba(237,103,74,${opacity})`}
 		let shopName = isArray(shops) ? shops[0].shop_name:''
 		let blank = {display:isInsApp?'none':'block',height:'50px'}
 		return (
 			<div className="shearch-box">
 				<div style={position} className="search-bar">
-					<a href={`${BASE_HOST}oto/shop-list.html`} className="shop-link">
+					<a href={`${host}oto/shop-list.html`} className="shop-link">
 						<i className="icon-point"></i>
 						<span className="shop-name ellipsis">{shopName}</span>
 					</a>

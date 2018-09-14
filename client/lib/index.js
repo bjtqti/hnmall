@@ -1,29 +1,5 @@
 "use strict";
 
-let Axios;
-
-/**
- * 货币格式
- * n 要格式化的数字
- * r 要保留的位数
- */
-exports.formatPrice = (n,r=2)=>{
-    let str = typeof n === 'string' ? n:  n.toString();
-    let arr = str.split('.');
-     
-    if(arr[1]){
-        let a = arr[1];
-        let b = '';
-        for(let i=0;i<r;i++){
-            b += a[i] ? a[i] : '0';
-        }
-        arr[1] = b;
-    }else{
-        arr[1] = '00';
-    }
-	return `${arr[0]}.${arr[1]}`;
-}
-
 /**
  *
  * 判断是否是微信访问
@@ -32,123 +8,7 @@ exports.isWechat = ()=>{
 	var ua = navigator.userAgent.toLowerCase();
 	return /micromessenger/i.test(ua);
 }
-
-/**
- * H5定位
- */
-exports.navigatorGeolocation = (callback)=>{
-	if ("geolocation" in navigator){
-		navigator.geolocation.getCurrentPosition((res)=>{
-            //console.log('ok',res)
-			callback({
-				latitude:res.coords.latitude,
-				longitude:res.coords.longitude,
-				accuracy:res.coords.accuracy
-			})
-		},(err)=>{
-			console.log(err);
-			tencentGelocation(callback)
-		},{timeout:5000,maximumAge:60000})
-	}else{
-		tencentGelocation(callback)
-	} 
-}
-
-/**
- * 腾讯地图定位
- */
-function tencentGelocation(callback){
-    let options = {timeout: 80000};
-    let geolocation = new qq.maps.Geolocation("PMOBZ-DSBK6-7NQSZ-EUK5J-A4PR6-DEB4V", "hnmall");
-    let success = function(rs){
-        //console.log(rs)
-        let position = {latitude:rs.lat,longitude:rs.lng,accuracy:rs.accuracy}
-        callback(position)
-    }
-    let error = function(err){
-        console.log(err)
-        callback();
-    }
-    geolocation.getLocation(success,error,options);
-}
-
-/**
- * 插入一个js脚本
- */
-exports.appendScript = (src)=>{
-    let script = document.createElement('script'); 
-    let head = document.getElementsByTagName('head')[0]; 
-    script.type = 'text/javascript'; 
-    //weixin.async = true; 
-    script.src = src;
-    head.appendChild(script);
-}
-
-/**
- * 微信sdk定位
- */
-exports.getLocationByWeixin = (config,callback)=>{	
-	if(typeof wx === undefined) callback();
-    //配置信息appId,nonceStr,signature,timestamp
-    wx.config({
-        debug		: false,
-        appId		: config.appId,
-        timestamp	: config.timestamp,
-        nonceStr	: config.nonceStr,
-        signature	: config.signature,
-        jsApiList	: 	[	// 接口列表
-            'checkJsApi',
-            'openLocation',
-            'getLocation'
-        ]
-    });
-
-    //通过ready接口处理成功验证
-    wx.ready(function(){
-        //判断当前客户端版本是否支持指定JS接口
-        wx.checkJsApi({	// 需要检测的JS接口列表
-            jsApiList: [
-                'getLocation'
-            ],
-            success: function(result) {
-                // 以键值对的形式返回，可用的api值true，不可用为false
-                //console.log(result)
-                // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-                //if (result.checkResult.getLocation == true){
-                    //微信接口获取成功
-                    wx.getLocation({
-                        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-                        success: function (res) {
-                            //console.log(res,'***ok')
-                            var resArr = {
-                                // 纬度，浮点数，范围为90 ~ -90
-                                latitude: res.latitude,
-                                // 经度，浮点数，范围为180 ~ -180
-                                longitude: res.longitude,
-                                // 速度，以米/每秒计
-                                speed: res.speed,
-                                // 位置精度
-                                accuracy: res.accuracy,
-                            };
-                            callback(resArr);
-                        },
-                        fail:function(){
-                            console.log('error***weixin')
-                            tencentGelocation(callback)
-                        }
-                    });
-                //} else {
-                   // callback();
-                //}
-            },
-            fail: function() {
-                //console.log('fail***')
-                tencentGelocation(callback)
-            }
-        });
-    });
-}
-
+ 
 /** 
  * 获取滚动条距离顶端的距离 
  */  
@@ -300,36 +160,17 @@ exports.fetchApi = function(url,options={}){
        },
        ...options
     }
-    let callback = ()=>{
+    return import('axios').then((m)=>{
+        let Axios = m.default;
         return Axios(url,config).then((res)=>{
             //if(res.status===200){
                 return res.data
             //}
         })
-    }
-    if(Axios){
-        return callback()
-    }
-    return import('axios').then((m)=>{
-        Axios = m.default;
-        return callback()
     })
 }
 
-exports.parseUrl = function(name){
-    let url = window.location.search;
-    let query = url.replace('?','').split('&');
-    let code = '';
-    for(let i = 0 ;i <query.length;i++){
-        let path = query[i].split('=');
-        if(path[0]===name){
-            code = path[1];
-            break;
-        }
-    }
-    return code;
-}
-
+ 
 /**
  * 生成随机串
  */
@@ -364,66 +205,6 @@ exports.isObject =(o)=>{
  */
 exports.isArray =(o)=>{
   return Object.prototype.toString.call(o)=='[object Array]';
-}
-
-
-/**
- * 微信分享
- */
-exports.wxShare = (config={},callback)=>{  
-    if(typeof wx === undefined) callback();
-    //配置信息appId,nonceStr,signature,timestamp
-    let {agentid,title,desc,imgUrl,link,type} = config;
-    //console.log(agentid,'**')
-    wx.config({
-        debug       : false,
-        appId       : config.appId,
-        timestamp   : config.timestamp,
-        nonceStr    : config.nonceStr,
-        signature   : config.signature,
-        jsApiList   : [   // 接口列表
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'onMenuShareQQ',
-            'onMenuShareWeibo'
-        ]
-    });
-    
-    if(link.indexOf('agent_id=') === -1){
-        if(link.indexOf('?')!== -1){
-            link = link+'&agent_id='+agentid;
-        }else{
-            link = link+'?agent_id='+agentid;
-        }
-    }
-
-    let shareConfig = {
-        title: title, // 分享标题
-        desc: desc, // 分享描述
-        link: link, // 分享链接
-        imgUrl:imgUrl, // 分享图标
-        success: function() {
-            // 用户确认分享后执行的回调函数
-            callback&&callback({
-                type :type||'news',
-                title:title,
-                link:link,
-                desc:desc
-            });
-        }
-    }
-
-    //通过ready接口处理成功验证
-    wx.ready(function(){
-        //获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
-        wx.onMenuShareTimeline(shareConfig);
-        //获取“分享给朋友”按钮点击状态及自定义分享内容接口
-        wx.onMenuShareAppMessage(shareConfig);
-        //获取“分享到QQ”按钮点击状态及自定义分享内容接口
-        wx.onMenuShareQQ(shareConfig);
-        //获取“分享到腾讯微博”按钮点击状态及自定义分享内容接口
-        wx.onMenuShareWeibo(shareConfig);
-    });
 }
 
  

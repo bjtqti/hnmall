@@ -11,8 +11,7 @@ import GoodsList from './goodslist.jsx'
 import Copyright from '../commponents/copyright.jsx'
 import GoTop from '../commponents/gotop.jsx'
 import Share from '../commponents/share.jsx'
-import {GPS_KEY,BASE_HOST,TOKEN,APPID,AGENTID} from '../common/constant.js'
-import {fetchApi,localCache,isWechat,navigatorGeolocation,getLocationByWeixin,createNonceStr,parseUrl} from '../lib/index.js'
+import config from '../../share/config.js'
 
 export class Index extends Component {
 
@@ -21,100 +20,9 @@ export class Index extends Component {
 	}
 
 	componentDidMount() {
-		let pos = localCache(GPS_KEY);
-		let token = localCache(TOKEN);
-
+		//let token = localCache(TOKEN);
 		this.props.fetchIndexModules();
-
-		if(pos) {
-			this.props.getNearStore(pos)
-		}else{
-			this.getGeoLocation((r)=>{
-				this.props.getNearStore(r);
-			})
-		}
-		
-		if(token){
-			this.checkToken(token);
-		}else{
-			this.getUserInfo();
-		}
-
 	}
-
-	checkToken(token){
-		fetchApi('/index/checktoken',{
-			method:'POST',
-			data:{
-				token:token
-			}
-		}).then((res)=>{
-			if(res.code !== 0){
-				this.getUserInfo();
-			}
-		})
-	}
-
-	getUserInfo(){
-		if(!isWechat()){
-			return false;
-		}
-		let code = parseUrl('code');
-		if(!code){
-			let state = createNonceStr(16);
-			let redirect = encodeURIComponent(window.location.href);
-			let getcode = `${BASE_HOST}weidian/get-code.html?appid=${APPID}&state=${state}&scope=snsapi_base&redirect_uri=${redirect}`;
-			//console.log(getcode)
-			location.href = getcode;
-			return false;
-		}
-		
-		fetchApi('/index/token',{
-			method:'POST',
-			data:{
-				code:code
-			}
-		}).then((res)=>{
-			if(res && res.message){
-				let {accessToken,agent_id} =  res.message;
-				localCache(TOKEN,accessToken,7*24*60*60);
-				localCache(AGENTID,agent_id,30*24*60*60);
-			}
-		})
-	}
-
-	//获取位置信息
-	getGeoLocation(fn){
-		let pos = {latitude:28.194104,longitude:113.013206}
-		//let pos = {latitude:28.234589,longitude:112.913554};
-		if(isWechat()){
-			fetchApi('/index/weixin',{
-				method:'POST',
-				data: {url:encodeURIComponent(document.location.href)}
-			}).then((data)=>{
-				//console.log(data)
-				let {appId,nonceStr,signature,timestamp} = data;
-				getLocationByWeixin({appId,nonceStr,signature,timestamp},(r)=>{
-					if(r){
-						pos = r;
-						localCache(GPS_KEY,pos,60*60);
-					}
-					fn(pos)
-				})
-			})
-		}else{
-			navigatorGeolocation((res)=>{
-				//console.log(res)
-				if(res){
-					pos = res;
-					localCache(GPS_KEY,pos,60*60);
-				}
-				fn(pos)
-			})
-		}
-
-	}
-
 
 	/**
 	 * 首页挂件
